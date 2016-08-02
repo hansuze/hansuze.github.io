@@ -1,10 +1,10 @@
 
  <!DOCTYPE HTML>
-<html >
+<html lang="zh-CN">
 <head>
   <meta charset="UTF-8">
   
-    <title>JavaScript中的对象 | 小韩的博客</title>
+    <title>JavaScript中的对象 | xiaohan80s.com</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=3, minimum-scale=1">
     
     <meta name="author" content="xiao han 80s">
@@ -31,12 +31,12 @@
       <div>
 		
 			<div id="imglogo">
-				<a href="/"><img src="/img/logo.svg" alt="小韩的博客" title="小韩的博客"/></a>
+				<a href="/"><img src="/img/logo.svg" alt="xiaohan80s.com" title="xiaohan80s.com"/></a>
 			</div>
 			
 			<div id="textlogo">
-				<h1 class="site-name"><a href="/" title="小韩的博客">小韩的博客</a></h1>
-				<h2 class="blog-motto"></h2>
+				<h1 class="site-name"><a href="/" title="xiaohan80s.com">xiaohan80s.com</a></h1>
+				<h2 class="blog-motto">年轻 没有什么不可以!</h2>
 			</div>
 			<div class="navbar"><a class="navbutton navmobile" href="#" title="菜单">
 			</a></div>
@@ -49,12 +49,15 @@
 					
 						<li><a href="/categories">Categories</a></li>
 					
+						<li><a href="/about">About</a></li>
+					
 					<li>
 					
-					<form class="search" action="/search/index.html" method="get" accept-charset="utf-8">
+					<!-- <form class="search" action="//baidu.com/s" method="get" accept-charset="utf-8">
 						<label>Search</label>
-						<input type="text" id="search" autocomplete="off" name="q" maxlength="20" placeholder="搜索" />
-					</form>
+						<input type="text" id="search" name="q" autocomplete="off" maxlength="20" placeholder="搜索" />
+						<input type="hidden" name="q" value="site:www.xiaohan80s.com">
+					</form> -->
 					
 					</li>
 				</ul>
@@ -72,11 +75,11 @@
   </h1>
   <p class="article-author">By
     
-      <a href="http://yoursite.com" title="xiao han 80s">xiao han 80s</a>
+      <a href="www.xiaohan80s.com" title="xiao han 80s">xiao han 80s</a>
     </p>
   <p class="article-time">
     <time datetime="2016-07-30T16:00:00.000Z" itemprop="datePublished">2016-07-31</time>
-    更新日期:<time datetime="2016-08-01T13:40:32.569Z" itemprop="dateModified">2016-08-01</time>
+    更新日期:<time datetime="2016-08-02T09:32:53.860Z" itemprop="dateModified">2016-08-02</time>
     
   </p>
 </header>
@@ -85,10 +88,10 @@
 		
 		<div id="toc" class="toc-article">
 			<strong class="toc-title">文章目录</strong>
-		<ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#对象的三大特性：封装、继承、多态。我们来聊一下JavaScript中的对象的这三个特性"><span class="toc-number">1.</span> <span class="toc-text">对象的三大特性：封装、继承、多态。我们来聊一下JavaScript中的对象的这三个特性</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-多态"><span class="toc-number">1.1.</span> <span class="toc-text">1.多态</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-封装"><span class="toc-number">1.2.</span> <span class="toc-text">2.封装</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-继承"><span class="toc-number">1.3.</span> <span class="toc-text">2.继承</span></a></li></ol></li></ol>
+		<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#对象的三大特性：封装、继承、多态。我们来聊一下JavaScript中的对象的这三个特性"><span class="toc-number">1.</span> <span class="toc-text">对象的三大特性：封装、继承、多态。我们来聊一下JavaScript中的对象的这三个特性</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-多态"><span class="toc-number">1.1.</span> <span class="toc-text">1.多态</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-封装"><span class="toc-number">1.2.</span> <span class="toc-text">2.封装</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-继承"><span class="toc-number">1.3.</span> <span class="toc-text">2.继承</span></a></li></ol></li></ol>
 		</div>
 		
-		<h3 id="对象的三大特性：封装、继承、多态。我们来聊一下JavaScript中的对象的这三个特性"><a href="#对象的三大特性：封装、继承、多态。我们来聊一下JavaScript中的对象的这三个特性" class="headerlink" title="对象的三大特性：封装、继承、多态。我们来聊一下JavaScript中的对象的这三个特性"></a>对象的三大特性：封装、继承、多态。我们来聊一下JavaScript中的对象的这三个特性</h3><h4 id="1-多态"><a href="#1-多态" class="headerlink" title="1.多态"></a>1.多态</h4><p> 多态的定义：同一操作 作用在不同的对象上可以产生不同的执行结果</p>
+		<h2 id="对象的三大特性：封装、继承、多态。我们来聊一下JavaScript中的对象的这三个特性"><a href="#对象的三大特性：封装、继承、多态。我们来聊一下JavaScript中的对象的这三个特性" class="headerlink" title="对象的三大特性：封装、继承、多态。我们来聊一下JavaScript中的对象的这三个特性"></a>对象的三大特性：封装、继承、多态。我们来聊一下JavaScript中的对象的这三个特性</h2><h3 id="1-多态"><a href="#1-多态" class="headerlink" title="1.多态"></a>1.多态</h3><p> 多态的定义：同一操作 作用在不同的对象上可以产生不同的执行结果</p>
 <p> JavaScrip作为一种弱类型的语言,又叫做动态类型语言，他在实现多态时与java等强类型语言有些不一样。</p>
 <p>例如有一只鸡和一只鸭子，主人发出命令让鸡和鸭发出叫声。</p>
 <ul>
@@ -99,7 +102,7 @@
 <p>3.最后定义在 入口中 定义 masterOrder 方法 参数是 Animal，在实现的时候传入 Duck 类型 和 Chicken 类型</p>
 </li>
 </ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div></pre></td><td class="code"><pre><div class="line">//主人命令 order, order 定义时形参是animal,使用时实参是 duck 和 chicken</div><div class="line">public class demo01 &#123;</div><div class="line"></div><div class="line">	public static void main(String[] args) &#123;</div><div class="line">		Animal duck = new Duck();</div><div class="line">		order(duck);</div><div class="line">		Animal chicken = new Chicken();</div><div class="line">		order(chicken);</div><div class="line"></div><div class="line">	&#125;</div><div class="line">	static void order(Animal animal)&#123;</div><div class="line">		animal.makeSound();</div><div class="line">	&#125;</div><div class="line"></div><div class="line">&#125;</div><div class="line">//抽象类Animal +抽象方法makeSound</div><div class="line"> abstract class Animal&#123;</div><div class="line"></div><div class="line">	 abstract void makeSound();</div><div class="line">&#125;</div><div class="line"></div><div class="line">// 实现抽象类中的抽象方法makeSound</div><div class="line"> class Duck extends Animal&#123;</div><div class="line"></div><div class="line">	@Override</div><div class="line">	void makeSound() &#123;</div><div class="line">		System.out.println(&quot;嘎嘎嘎&quot;);</div><div class="line">	&#125;</div><div class="line"> &#125;</div><div class="line"> class Chicken extends Animal&#123;</div><div class="line"></div><div class="line">	@Override</div><div class="line">	void makeSound() &#123;</div><div class="line">		System.out.println(&quot;咯咯咯&quot;);</div><div class="line"></div><div class="line">	&#125;</div><div class="line"></div><div class="line"> &#125;</div></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//主人命令 order, order 定义时形参是animal,使用时实参是 duck 和 chicken</span></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">demo01</span> </span>&#123;</div><div class="line"></div><div class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</div><div class="line">		Animal duck = <span class="keyword">new</span> Duck();</div><div class="line">		order(duck);</div><div class="line">		Animal chicken = <span class="keyword">new</span> Chicken();</div><div class="line">		order(chicken);</div><div class="line"></div><div class="line">	&#125;</div><div class="line">	<span class="function"><span class="keyword">static</span> <span class="keyword">void</span> <span class="title">order</span><span class="params">(Animal animal)</span></span>&#123;</div><div class="line">		animal.makeSound();</div><div class="line">	&#125;</div><div class="line"></div><div class="line">&#125;</div><div class="line"><span class="comment">//抽象类Animal +抽象方法makeSound</span></div><div class="line"> <span class="keyword">abstract</span> <span class="class"><span class="keyword">class</span> <span class="title">Animal</span></span>&#123;</div><div class="line"></div><div class="line">	 <span class="function"><span class="keyword">abstract</span> <span class="keyword">void</span> <span class="title">makeSound</span><span class="params">()</span></span>;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="comment">// 实现抽象类中的抽象方法makeSound</span></div><div class="line"> <span class="class"><span class="keyword">class</span> <span class="title">Duck</span> <span class="keyword">extends</span> <span class="title">Animal</span></span>&#123;</div><div class="line"></div><div class="line">	<span class="meta">@Override</span></div><div class="line">	<span class="function"><span class="keyword">void</span> <span class="title">makeSound</span><span class="params">()</span> </span>&#123;</div><div class="line">		System.out.println(<span class="string">"嘎嘎嘎"</span>);</div><div class="line">	&#125;</div><div class="line"> &#125;</div><div class="line"> <span class="class"><span class="keyword">class</span> <span class="title">Chicken</span> <span class="keyword">extends</span> <span class="title">Animal</span></span>&#123;</div><div class="line"></div><div class="line">	<span class="meta">@Override</span></div><div class="line">	<span class="function"><span class="keyword">void</span> <span class="title">makeSound</span><span class="params">()</span> </span>&#123;</div><div class="line">		System.out.println(<span class="string">"咯咯咯"</span>);</div><div class="line"></div><div class="line">	&#125;</div><div class="line"></div><div class="line"> &#125;</div></pre></td></tr></table></figure>
 <ul>
 <li><p>Javascript的实现方式</p>
 <p>由于编译时不用检查类型,在执行order方法的时候，只要参数实现了makeSound 就可以了</p>
@@ -108,16 +111,16 @@
 <p>3.定义order方法，在调用时传入 Duck 构造的对象 和 Chicken 构造的对象</p>
 </li>
 </ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line">function Duck()&#123;</div><div class="line">&#125;</div><div class="line">Duck.prototype.makeSound=function()&#123;</div><div class="line">  console.log(&quot;嘎嘎嘎&quot;);</div><div class="line">&#125;</div><div class="line"></div><div class="line">function Chicken()&#123;</div><div class="line">&#125;</div><div class="line">Chicken.prototype.makeSound=function()&#123;</div><div class="line">  console.log(&quot;咯咯咯&quot;);</div><div class="line">&#125;</div><div class="line">function order(animal)&#123;</div><div class="line">  animal.makeSound&amp;&amp;animal.makeSound();</div><div class="line">&#125;</div><div class="line">order(new Chicken());</div><div class="line">order(new Duck());</div></pre></td></tr></table></figure>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">Duck</span>(<span class="params"></span>)</span>&#123;</div><div class="line">&#125;</div><div class="line">Duck.prototype.makeSound=<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line">  <span class="built_in">console</span>.log(<span class="string">"嘎嘎嘎"</span>);</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">Chicken</span>(<span class="params"></span>)</span>&#123;</div><div class="line">&#125;</div><div class="line">Chicken.prototype.makeSound=<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line">  <span class="built_in">console</span>.log(<span class="string">"咯咯咯"</span>);</div><div class="line">&#125;</div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">order</span>(<span class="params">animal</span>)</span>&#123;</div><div class="line">  animal.makeSound&amp;&amp;animal.makeSound();</div><div class="line">&#125;</div><div class="line">order(<span class="keyword">new</span> Chicken());</div><div class="line">order(<span class="keyword">new</span> Duck());</div></pre></td></tr></table></figure>
 <hr>
-<h4 id="2-封装"><a href="#2-封装" class="headerlink" title="2.封装"></a>2.封装</h4><p>封装的定义：把对象的信息隐藏。包括 封装数据，封装实现，封装类型，封装变化（可能这样分不合适，我们只需要理解即可）</p>
+<h3 id="2-封装"><a href="#2-封装" class="headerlink" title="2.封装"></a>2.封装</h3><p>封装的定义：把对象的信息隐藏。包括 封装数据，封装实现，封装类型，封装变化（可能这样分不合适，我们只需要理解即可）</p>
 <ul>
 <li><p>封装数据：</p>
 <p>java中提供了private、public、protect等关键字来提供不同的访问权限</p>
 <p>javascript 中 我们通过函数的作用域来实现 private 和public的特性</p>
 </li>
 </ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line">//计数器</div><div class="line">  var count=(function()&#123;</div><div class="line">    var num=1;</div><div class="line">    return&#123;</div><div class="line">      getNum:function()&#123;</div><div class="line">        return num;</div><div class="line">      &#125;,</div><div class="line">      inc:function()&#123;</div><div class="line">        num++;</div><div class="line">      &#125;</div><div class="line">    &#125;</div><div class="line">  &#125;)()</div><div class="line">  count.getNum()  //1</div><div class="line">  count.inc()</div><div class="line">  count.getNum()  //2</div><div class="line">  count.num   //undefined</div></pre></td></tr></table></figure>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//计数器</span></div><div class="line">  <span class="keyword">var</span> count=(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line">    <span class="keyword">var</span> num=<span class="number">1</span>;</div><div class="line">    <span class="keyword">return</span>&#123;</div><div class="line">      getNum:<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line">        <span class="keyword">return</span> num;</div><div class="line">      &#125;,</div><div class="line">      inc:<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line">        num++;</div><div class="line">      &#125;</div><div class="line">    &#125;</div><div class="line">  &#125;)()</div><div class="line">  count.getNum()  <span class="comment">//1</span></div><div class="line">  count.inc()</div><div class="line">  count.getNum()  <span class="comment">//2</span></div><div class="line">  count.num   <span class="comment">//undefined</span></div></pre></td></tr></table></figure>
 <ul>
 <li>封装实现</li>
 </ul>
@@ -134,13 +137,13 @@
 <p>例如我有一群Person 对象，他们有共同的方法 sayName。我们尝试用封装的方法和不封装的方法实现</p>
 </li>
 </ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line">var p1=&#123;</div><div class="line">  sayName:function()&#123;</div><div class="line">    console.log(&quot;张三&quot;);</div><div class="line">  &#125;</div><div class="line">&#125;</div><div class="line">var p2=&#123;</div><div class="line">  sayName:function()&#123;</div><div class="line">    console.log(&quot;李四&quot;);</div><div class="line">  &#125;</div><div class="line">&#125;</div><div class="line">p1.sayName();</div><div class="line">p2.sayName();</div><div class="line">function People(name)&#123;</div><div class="line">  this.name=name;</div><div class="line">&#125;</div><div class="line">People.prototype.sayName=function()&#123;</div><div class="line">  console.log(this.name);</div><div class="line">&#125;</div><div class="line">var p3 =new People(&quot;王五&quot;);</div><div class="line">var p4 =new People(&quot;麻六&quot;);</div><div class="line">p3.sayName();</div><div class="line">p4.sayName();</div></pre></td></tr></table></figure>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> p1=&#123;</div><div class="line">  sayName:<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line">    <span class="built_in">console</span>.log(<span class="string">"张三"</span>);</div><div class="line">  &#125;</div><div class="line">&#125;</div><div class="line"><span class="keyword">var</span> p2=&#123;</div><div class="line">  sayName:<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line">    <span class="built_in">console</span>.log(<span class="string">"李四"</span>);</div><div class="line">  &#125;</div><div class="line">&#125;</div><div class="line">p1.sayName();</div><div class="line">p2.sayName();</div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">People</span>(<span class="params">name</span>)</span>&#123;</div><div class="line">  <span class="keyword">this</span>.name=name;</div><div class="line">&#125;</div><div class="line">People.prototype.sayName=<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line">  <span class="built_in">console</span>.log(<span class="keyword">this</span>.name);</div><div class="line">&#125;</div><div class="line"><span class="keyword">var</span> p3 =<span class="keyword">new</span> People(<span class="string">"王五"</span>);</div><div class="line"><span class="keyword">var</span> p4 =<span class="keyword">new</span> People(<span class="string">"麻六"</span>);</div><div class="line">p3.sayName();</div><div class="line">p4.sayName();</div></pre></td></tr></table></figure>
 <hr>
-<h4 id="2-继承"><a href="#2-继承" class="headerlink" title="2.继承"></a>2.继承</h4><p>继承就是将一类对象中的属性和方法抽象出来，形成一个原型。所有的对象共享原型中的属性和方法。<br>我们对比下面的代码。</p>
+<h3 id="2-继承"><a href="#2-继承" class="headerlink" title="2.继承"></a>2.继承</h3><p>继承就是将一类对象中的属性和方法抽象出来，形成一个原型。所有的对象共享原型中的属性和方法。<br>我们对比下面的代码。</p>
 <ul>
 <li>第一种</li>
 </ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">function People(name)&#123;</div><div class="line">  this.name=name;</div><div class="line">&#125;</div><div class="line"></div><div class="line">People.prototype.sayName=function()&#123;</div><div class="line">  console.log(this.name);</div><div class="line">&#125;</div><div class="line"></div><div class="line">var p3 =new People(&quot;王五&quot;);</div><div class="line">var p4 =new People(&quot;麻六&quot;);</div><div class="line">p3.sayName===p4.sayName   //ture</div></pre></td></tr></table></figure>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">People</span>(<span class="params">name</span>)</span>&#123;</div><div class="line">  <span class="keyword">this</span>.name=name;</div><div class="line">&#125;</div><div class="line"></div><div class="line">People.prototype.sayName=<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line">  <span class="built_in">console</span>.log(<span class="keyword">this</span>.name);</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="keyword">var</span> p3 =<span class="keyword">new</span> People(<span class="string">"王五"</span>);</div><div class="line"><span class="keyword">var</span> p4 =<span class="keyword">new</span> People(<span class="string">"麻六"</span>);</div><div class="line">p3.sayName===p4.sayName   <span class="comment">//ture</span></div></pre></td></tr></table></figure>
 <ul>
 <li>第二种</li>
 </ul>
@@ -150,16 +153,21 @@
 <ul>
 <li>第一种方法<br>第一种方法中所有创造的对象的<strong>proto</strong>都指向构造函数的prototype ,也就是说 p3和p4的sayName都是继承自prototype的sayName</li>
 </ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line">function People(name)&#123;</div><div class="line">  this.name=name;</div><div class="line">&#125;</div><div class="line">People.prototype.sayName=function()&#123;</div><div class="line">  console.log(this.name);</div><div class="line">&#125;</div><div class="line">function ObjFactory()&#123;</div><div class="line">  var obj=new Object();    </div><div class="line">  var constructor=Array.prototype.shift.call(arguments);  //将构造器和构造参数分离</div><div class="line">  obj.__proto__=constructor.prototype;   //第一种方法，所有对象共享原型对象的属性和方法</div><div class="line">  var ret=constructor.apply(obj,arguments);</div><div class="line">  return typeof ret===&quot;object&quot;?ret:obj;</div><div class="line">&#125;</div><div class="line"></div><div class="line">var p3=ObjFactory(People,&quot;王五&quot;);</div><div class="line">var p4=ObjFactory(People,&quot;麻六&quot;);</div><div class="line">p3.sayName();</div><div class="line">p4.sayName();</div><div class="line">p3.sayName===p4.sayName   //true</div></pre></td></tr></table></figure>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">People</span>(<span class="params">name</span>)</span>&#123;</div><div class="line">  <span class="keyword">this</span>.name=name;</div><div class="line">&#125;</div><div class="line">People.prototype.sayName=<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line">  <span class="built_in">console</span>.log(<span class="keyword">this</span>.name);</div><div class="line">&#125;</div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">ObjFactory</span>(<span class="params"></span>)</span>&#123;</div><div class="line">  <span class="keyword">var</span> obj=<span class="keyword">new</span> <span class="built_in">Object</span>();    </div><div class="line">  <span class="keyword">var</span> <span class="keyword">constructor</span>=Array.prototype.shift.call(arguments);  //将构造器和构造参数分离</div><div class="line">  obj.__proto__=<span class="keyword">constructor</span>.prototype;   //第一种方法，所有对象共享原型对象的属性和方法</div><div class="line">  var ret=<span class="keyword">constructor</span>.apply(obj,arguments);</div><div class="line">  return typeof ret==="object"?ret:obj;</div><div class="line">&#125;</div><div class="line"></div><div class="line">var p3=ObjFactory(People,"王五");</div><div class="line">var p4=ObjFactory(People,"麻六");</div><div class="line">p3.sayName();</div><div class="line">p4.sayName();</div><div class="line">p3.sayName===p4.sayName   //true</div></pre></td></tr></table></figure>
 <ul>
 <li>第二种方法<br>第二种方法所有的的对象都有一个自己的sayName方法</li>
 </ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line">function People(name)&#123;</div><div class="line">  this.name=name;</div><div class="line">  this.sayName=function()&#123;</div><div class="line">    console.log(this.name);</div><div class="line">  &#125;</div><div class="line">&#125;</div><div class="line">function ObjFactory()&#123;</div><div class="line">  var obj=new Object();     //第二种方法  每个对象都是不一样的所以sayName也是不一样的</div><div class="line">  var constructor=Array.prototype.shift.call(arguments);  //将构造器和构造参数分离</div><div class="line">  obj.__proto__=constructor.prototype;   </div><div class="line">  var ret=constructor.apply(obj,arguments);</div><div class="line">  return typeof ret===&quot;object&quot;?ret:obj;</div><div class="line">&#125;</div><div class="line"></div><div class="line">var p3=ObjFactory(People,&quot;王五&quot;);</div><div class="line">var p4=ObjFactory(People,&quot;麻六&quot;);</div><div class="line">p3.sayName();</div><div class="line">p4.sayName();</div><div class="line"></div><div class="line">p3.sayName===p4.sayName  //false</div></pre></td></tr></table></figure>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">People</span>(<span class="params">name</span>)</span>&#123;</div><div class="line">  <span class="keyword">this</span>.name=name;</div><div class="line">  <span class="keyword">this</span>.sayName=<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line">    <span class="built_in">console</span>.log(<span class="keyword">this</span>.name);</div><div class="line">  &#125;</div><div class="line">&#125;</div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">ObjFactory</span>(<span class="params"></span>)</span>&#123;</div><div class="line">  <span class="keyword">var</span> obj=<span class="keyword">new</span> <span class="built_in">Object</span>();     <span class="comment">//第二种方法  每个对象都是不一样的所以sayName也是不一样的</span></div><div class="line">  <span class="keyword">var</span> <span class="keyword">constructor</span>=Array.prototype.shift.call(arguments);  //将构造器和构造参数分离</div><div class="line">  obj.__proto__=<span class="keyword">constructor</span>.prototype;   </div><div class="line">  var ret=<span class="keyword">constructor</span>.apply(obj,arguments);</div><div class="line">  return typeof ret==="object"?ret:obj;</div><div class="line">&#125;</div><div class="line"></div><div class="line">var p3=ObjFactory(People,"王五");</div><div class="line">var p4=ObjFactory(People,"麻六");</div><div class="line">p3.sayName();</div><div class="line">p4.sayName();</div><div class="line"></div><div class="line">p3.sayName===p4.sayName  //false</div></pre></td></tr></table></figure>
 <hr>
 <p>参考文档：javascript设计模式与开发实践</p>
   
 	</div>
 		<footer class="article-footer clearfix">
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/js/">js</a>
+  </div>
 
 
 <div class="article-categories">
@@ -171,7 +179,7 @@
 
 <div class="article-share" id="share">
 
-  <div data-url="http://yoursite.com/2016/07/31/js设计模式笔记/2016-07-31-part1/" data-title="JavaScript中的对象 | 小韩的博客" data-tsina="null" class="share clearfix">
+  <div data-url="www.xiaohan80s.com/2016/07/31/js设计模式笔记/2016-07-31-part1/" data-title="JavaScript中的对象 | xiaohan80s.com" data-tsina="null" class="share clearfix">
   </div>
 
 </div>
@@ -208,8 +216,8 @@
       <div class="openaside"><a class="navbutton" href="#" title="显示侧边栏"></a></div>
 
   <div id="toc" class="toc-aside">
-  <strong class="toc-title">文章目录</strong>
-  <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#对象的三大特性：封装、继承、多态。我们来聊一下JavaScript中的对象的这三个特性"><span class="toc-number">1.</span> <span class="toc-text">对象的三大特性：封装、继承、多态。我们来聊一下JavaScript中的对象的这三个特性</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-多态"><span class="toc-number">1.1.</span> <span class="toc-text">1.多态</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-封装"><span class="toc-number">1.2.</span> <span class="toc-text">2.封装</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-继承"><span class="toc-number">1.3.</span> <span class="toc-text">2.继承</span></a></li></ol></li></ol>
+  <strong class="toc-title">文章评论</strong>   
+  <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#对象的三大特性：封装、继承、多态。我们来聊一下JavaScript中的对象的这三个特性"><span class="toc-number">1.</span> <span class="toc-text">对象的三大特性：封装、继承、多态。我们来聊一下JavaScript中的对象的这三个特性</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-多态"><span class="toc-number">1.1.</span> <span class="toc-text">1.多态</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-封装"><span class="toc-number">1.2.</span> <span class="toc-text">2.封装</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-继承"><span class="toc-number">1.3.</span> <span class="toc-text">2.继承</span></a></li></ol></li></ol>
   </div>
 
 <div id="asidepart">
@@ -232,18 +240,33 @@
 
 
   
+<div class="tagslist">
+	<p class="asidetitle">标签</p>
+		<ul class="clearfix">
+		
+			<li><a href="/tags/js/" title="js">js<sup>2</sup></a></li>
+		
+			<li><a href="/tags/工具/" title="工具">工具<sup>1</sup></a></li>
+		
+		</ul>
+</div>
+
 
   
   <div class="archiveslist">
     <p class="asidetitle"><a href="/archives">归档</a></p>
-      <!-- <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/08/">August 2016</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/07/">July 2016</a><span class="archive-list-count">3</span></li></ul> -->
       <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/08/">2016 年 08 月</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/07/">2016 年 07 月</a><span class="archive-list-count">3</span></li></ul>
   </div>
 
 
 
+  
+<script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"1","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"16"},"slide":{"type":"slide","bdImg":"4","bdPos":"right","bdTop":"200.5"}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];</script>
+
+
 </aside>
 </div>
+
     </div>
     <footer><div id="footer" >
 	
@@ -264,7 +287,7 @@
 	</div>
 		<p class="copyright">Powered by <a href="http://hexo.io" target="_blank" title="hexo">hexo</a> and Theme by <a href="https://github.com/A-limon/pacman" target="_blank" title="Pacman">Pacman</a> © 2016
 		
-		<a href="http://yoursite.com" target="_blank" title="xiao han 80s">xiao han 80s</a>
+		<a href="www.xiaohan80s.com" target="_blank" title="xiao han 80s">xiao han 80s</a>
 		
 		</p>
 </div>
