@@ -1,0 +1,379 @@
+
+ <!DOCTYPE HTML>
+<html >
+<head>
+  <meta charset="UTF-8">
+  
+    <title>面向对象-继承 | 小韩的博客</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=3, minimum-scale=1">
+    
+    <meta name="author" content="xiao han 80s">
+    
+    <meta name="description" content="一、问题1.继承有什么作用? （难度:***）继承的作用，可以使用原型链上的属性和方法，这样的方式可以节省内存空间。同时将相同作用的代码抽象出来，提高了代码的复用性，也更容易让人理解。
+
+2.有几种常见创建对象的方式? 举例说明? （难度:****）
+直接声明这种方法的缺点就是声明太过于繁琐，重复造">
+    
+    
+    
+    
+    
+    <link rel="icon" href="/img/favicon.ico">
+    
+    
+    <link rel="apple-touch-icon" href="/img/pacman.jpg">
+    <link rel="apple-touch-icon-precomposed" href="/img/pacman.jpg">
+    
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+
+  <body>
+    <header>
+      <div>
+		
+			<div id="imglogo">
+				<a href="/"><img src="/img/logo.svg" alt="小韩的博客" title="小韩的博客"/></a>
+			</div>
+			
+			<div id="textlogo">
+				<h1 class="site-name"><a href="/" title="小韩的博客">小韩的博客</a></h1>
+				<h2 class="blog-motto"></h2>
+			</div>
+			<div class="navbar"><a class="navbutton navmobile" href="#" title="菜单">
+			</a></div>
+			<nav class="animated">
+				<ul>
+					
+						<li><a href="/">Home</a></li>
+					
+						<li><a href="/archives">Archives</a></li>
+					
+						<li><a href="/categories">Categories</a></li>
+					
+					<li>
+					
+					<form class="search" action="/search/index.html" method="get" accept-charset="utf-8">
+						<label>Search</label>
+						<input type="text" id="search" autocomplete="off" name="q" maxlength="20" placeholder="搜索" />
+					</form>
+					
+					</li>
+				</ul>
+			</nav>
+</div>
+
+    </header>
+    <div id="container">
+      <div id="main" class="post" itemscope itemprop="blogPost">
+	<article itemprop="articleBody"> 
+		<header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2016/07/30/javascript/2016-07-30-inherit/" title="面向对象-继承" itemprop="url">面向对象-继承</a>
+  </h1>
+  <p class="article-author">By
+    
+      <a href="http://yoursite.com" title="xiao han 80s">xiao han 80s</a>
+    </p>
+  <p class="article-time">
+    <time datetime="2016-07-30T07:13:16.000Z" itemprop="datePublished">2016-07-30</time>
+    更新日期:<time datetime="2016-08-01T16:22:56.969Z" itemprop="dateModified">2016-08-02</time>
+    
+  </p>
+</header>
+	<div class="article-content">
+		
+		
+		<div id="toc" class="toc-article">
+			<strong class="toc-title">文章目录</strong>
+		<ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#一、问题"><span class="toc-number">1.</span> <span class="toc-text">一、问题</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-继承有什么作用-（难度-）"><span class="toc-number">1.0.0.1.</span> <span class="toc-text">1.继承有什么作用? （难度:***）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-有几种常见创建对象的方式-举例说明-（难度-）"><span class="toc-number">1.0.0.2.</span> <span class="toc-text">2.有几种常见创建对象的方式? 举例说明? （难度:****）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-下面两种写法有什么区别-（难度-）"><span class="toc-number">1.0.0.3.</span> <span class="toc-text">3.下面两种写法有什么区别? （难度:***）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#4-Object-create有什么作用？兼容性如何？如何使用？-（难度-）"><span class="toc-number">1.0.0.4.</span> <span class="toc-text">4.Object.create有什么作用？兼容性如何？如何使用？ （难度:***）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#5-hasOwnProperty有什么作用？-如何使用？-（难度-）"><span class="toc-number">1.0.0.5.</span> <span class="toc-text">5.hasOwnProperty有什么作用？ 如何使用？ （难度:***）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#6-实现Object-create的-polyfill，如：（ps-写个-函数create，实现-Object-create-的功能）-什么是-polyfill？（难度-）"><span class="toc-number">1.0.0.6.</span> <span class="toc-text">6.实现Object.create的 polyfill，如：（ps: 写个 函数create，实现 Object.create 的功能）,什么是 polyfill？（难度:****）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#7-如下代码中call的作用是什么-（难度-）"><span class="toc-number">1.0.0.7.</span> <span class="toc-text">7.如下代码中call的作用是什么? （难度:****）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#8-补全代码，实现继承-（难度-）"><span class="toc-number">1.0.0.8.</span> <span class="toc-text">8.补全代码，实现继承 （难度:****）</span></a></li></ol></li></ol></li></ol></li></ol>
+		</div>
+		
+		<h1 id="一、问题"><a href="#一、问题" class="headerlink" title="一、问题"></a>一、问题</h1><h4 id="1-继承有什么作用-（难度-）"><a href="#1-继承有什么作用-（难度-）" class="headerlink" title="1.继承有什么作用? （难度:***）"></a>1.继承有什么作用? （难度:***）</h4><p>继承的作用，可以使用原型链上的属性和方法，这样的方式可以节省内存空间。同时将相同作用的代码抽象出来，提高了代码的复用性，也更容易让人理解。</p>
+<hr>
+<h4 id="2-有几种常见创建对象的方式-举例说明-（难度-）"><a href="#2-有几种常见创建对象的方式-举例说明-（难度-）" class="headerlink" title="2.有几种常见创建对象的方式? 举例说明? （难度:****）"></a>2.有几种常见创建对象的方式? 举例说明? （难度:****）</h4><ul>
+<li>直接声明<br>这种方法的缺点就是声明太过于繁琐，重复造轮子</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> p1=&#123;</div><div class="line">  name:<span class="string">"xiaohan"</span>,</div><div class="line">  sayName:<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line">    <span class="built_in">console</span>.log(<span class="keyword">this</span>.name);</div><div class="line">  &#125;</div><div class="line">&#125;;</div><div class="line"><span class="keyword">var</span> p2=&#123;</div><div class="line">  name:<span class="string">"xiaosu"</span>,</div><div class="line">  sayName:<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line">    <span class="built_in">console</span>.log(<span class="keyword">this</span>.name);</div><div class="line">  &#125;</div><div class="line">&#125;;</div><div class="line">p1.sayName();</div><div class="line">p2.sayName();</div></pre></td></tr></table></figure>
+<ul>
+<li>工厂模式<br>工厂模式比直接声明提高了代码的复用性，下面的例子中我无法获知p1、p2 和creatPerson之间的关系。</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">creatPerson</span>(<span class="params">name</span>)</span>&#123;</div><div class="line">  <span class="keyword">var</span> obj=&#123;</div><div class="line">    name:name,</div><div class="line">    sayName:<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line">      <span class="built_in">console</span>.log(<span class="keyword">this</span>.name);</div><div class="line">    &#125;</div><div class="line">  &#125;;</div><div class="line">  <span class="keyword">return</span> obj;</div><div class="line">&#125;</div><div class="line"><span class="keyword">var</span> p1=creatPerson(<span class="string">"xiaohan"</span>);</div><div class="line">p1.sayName();</div><div class="line"><span class="keyword">var</span> p2=creatPerson(<span class="string">"xiaosu"</span>);</div><div class="line">p2.sayName();</div></pre></td></tr></table></figure>
+<ul>
+<li>构造函数模式<br>构造函数方式可以清除的表示构造函数和对象之间的关系，但每个对象都会重复创造公用的方法。</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">Person</span>(<span class="params">name</span>)</span>&#123;</div><div class="line">  <span class="keyword">this</span>.name=name;</div><div class="line">  <span class="keyword">this</span>.sayName=<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line">    <span class="built_in">console</span>.log(<span class="keyword">this</span>.name);</div><div class="line">  &#125;</div><div class="line">&#125;</div><div class="line"><span class="keyword">var</span> p1=<span class="keyword">new</span> Person(<span class="string">"xiaohan"</span>),</div><div class="line">    p2=<span class="keyword">new</span> Person(<span class="string">"xiaosu"</span>);</div><div class="line">    p1.sayName();</div><div class="line">    p2.sayName();</div><div class="line">    <span class="built_in">console</span>.log(p1.sayName===p2.sayName)  <span class="comment">//false</span></div></pre></td></tr></table></figure>
+<ul>
+<li>原型方式<br>原型方式将每个对象的通用方法 放到构造函数的原型对象上，这样每个对象都使用同一个公用方法，减少了内存的使用</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">function Person(name)&#123;</div><div class="line">  this.name=name;</div><div class="line">&#125;</div><div class="line">Person.prototype.sayName=function()&#123;</div><div class="line">  console.log(this.name);</div><div class="line">&#125;</div><div class="line">var p1=new Person(&quot;xiaohan&quot;),</div><div class="line">    p2=new Person(&quot;xiaosu&quot;);</div><div class="line">    p1.sayName();</div><div class="line">    p2.sayName();</div><div class="line">console.log(p1.sayName===p2.sayName)  //true</div></pre></td></tr></table></figure>
+<hr>
+<h4 id="3-下面两种写法有什么区别-（难度-）"><a href="#3-下面两种写法有什么区别-（难度-）" class="headerlink" title="3.下面两种写法有什么区别? （难度:***）"></a>3.下面两种写法有什么区别? （难度:***）</h4><p>方法一中每一个创建的对象都有一个独立的printName方法，方法二中每一个创建对象共享原型对象中的printName方法</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line">function People(name, sex)&#123;</div><div class="line">    this.name = name;</div><div class="line">    this.sex = sex;</div><div class="line">    this.printName = function()&#123;</div><div class="line">        console.log(this.name);</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line">var p1 = new People(&apos;饥人谷&apos;, 2)</div><div class="line"></div><div class="line">//方法2</div><div class="line">function Person(name, sex)&#123;</div><div class="line">    this.name = name;</div><div class="line">    this.sex = sex;</div><div class="line">&#125;</div><div class="line"></div><div class="line">Person.prototype.printName = function()&#123;</div><div class="line">    console.log(this.name);</div><div class="line">&#125;</div><div class="line">var p1 = new Person(&apos;若愚&apos;, 27);</div></pre></td></tr></table></figure>
+<hr>
+<h4 id="4-Object-create有什么作用？兼容性如何？如何使用？-（难度-）"><a href="#4-Object-create有什么作用？兼容性如何？如何使用？-（难度-）" class="headerlink" title="4.Object.create有什么作用？兼容性如何？如何使用？ （难度:***）"></a>4.Object.create有什么作用？兼容性如何？如何使用？ （难度:***）</h4><p>Object.create()方法创建一个拥有指定原型和若干个指定属性的对象，是ES5的方法。</p>
+<p>语法：<br>Object.create(<em>proto,</em> [ <em>propertiesObject</em> ])</p>
+<p>参数：</p>
+<p><em>proto</em>  作为新创建对象的原型</p>
+<p><em>propertiesObject</em> 可选。该参数对象是一组属性与值，该对象的属性名称将是新创建的对象的属性名称，值是属性描述符（这些属性描述符的结构与<a href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Object/defineProperties" target="_blank" rel="external">Object.defineProperties()
+</a>的第二个参数一样）。</p>
+<p>注意：<br>该参数对象不能是 <a href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/undefined" target="_blank" rel="external">undefined
+</a>，另外只有该对象中自身拥有的可枚举的属性才有效，也就是说该对象的原型链上属性是无效的。</p>
+<p>兼容性：IE9+，Chrome5+，Firefox 4.0+，Opear 11.60+,Safari 5+’</p>
+<p>作用：</p>
+<p>1.使用Object.create实现继承</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line">function Animal(category,moveMethod)&#123;</div><div class="line">  this.category=category;</div><div class="line">  this.moveMethod=moveMethod;</div><div class="line">&#125;</div><div class="line">Animal.prototype.say=function()&#123;</div><div class="line">  console.log(&quot;我属于:&quot;+ this.category + &quot;,移动的时候是:&quot; + this.moveMethod);</div><div class="line">&#125;</div><div class="line">function Dog(name)&#123;</div><div class="line">  var category=&quot;狗类&quot;,</div><div class="line">      moveMethod=&quot;跑啊跑&quot;;</div><div class="line">  Animal.call(this,category,moveMethod);</div><div class="line">  this.name=name;</div><div class="line"></div><div class="line">&#125;</div><div class="line">Dog.prototype=Object.create(Animal.prototype);</div><div class="line">Dog.prototype.sayName=function()&#123;</div><div class="line">  console.log(this.name);</div><div class="line">&#125;</div><div class="line">Dog.prototype.constructor=Dog;</div><div class="line">var d1=new Dog(&quot;旺财&quot;);</div><div class="line">d1.say()    //我属于:狗类,移动的时候是:跑啊跑</div><div class="line">d1.sayName() //旺财</div></pre></td></tr></table></figure>
+<p>2.创建对象</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line">function Animal(category,moveMethod)&#123;</div><div class="line">  this.category=category;</div><div class="line">  this.moveMethod=moveMethod;</div><div class="line">&#125;</div><div class="line">Animal.prototype.say=function()&#123;</div><div class="line">  console.log(&quot;我属于:&quot;+ this.category + &quot;,移动的时候是:&quot; + this.moveMethod);</div><div class="line">&#125;</div><div class="line">var fish=Object.create(Animal.prototype,&#123;</div><div class="line">  category:&#123;</div><div class="line">    writeable:true,</div><div class="line">    configurable: true,</div><div class="line">    value:&quot;鱼&quot;</div><div class="line">  &#125;,</div><div class="line">  moveMethod:&#123;</div><div class="line">    writeable:true,</div><div class="line">    configurable: true,</div><div class="line">    value:&quot;游啊游&quot;</div><div class="line">  &#125;</div><div class="line">&#125;);</div></pre></td></tr></table></figure>
+<hr>
+<h4 id="5-hasOwnProperty有什么作用？-如何使用？-（难度-）"><a href="#5-hasOwnProperty有什么作用？-如何使用？-（难度-）" class="headerlink" title="5.hasOwnProperty有什么作用？ 如何使用？ （难度:***）"></a>5.hasOwnProperty有什么作用？ 如何使用？ （难度:***）</h4><ul>
+<li>hasOwnProperty()方法用来判断某个对象是否含有指定的自身属性。</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">var o =&#123;</div><div class="line">    name:&quot;xiaohan&quot;,</div><div class="line">    age:18</div><div class="line">  &#125;</div><div class="line">  console.log(o.hasOwnProperty(&quot;name&quot;));  //true</div><div class="line">  delete o.name;</div><div class="line">  console.log(o.hasOwnProperty(&quot;name&quot;));  //false</div></pre></td></tr></table></figure>
+<ul>
+<li>和 <a href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Operators/in" target="_blank" rel="external">in</a> 运算符不同，该方法会忽略掉那些从原型链上继承到的属性</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">var o =&#123;</div><div class="line">  name:&quot;xiaohan&quot;,</div><div class="line">  age:18</div><div class="line">&#125;</div><div class="line">console.log(o.hasOwnProperty(&quot;name&quot;));  //true</div><div class="line">console.log(o.hasOwnProperty(&quot;toString&quot;)); //false</div></pre></td></tr></table></figure>
+<h4 id="6-实现Object-create的-polyfill，如：（ps-写个-函数create，实现-Object-create-的功能）-什么是-polyfill？（难度-）"><a href="#6-实现Object-create的-polyfill，如：（ps-写个-函数create，实现-Object-create-的功能）-什么是-polyfill？（难度-）" class="headerlink" title="6.实现Object.create的 polyfill，如：（ps: 写个 函数create，实现 Object.create 的功能）,什么是 polyfill？（难度:****）"></a>6.实现Object.create的 polyfill，如：（ps: 写个 函数create，实现 Object.create 的功能）,什么是 polyfill？（难度:****）</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div></pre></td><td class="code"><pre><div class="line">if(typeof Object.create!==&quot;function&quot;)&#123;</div><div class="line">  Object.create=function()&#123;</div><div class="line">    function Temp()&#123;&#125;;</div><div class="line">    var hasOwn=Object.prototype.hasOwnProperty;</div><div class="line">    return function()&#123;</div><div class="line">      var args=arguments;</div><div class="line">          proto=args[0];</div><div class="line">      if(typeof proto !==&quot;object&quot;)  return;</div><div class="line">      Temp.prototype=proto;</div><div class="line">      var obj=new Temp();</div><div class="line">      Temp.prototype=null;   //每次释放掉</div><div class="line">      if(arguments.length&gt;1)&#123;</div><div class="line">        properties=Object(arguments[1]);  //装箱？ = =new Object();</div><div class="line">        for(var pro in properties)&#123;</div><div class="line">          if(hasOwn.call(properties,pro))&#123;</div><div class="line">            obj[pro]=properties[pro];</div><div class="line">          &#125;</div><div class="line">        &#125;</div><div class="line">      &#125;</div><div class="line">      return obj;</div><div class="line">    &#125;</div><div class="line">  &#125;();</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<hr>
+<h4 id="7-如下代码中call的作用是什么-（难度-）"><a href="#7-如下代码中call的作用是什么-（难度-）" class="headerlink" title="7.如下代码中call的作用是什么? （难度:****）"></a>7.如下代码中call的作用是什么? （难度:****）</h4><p>call的作用就是改变函数的上下文；</p>
+<p>当 Male作为函数调用时，this=window  相当于在window上加了三个属性；</p>
+<p>而Male作为构造函数使用时 this指代创建的对象，相当于在对象初始化了 三个属性；</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">function Person(name, sex)&#123;</div><div class="line">  this.name = name;</div><div class="line">  this.sex = sex;</div><div class="line">&#125;</div><div class="line">function Male(name, sex, age)&#123;</div><div class="line">  Person.call(this, name, sex);    //这里的 call 有什么作用</div><div class="line">  this.age = age;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<hr>
+<h4 id="8-补全代码，实现继承-（难度-）"><a href="#8-补全代码，实现继承-（难度-）" class="headerlink" title="8.补全代码，实现继承 （难度:****）"></a>8.补全代码，实现继承 （难度:****）</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line">function Person(name, sex)&#123;</div><div class="line">    this.name=name;</div><div class="line">    this.sex=sex;</div><div class="line">&#125;</div><div class="line"></div><div class="line">Person.prototype.printName = function()&#123;</div><div class="line">    console.log(this.name);</div><div class="line">&#125;;</div><div class="line"></div><div class="line">function Male(name, sex, age)&#123;</div><div class="line">   Person.call(this,name,sex);</div><div class="line">   this.age=age;</div><div class="line">&#125;</div><div class="line">Male.prototype=Object.create(Person.prototype);</div><div class="line">Male.prototype.constructor=Male;</div><div class="line">Male.prototype.getAge = function()&#123;</div><div class="line">    return this.age;</div><div class="line">&#125;;</div><div class="line">var ruoyu = new Male(&apos;若愚&apos;, &apos;男&apos;, 27);</div><div class="line">ruoyu.printName();</div></pre></td></tr></table></figure>
+<hr>
+<p>参考文档:</p>
+<ul>
+<li><p><a href="http://kejian.jirengu.com/web-fe3" target="_blank" rel="external">饥人谷课件-原型链 继承</a></p>
+</li>
+<li><p><a href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Object/hasOwnProperty" target="_blank" rel="external">hasOwnProperty的用法</a></p>
+</li>
+<li><p><a href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Object/create" target="_blank" rel="external">Object.create</a></p>
+</li>
+</ul>
+  
+	</div>
+		<footer class="article-footer clearfix">
+
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/JavaScript/">JavaScript</a>
+</div>
+
+
+
+<div class="article-share" id="share">
+
+  
+<div class="jiathis_style">
+    <span class="jiathis_txt">分享到：</span>
+    <a class="jiathis_button_tsina">新浪微博</a>
+    <a class="jiathis_button_weixin">微信</a>
+    <a class="jiathis_button_twitter">Twitter</a>
+    <a class="jiathis_button_evernote">EverNote</a>
+    <a href="http://www.jiathis.com/share?uid=1501277" class="jiathis jiathis_txt jiathis_separator jtico jtico_jiathis" target="_blank">更多</a>
+</div>
+<script type="text/javascript" >
+    var jiathis_config={
+    data_track_clickback:true,
+    sm:"copy,renren,cqq",
+    pic:"",
+    summary:"",
+    
+  </script> 
+<script type="text/javascript" src="//v3.jiathis.com/code/jia.js?uid=
+" charset="utf-8"></script>      
+
+
+</div>
+</footer>   	       
+	</article>
+	
+<nav class="article-nav clearfix">
+ 
+ <div class="prev" >
+ <a href="/2016/07/30/other/2016-07-30-build-blog/" title="在gitHub上搭建个人博客">
+  <strong>PREVIOUS:</strong><br/>
+  <span>
+  在gitHub上搭建个人博客</span>
+</a>
+</div>
+
+
+</nav>
+
+	
+<section class="comment">
+	<div class="ds-thread"></div>
+</section>
+
+</div>  
+      <div class="openaside"><a class="navbutton" href="#" title="显示侧边栏"></a></div>
+
+  <div id="toc" class="toc-aside">
+  <strong class="toc-title">文章目录</strong>
+  <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#一、问题"><span class="toc-number">1.</span> <span class="toc-text">一、问题</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-继承有什么作用-（难度-）"><span class="toc-number">1.0.0.1.</span> <span class="toc-text">1.继承有什么作用? （难度:***）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-有几种常见创建对象的方式-举例说明-（难度-）"><span class="toc-number">1.0.0.2.</span> <span class="toc-text">2.有几种常见创建对象的方式? 举例说明? （难度:****）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-下面两种写法有什么区别-（难度-）"><span class="toc-number">1.0.0.3.</span> <span class="toc-text">3.下面两种写法有什么区别? （难度:***）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#4-Object-create有什么作用？兼容性如何？如何使用？-（难度-）"><span class="toc-number">1.0.0.4.</span> <span class="toc-text">4.Object.create有什么作用？兼容性如何？如何使用？ （难度:***）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#5-hasOwnProperty有什么作用？-如何使用？-（难度-）"><span class="toc-number">1.0.0.5.</span> <span class="toc-text">5.hasOwnProperty有什么作用？ 如何使用？ （难度:***）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#6-实现Object-create的-polyfill，如：（ps-写个-函数create，实现-Object-create-的功能）-什么是-polyfill？（难度-）"><span class="toc-number">1.0.0.6.</span> <span class="toc-text">6.实现Object.create的 polyfill，如：（ps: 写个 函数create，实现 Object.create 的功能）,什么是 polyfill？（难度:****）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#7-如下代码中call的作用是什么-（难度-）"><span class="toc-number">1.0.0.7.</span> <span class="toc-text">7.如下代码中call的作用是什么? （难度:****）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#8-补全代码，实现继承-（难度-）"><span class="toc-number">1.0.0.8.</span> <span class="toc-text">8.补全代码，实现继承 （难度:****）</span></a></li></ol></li></ol></li></ol></li></ol>
+  </div>
+
+<div id="asidepart">
+<div class="closeaside"><a class="closebutton" href="#" title="隐藏侧边栏"></a></div>
+<aside class="clearfix">
+
+  
+<div class="categorieslist">
+	<p class="asidetitle">分类</p>
+		<ul>
+		
+			<li><a href="/categories/JavaScript/" title="JavaScript">JavaScript<sup>1</sup></a></li>
+		
+			<li><a href="/categories/Other/" title="Other">Other<sup>1</sup></a></li>
+		
+			<li><a href="/categories/js设计模式笔记/" title="js设计模式笔记">js设计模式笔记<sup>1</sup></a></li>
+		
+		</ul>
+</div>
+
+
+  
+
+  
+  <div class="archiveslist">
+    <p class="asidetitle"><a href="/archives">归档</a></p>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/08/">August 2016</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/07/">July 2016</a><span class="archive-list-count">3</span></li></ul>
+  </div>
+
+
+  <div class="comment_bar">
+	<a href="#ds-reset" target="" title="评论区">文章评论</a>
+</div>
+
+
+</aside>
+</div>
+    </div>
+    <footer><div id="footer" >
+	
+	<div class="line">
+		<span></span>
+		<div class="author"></div>
+	</div>
+	
+	
+	<div class="social-font clearfix">
+		<!-- 
+		 -->
+		
+		<a href="https://github.com/hansuze" target="_blank" title="github"></a>
+		
+		<!-- 
+		 -->
+	</div>
+		<p class="copyright">Powered by <a href="http://hexo.io" target="_blank" title="hexo">hexo</a> and Theme by <a href="https://github.com/A-limon/pacman" target="_blank" title="Pacman">Pacman</a> © 2016
+		
+		<a href="http://yoursite.com" target="_blank" title="xiao han 80s">xiao han 80s</a>
+		
+		</p>
+</div>
+</footer>
+    <script src="/js/jquery-2.1.0.min.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){
+  $('.navbar').click(function(){
+    $('header nav').toggleClass('shownav');
+  });
+  var myWidth = 0;
+  function getSize(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+  };
+  var m = $('#main'),
+      a = $('#asidepart'),
+      c = $('.closeaside'),
+      o = $('.openaside');
+  $(window).resize(function(){
+    getSize();
+    if (myWidth >= 1024) {
+      $('header nav').removeClass('shownav');
+    }else
+    {
+      m.removeClass('moveMain');
+      a.css('display', 'block').removeClass('fadeOut');
+      o.css('display', 'none');
+      
+      $('#toc.toc-aside').css('display', 'none');
+      
+    }
+  });
+  c.click(function(){
+    a.addClass('fadeOut').css('display', 'none');
+    o.css('display', 'block').addClass('fadeIn');
+    m.addClass('moveMain');
+  });
+  o.click(function(){
+    o.css('display', 'none').removeClass('beforeFadeIn');
+    a.css('display', 'block').removeClass('fadeOut').addClass('fadeIn');
+    m.removeClass('moveMain');
+  });
+  $(window).scroll(function(){
+    o.css("top",Math.max(80,260-$(this).scrollTop()));
+  });
+});
+</script>
+
+<script type="text/javascript">
+$(document).ready(function(){
+  var ai = $('.article-content>iframe'),
+      ae = $('.article-content>embed'),
+      t  = $('#toc'),
+      h  = $('article h2')
+      ah = $('article h2'),
+      ta = $('#toc.toc-aside'),
+      o  = $('.openaside'),
+      c  = $('.closeaside');
+  if(ai.length>0){
+    ai.wrap('<div class="video-container" />');
+  };
+  if(ae.length>0){
+   ae.wrap('<div class="video-container" />');
+  };
+  if(ah.length==0){
+    t.css('display','none');
+  }else{
+    c.click(function(){
+      ta.css('display', 'block').addClass('fadeIn');
+    });
+    o.click(function(){
+      ta.css('display', 'none');
+    });
+    $(window).scroll(function(){
+      ta.css("top",Math.max(140,320-$(this).scrollTop()));
+    });
+  };
+});
+</script>
+
+
+
+<script type="text/javascript">
+  var duoshuoQuery = {short_name:"null"};
+  (function() {
+    var ds = document.createElement('script');
+    ds.type = 'text/javascript';ds.async = true;
+    ds.src = '//static.duoshuo.com/embed.js';
+    ds.charset = 'UTF-8';
+    (document.getElementsByTagName('head')[0]
+    || document.getElementsByTagName('body')[0]).appendChild(ds);
+  })();
+</script>
+
+
+
+
+
+  </body>
+</html>
