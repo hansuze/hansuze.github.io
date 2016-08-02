@@ -1378,7 +1378,6 @@ section.comment {
 #toc {
   line-height: 1em;
   font-size: 0.8em;
-  float: right;
 }
 #toc .toc {
   padding: 0;
