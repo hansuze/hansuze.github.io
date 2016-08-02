@@ -34,7 +34,7 @@
 				<h1 class="site-name"><a href="/" title="小韩的博客">小韩的博客</a></h1>
 				<h2 class="blog-motto"></h2>
 			</div>
-			<div class="navbar"><a class="navbutton navmobile" href="#" title="Menu">
+			<div class="navbar"><a class="navbutton navmobile" href="#" title="菜单">
 			</a></div>
 			<nav class="animated">
 				<ul>
@@ -49,7 +49,7 @@
 					
 					<form class="search" action="/search/index.html" method="get" accept-charset="utf-8">
 						<label>Search</label>
-						<input type="text" id="search" autocomplete="off" name="q" maxlength="20" placeholder="Search" />
+						<input type="text" id="search" autocomplete="off" name="q" maxlength="20" placeholder="搜索" />
 					</form>
 					
 					</li>
@@ -61,10 +61,17 @@
       <div id="container">
         
 
+<!-- <div class="archive-title" >
+  <h2 class="category-icon">JavaScript</h2>
+  
+</div> -->
+<!--  改为中文样式-->
+
 <div class="archive-title" >
   <h2 class="category-icon">JavaScript</h2>
   
 </div>
+===
 <div id="main" class="archive-part clearfix">
   <div id="archive-page">
 
@@ -110,6 +117,9 @@
       <script src="/js/jquery-2.1.0.min.js"></script>
 <script type="text/javascript">
 $(document).ready(function(){
+  // if($('#ds-reset').size()>0){
+  //   console.log('show');
+  // }
   $('.navbar').click(function(){
     $('header nav').toggleClass('shownav');
   });
