@@ -722,6 +722,9 @@ header nav ul li a:hover {
   color: #2ca6cb;
   font-size: 120%;
 }
+.archive-title li {
+  margin: 0.5em;
+}
 .archive-title a {
   color: #2ca6cb;
   -webkit-transition: color 0.5s;
