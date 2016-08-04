@@ -56,7 +56,7 @@
 					
 					<li>
 					
-					<!-- <form class="search" action="//baidu.com/s" method="get" accept-charset="utf-8">
+					<!-- <form class="search" action="//baidu.com" method="get" accept-charset="utf-8">
 						<label>Search</label>
 						<input type="text" id="search" name="q" autocomplete="off" maxlength="20" placeholder="搜索" />
 						<input type="hidden" name="q" value="site:www.xiaohan80s.com">
@@ -145,9 +145,6 @@
         <script src="/js/jquery-2.1.0.min.js"></script>
 <script type="text/javascript">
 $(document).ready(function(){
-  // if($('#ds-reset').size()>0){
-  //   console.log('show');
-  // }
   $('.navbar').click(function(){
     $('header nav').toggleClass('shownav');
   });
@@ -163,6 +160,7 @@ $(document).ready(function(){
       a = $('#asidepart'),
       c = $('.closeaside'),
       o = $('.openaside');
+
   $(window).resize(function(){
     getSize();
     if (myWidth >= 1024) {
@@ -222,7 +220,7 @@ $(document).ready(function(){
 
 
 <script type="text/javascript">
-  var duoshuoQuery = {short_name:"null"};
+  var duoshuoQuery = {short_name:"xiaohan"};
   (function() {
     var ds = document.createElement('script');
     ds.type = 'text/javascript';ds.async = true;

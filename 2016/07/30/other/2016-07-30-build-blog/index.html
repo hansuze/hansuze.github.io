@@ -54,7 +54,7 @@
 					
 					<li>
 					
-					<!-- <form class="search" action="//baidu.com/s" method="get" accept-charset="utf-8">
+					<!-- <form class="search" action="//baidu.com" method="get" accept-charset="utf-8">
 						<label>Search</label>
 						<input type="text" id="search" name="q" autocomplete="off" maxlength="20" placeholder="搜索" />
 						<input type="hidden" name="q" value="site:www.xiaohan80s.com">
@@ -168,7 +168,7 @@
       <div class="openaside"><a class="navbutton" href="#" title="显示侧边栏"></a></div>
 
   <div id="toc" class="toc-aside">
-  <strong class="toc-title">文章评论</strong>   
+  <strong class="toc-title">文章目录</strong>
   <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#在gitHub上搭建个人博客"><span class="toc-number">1.</span> <span class="toc-text">在gitHub上搭建个人博客</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#一、Jekyll-博客"><span class="toc-number">1.1.</span> <span class="toc-text">一、Jekyll 博客</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-模式："><span class="toc-number">1.2.</span> <span class="toc-text">1.模式：</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#2-操作步骤"><span class="toc-number">1.2.1.</span> <span class="toc-text">2.操作步骤</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#4-其他方式"><span class="toc-number">1.2.2.</span> <span class="toc-text">4.其他方式</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-推荐工具"><span class="toc-number">1.2.3.</span> <span class="toc-text">3.推荐工具</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#4-遇到的问题"><span class="toc-number">1.2.4.</span> <span class="toc-text">4.遇到的问题</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#二、搭建hexo-博客"><span class="toc-number">1.3.</span> <span class="toc-text">二、搭建hexo 博客</span></a></li></ol></li></ol>
   </div>
 
@@ -251,9 +251,6 @@
     <script src="/js/jquery-2.1.0.min.js"></script>
 <script type="text/javascript">
 $(document).ready(function(){
-  // if($('#ds-reset').size()>0){
-  //   console.log('show');
-  // }
   $('.navbar').click(function(){
     $('header nav').toggleClass('shownav');
   });
@@ -269,6 +266,7 @@ $(document).ready(function(){
       a = $('#asidepart'),
       c = $('.closeaside'),
       o = $('.openaside');
+
   $(window).resize(function(){
     getSize();
     if (myWidth >= 1024) {
@@ -328,6 +326,7 @@ $(document).ready(function(){
       ta.css("top",Math.max(140,320-$(this).scrollTop()));
     });
   };
+  $('.closeaside').triggerHandler('click');
 });
 </script>
 
@@ -362,7 +361,7 @@ $(document).ready(function(){
 
 
 <script type="text/javascript">
-  var duoshuoQuery = {short_name:"null"};
+  var duoshuoQuery = {short_name:"xiaohan"};
   (function() {
     var ds = document.createElement('script');
     ds.type = 'text/javascript';ds.async = true;

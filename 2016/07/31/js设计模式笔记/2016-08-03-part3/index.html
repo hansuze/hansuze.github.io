@@ -52,7 +52,7 @@ call和appl">
 					
 					<li>
 					
-					<!-- <form class="search" action="//baidu.com/s" method="get" accept-charset="utf-8">
+					<!-- <form class="search" action="//baidu.com" method="get" accept-charset="utf-8">
 						<label>Search</label>
 						<input type="text" id="search" name="q" autocomplete="off" maxlength="20" placeholder="搜索" />
 						<input type="hidden" name="q" value="site:www.xiaohan80s.com">
@@ -186,7 +186,7 @@ call和appl">
       <div class="openaside"><a class="navbutton" href="#" title="显示侧边栏"></a></div>
 
   <div id="toc" class="toc-aside">
-  <strong class="toc-title">文章评论</strong>   
+  <strong class="toc-title">文章目录</strong>
   <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#本章主要讲解call和apply的一些知识"><span class="toc-number">1.</span> <span class="toc-text">本章主要讲解call和apply的一些知识</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#call和apply的区别"><span class="toc-number">1.1.</span> <span class="toc-text">call和apply的区别</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#call和apply的用法"><span class="toc-number">1.2.</span> <span class="toc-text">call和apply的用法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#bind方法"><span class="toc-number">1.3.</span> <span class="toc-text">bind方法</span></a></li></ol></li></ol>
   </div>
 
@@ -269,9 +269,6 @@ call和appl">
     <script src="/js/jquery-2.1.0.min.js"></script>
 <script type="text/javascript">
 $(document).ready(function(){
-  // if($('#ds-reset').size()>0){
-  //   console.log('show');
-  // }
   $('.navbar').click(function(){
     $('header nav').toggleClass('shownav');
   });
@@ -287,6 +284,7 @@ $(document).ready(function(){
       a = $('#asidepart'),
       c = $('.closeaside'),
       o = $('.openaside');
+
   $(window).resize(function(){
     getSize();
     if (myWidth >= 1024) {
@@ -346,6 +344,7 @@ $(document).ready(function(){
       ta.css("top",Math.max(140,320-$(this).scrollTop()));
     });
   };
+  $('.closeaside').triggerHandler('click');
 });
 </script>
 
@@ -380,7 +379,7 @@ $(document).ready(function(){
 
 
 <script type="text/javascript">
-  var duoshuoQuery = {short_name:"null"};
+  var duoshuoQuery = {short_name:"xiaohan"};
   (function() {
     var ds = document.createElement('script');
     ds.type = 'text/javascript';ds.async = true;
