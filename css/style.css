@@ -1616,7 +1616,7 @@ section.comment {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   padding-right: 0.5em;
-  content: "\f09e";
+  content: "\f075";
 }
 @media only screen and (min-width: 768px) {
   .archiveslist {
