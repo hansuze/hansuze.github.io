@@ -1403,9 +1403,6 @@ section.comment {
   font-size: 1em;
   color: #333;
   background: #fafafa;
-  opacity: 0.6;
-  -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=60)";
-  filter: alpha(opacity=60);
   -webkit-border-radius: 0.3em;
   border-radius: 0.3em;
   -webkit-transition: opacity 1s ease-out;
