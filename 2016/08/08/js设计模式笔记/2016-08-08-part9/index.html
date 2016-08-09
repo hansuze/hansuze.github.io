@@ -1,0 +1,376 @@
+
+ <!DOCTYPE HTML>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  
+    <title>迭代器模式 | xiaohan80s.com</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=3, minimum-scale=1">
+    
+    <meta name="author" content="xiao han 80s">
+    
+    <meta name="description" content="迭代器模式是指提供一种方法顺序访问一个聚合对象内的各个元素，而又不需要暴露该对象的内部表示。
+自己实现一个迭代器我们首先实现一个数组或者类数组的迭代器123456789var each = function(ary, callback) &amp;#123;  for(var i = 0,len = ary">
+    
+    
+    
+    
+    
+    <link rel="icon" href="/img/favicon.ico">
+    
+    
+    <link rel="apple-touch-icon" href="/img/pacman.jpg">
+    <link rel="apple-touch-icon-precomposed" href="/img/pacman.jpg">
+    
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+
+  <body>
+    <header>
+      <div>
+		
+			<div id="imglogo">
+				<a href="/"><img src="/img/logo.svg" alt="xiaohan80s.com" title="xiaohan80s.com"/></a>
+			</div>
+			
+			<div id="textlogo">
+				<h1 class="site-name"><a href="/" title="xiaohan80s.com">xiaohan80s.com</a></h1>
+				<h2 class="blog-motto">年轻 没有什么不可以!</h2>
+			</div>
+			<div class="navbar"><a class="navbutton navmobile" href="#" title="菜单">
+			</a></div>
+			<nav class="animated">
+				<ul>
+					
+						<li><a href="/">Home</a></li>
+					
+						<li><a href="/archives">Archives</a></li>
+					
+						<li><a href="/categories">Categories</a></li>
+					
+						<li><a href="/about">About</a></li>
+					
+					<li>
+					
+					<!-- <form class="search" action="//baidu.com" method="get" accept-charset="utf-8">
+						<label>Search</label>
+						<input type="text" id="search" name="q" autocomplete="off" maxlength="20" placeholder="搜索" />
+						<input type="hidden" name="q" value="site:www.xiaohan80s.com">
+					</form> -->
+					
+					</li>
+				</ul>
+			</nav>
+</div>
+
+    </header>
+    <div id="container">
+      <div id="main" class="post" itemscope itemprop="blogPost">
+	<article itemprop="articleBody"> 
+		<header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2016/08/08/js设计模式笔记/2016-08-08-part9/" title="迭代器模式" itemprop="url">迭代器模式</a>
+  </h1>
+  <p class="article-author">By
+    
+      <a href="http://www.xiaohan80s.com" title="xiao han 80s">xiao han 80s</a>
+    </p>
+  <p class="article-time">
+    <time datetime="2016-08-07T16:00:00.000Z" itemprop="datePublished">2016-08-08</time>
+    更新日期:<time datetime="2016-08-08T14:43:04.917Z" itemprop="dateModified">2016-08-08</time>
+    
+  </p>
+</header>
+	<div class="article-content">
+		
+		
+		<div id="toc" class="toc-article">
+			<strong class="toc-title">文章目录</strong>
+		<ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#自己实现一个迭代器"><span class="toc-number">1.</span> <span class="toc-text">自己实现一个迭代器</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#内部迭代器和外部迭代器"><span class="toc-number">2.</span> <span class="toc-text">内部迭代器和外部迭代器</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#迭代类数组对象和字面量对象"><span class="toc-number">3.</span> <span class="toc-text">迭代类数组对象和字面量对象</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#倒序迭代器"><span class="toc-number">4.</span> <span class="toc-text">倒序迭代器</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#中止迭代器"><span class="toc-number">5.</span> <span class="toc-text">中止迭代器</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#迭代器模式的应用举例"><span class="toc-number">6.</span> <span class="toc-text">迭代器模式的应用举例</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#小结"><span class="toc-number"></span> <span class="toc-text">小结</span></a>
+		</div>
+		
+		<p>迭代器模式是指提供一种方法顺序访问一个聚合对象内的各个元素，而又不需要暴露该对象的内部表示。</p>
+<h3 id="自己实现一个迭代器"><a href="#自己实现一个迭代器" class="headerlink" title="自己实现一个迭代器"></a>自己实现一个迭代器</h3><p>我们首先实现一个数组或者类数组的迭代器<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> each = <span class="function"><span class="keyword">function</span>(<span class="params">ary, callback</span>) </span>&#123;</div><div class="line">  <span class="keyword">for</span>(<span class="keyword">var</span> i = <span class="number">0</span>,len = ary.length; i &lt; len; i++) &#123;</div><div class="line">    callback.call(ary[i], i, ary[i]);</div><div class="line">  &#125;</div><div class="line"></div><div class="line">&#125;</div><div class="line">each([<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>],<span class="function"><span class="keyword">function</span>(<span class="params">i, val</span>) </span>&#123;</div><div class="line">  <span class="built_in">console</span>.log(i, val);</div><div class="line">&#125;)</div></pre></td></tr></table></figure></p>
+<h3 id="内部迭代器和外部迭代器"><a href="#内部迭代器和外部迭代器" class="headerlink" title="内部迭代器和外部迭代器"></a>内部迭代器和外部迭代器</h3><ul>
+<li><p>内部迭代器<br>迭代器内部已经定义好了迭代规则，它完全接手了整个迭代规则，外部只需要一次初始调用<br>使用内部迭代器判断数组相等</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line">  <span class="keyword">var</span> each = <span class="function"><span class="keyword">function</span>(<span class="params">ary, callback</span>) </span>&#123;</div><div class="line">    <span class="keyword">for</span>(<span class="keyword">var</span> i = <span class="number">0</span>,len = ary.length; i &lt; len; i++) &#123;</div><div class="line">      callback.call(ary[i], i, ary[i]);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">  &#125;</div><div class="line">  </div><div class="line"><span class="keyword">var</span> compare = <span class="function"><span class="keyword">function</span> (<span class="params">ary1, ary2</span>)</span>&#123;</div><div class="line">  <span class="keyword">if</span>(ary1.length!==ary2.length)&#123;</div><div class="line">    <span class="keyword">throw</span> <span class="keyword">new</span> <span class="built_in">Error</span>(<span class="string">'不相等'</span>);</div><div class="line">  &#125;</div><div class="line"></div><div class="line">  each(ary1,<span class="function"><span class="keyword">function</span>(<span class="params">i, val</span>)</span>&#123;</div><div class="line">    <span class="keyword">if</span>(val!==ary2[i])&#123;</div><div class="line">    <span class="keyword">throw</span> <span class="keyword">new</span> <span class="built_in">Error</span>(<span class="string">'不相等'</span>);</div><div class="line">    &#125;</div><div class="line">  &#125;);</div><div class="line">  <span class="built_in">console</span>.log(<span class="string">'相等'</span>);</div><div class="line">&#125;</div><div class="line">compare([<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>],[<span class="number">1</span>,<span class="number">2</span>,<span class="number">4</span>]);</div></pre></td></tr></table></figure>
+</li>
+<li><p>外部迭代器<br>外部迭代器增加了一些调用的复杂度，但相对也增强了迭代器的灵活性</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> Iterator = <span class="function"><span class="keyword">function</span>(<span class="params">obj</span>)</span>&#123;</div><div class="line">  <span class="keyword">var</span> current = <span class="number">0</span>;</div><div class="line">  <span class="keyword">var</span> hasNext = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</div><div class="line">    <span class="keyword">if</span>(current&lt;obj.length<span class="number">-1</span>)&#123;</div><div class="line">      current ++;</div><div class="line">      <span class="keyword">return</span> <span class="literal">true</span>;</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">return</span> <span class="literal">false</span>;</div><div class="line">  &#125;;</div><div class="line">  <span class="keyword">var</span> next = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line">    <span class="keyword">return</span> obj[current];</div><div class="line">  &#125;</div><div class="line">  <span class="keyword">return</span> &#123;</div><div class="line">    hasNext: hasNext,</div><div class="line">    next: next</div><div class="line">  &#125;;</div><div class="line">&#125;</div><div class="line"><span class="keyword">var</span> compare = <span class="function"><span class="keyword">function</span>(<span class="params">ary1, ary2</span>) </span>&#123;</div><div class="line">  <span class="keyword">if</span>(ary1.length !== ary2.length)&#123;</div><div class="line">    <span class="keyword">throw</span> <span class="keyword">new</span> <span class="built_in">Error</span>(<span class="string">'不相等'</span>);</div><div class="line">  &#125;</div><div class="line">  <span class="keyword">var</span> it1 = Iterator(ary1),</div><div class="line">      it2 = Iterator(ary2);</div><div class="line">  <span class="keyword">while</span>(it1.hasNext()&amp;&amp;it2.hasNext()) &#123;</div><div class="line">    <span class="keyword">if</span>(it1.next() !== it2.next()) &#123;</div><div class="line">      <span class="keyword">throw</span> <span class="keyword">new</span> <span class="built_in">Error</span>(<span class="string">'不相等'</span>);</div><div class="line">    &#125;</div><div class="line">  &#125;</div><div class="line">  <span class="built_in">console</span>.log(<span class="string">'相等'</span>);</div><div class="line">&#125;</div><div class="line">compare([<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>],[<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>]);</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<h3 id="迭代类数组对象和字面量对象"><a href="#迭代类数组对象和字面量对象" class="headerlink" title="迭代类数组对象和字面量对象"></a>迭代类数组对象和字面量对象</h3><p>使用<code>obj.length</code> 可以让我们迭代数组和类数组对象<br>使用 <code>for in</code> 可以让我们迭代普通字面量对象的属性<br>jQuery中提供了$.each函数来封装各种迭代行为，下面我们来模仿一下</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> isArrayLike = <span class="function"><span class="keyword">function</span>(<span class="params">o</span>) </span>&#123;</div><div class="line">  <span class="keyword">if</span>(o</div><div class="line">    &amp;&amp; <span class="keyword">typeof</span> o === <span class="string">'object'</span></div><div class="line">    &amp;&amp; <span class="built_in">isFinite</span>(o.length)</div><div class="line">    &amp;&amp; o.length &gt;= <span class="number">0</span></div><div class="line">    &amp;&amp; o.lenght ===<span class="built_in">Math</span>.floor(o.length)</div><div class="line">    &amp;&amp; o.length &lt; <span class="built_in">Math</span>.pow(<span class="number">2</span>, <span class="number">32</span>) - <span class="number">1</span>) &#123;</div><div class="line">      <span class="keyword">return</span> <span class="literal">true</span>;</div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    <span class="keyword">return</span> <span class="literal">false</span>;</div><div class="line">&#125;</div><div class="line"></div><div class="line">  $.foreach = <span class="function"><span class="keyword">function</span>(<span class="params">obj, fn</span>) </span>&#123;</div><div class="line">    <span class="keyword">var</span> isArray = isArrayLike(obj);</div><div class="line"></div><div class="line">    <span class="keyword">if</span>(isArray) &#123;</div><div class="line">      <span class="keyword">for</span>(<span class="keyword">var</span> i =<span class="number">0</span>, len =obj.length; i&lt;len; i++) &#123;</div><div class="line">        <span class="keyword">var</span> value = fn.call(obj[i], i, obj[i]);</div><div class="line">        <span class="keyword">if</span>(value ===<span class="literal">false</span>) &#123;</div><div class="line">          <span class="keyword">break</span>;</div><div class="line">        &#125;</div><div class="line">      &#125;</div><div class="line">    &#125;<span class="keyword">else</span> &#123;</div><div class="line">      <span class="keyword">for</span>(<span class="keyword">var</span> i <span class="keyword">in</span> obj) &#123;</div><div class="line">        <span class="keyword">var</span> value = fn.call(obj[i] ,i ,obj[i]);</div><div class="line">        <span class="keyword">if</span>(value === <span class="literal">false</span>) &#123;</div><div class="line">          <span class="keyword">break</span>;</div><div class="line">        &#125;</div><div class="line">      &#125;</div><div class="line">    &#125;</div><div class="line">  &#125;</div><div class="line">  </div><div class="line">  $.foreach([<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>],<span class="function"><span class="keyword">function</span>(<span class="params">i, val</span>) </span>&#123;</div><div class="line">    <span class="built_in">console</span>.log(i, val);</div><div class="line">  &#125;)</div></pre></td></tr></table></figure>
+<h3 id="倒序迭代器"><a href="#倒序迭代器" class="headerlink" title="倒序迭代器"></a>倒序迭代器</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> reverseEach = <span class="function"><span class="keyword">function</span>(<span class="params">arr, callback</span>) </span>&#123;</div><div class="line">  <span class="keyword">for</span>(<span class="keyword">var</span> l=arr.length<span class="number">-1</span>; l&gt;=<span class="number">0</span> ;l--) &#123;</div><div class="line">    callback.call(arr[l], l, arr[l]);</div><div class="line">  &#125;</div><div class="line">&#125;</div><div class="line">reverseEach([<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>], <span class="function"><span class="keyword">function</span>(<span class="params">i, val</span>) </span>&#123;</div><div class="line">  <span class="built_in">console</span>.log(val);</div><div class="line">&#125;)</div></pre></td></tr></table></figure>
+<h3 id="中止迭代器"><a href="#中止迭代器" class="headerlink" title="中止迭代器"></a>中止迭代器</h3><p>如果函数返回值为false则中止迭代<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> each = <span class="function"><span class="keyword">function</span>(<span class="params">arr, callback</span>) </span>&#123;</div><div class="line">  <span class="keyword">for</span>(<span class="keyword">var</span> i=<span class="number">0</span>, len = arr.length; i &lt; len; i++)&#123;</div><div class="line">    <span class="keyword">var</span> value = callback.call(arr[i], i, arr[i]);</div><div class="line">    <span class="keyword">if</span>(value === <span class="literal">false</span>) &#123;</div><div class="line">      <span class="keyword">break</span>;</div><div class="line">    &#125;</div><div class="line">  &#125;</div><div class="line">&#125;</div><div class="line">each([<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>], <span class="function"><span class="keyword">function</span>(<span class="params">i, val</span>) </span>&#123;</div><div class="line">  <span class="keyword">if</span>(val &gt; <span class="number">4</span>) &#123;</div><div class="line">    <span class="keyword">return</span> <span class="literal">false</span>;</div><div class="line">  &#125;</div><div class="line">  <span class="built_in">console</span>.log(val);</div><div class="line">&#125;)</div></pre></td></tr></table></figure></p>
+<h3 id="迭代器模式的应用举例"><a href="#迭代器模式的应用举例" class="headerlink" title="迭代器模式的应用举例"></a>迭代器模式的应用举例</h3><p>获取浏览器的上传组件对象<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> getUploadObj = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</div><div class="line">  <span class="keyword">try</span>&#123;</div><div class="line">    <span class="keyword">return</span> <span class="keyword">new</span> ActiveXObject(<span class="string">'TXFTNActive.FTNUpload'</span>);</div><div class="line">  &#125; cache(e)&#123;</div><div class="line">    <span class="keyword">if</span> (supportFlash()) &#123;</div><div class="line">      <span class="keyword">var</span> str = <span class="string">'&lt;object type="application/x-shockwave-flash"&gt;&lt;/object&gt;'</span>;</div><div class="line">      <span class="keyword">return</span> $(str).appendTo($(<span class="string">'body'</span>));</div><div class="line">    &#125; <span class="keyword">else</span> &#123;</div><div class="line">      <span class="keyword">var</span> str = <span class="string">'&lt;input name="file" type= "file"/&gt;'</span>;</div><div class="line">      <span class="keyword">return</span> $(str).appendTo($(<span class="string">'body'</span>));</div><div class="line">    &#125;</div><div class="line"></div><div class="line">  &#125;</div><div class="line">&#125;;</div></pre></td></tr></table></figure></p>
+<p>使用迭代模式重构代码<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> getActiveUploadObj = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</div><div class="line">  <span class="keyword">try</span>&#123;</div><div class="line">    <span class="keyword">return</span> <span class="keyword">new</span> ActiveXObject(<span class="string">'TXFTNActive.FTNUpload'</span>);</div><div class="line">  &#125; cache(e)&#123;</div><div class="line">    <span class="keyword">return</span> <span class="literal">false</span>;</div><div class="line">  &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="keyword">var</span> getFlashUploadObj = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</div><div class="line">  <span class="keyword">if</span> (supportFlash()) &#123;</div><div class="line">    <span class="keyword">var</span> str = <span class="string">'&lt;object type="application/x-shockwave-flash"&gt;&lt;/object&gt;'</span>;</div><div class="line">    <span class="keyword">return</span> $(str).appendTo($(<span class="string">'body'</span>));</div><div class="line">  &#125; <span class="keyword">else</span> &#123;</div><div class="line">    <span class="keyword">return</span> <span class="literal">false</span>;</div><div class="line">  &#125;</div><div class="line">&#125;;</div><div class="line"></div><div class="line"><span class="keyword">var</span> getFormUploadObj = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</div><div class="line">  <span class="keyword">var</span> str = <span class="string">'&lt;input name="file" type= "file"/&gt;'</span>;</div><div class="line">  <span class="keyword">return</span> $(str).appendTo($(<span class="string">'body'</span>));</div><div class="line">&#125;</div><div class="line"><span class="keyword">var</span> IteratorUploadObj = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</div><div class="line">  <span class="keyword">for</span>(<span class="keyword">var</span> i =<span class="number">0</span>, fn; fn = <span class="built_in">arguments</span>[i++]; ) &#123;</div><div class="line">    <span class="keyword">var</span> uploadObj = fn();</div><div class="line">    <span class="keyword">if</span> (uploadObj !== <span class="literal">false</span>) &#123;</div><div class="line">      <span class="keyword">return</span> uploadObj;</div><div class="line">    &#125;</div><div class="line">  &#125;</div><div class="line">&#125;;</div><div class="line"><span class="keyword">var</span> uploadObj = IteratorUploadObj(getActiveUploadObj, getFlashUploadObj, getFormUploadObj);</div></pre></td></tr></table></figure></p>
+<h2 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h2><p>迭代器模式是一种简单模式，简单到很多时候我们都不认为它是一种设计模式，目前大多数语言内斗内置了迭代器</p>
+<hr>
+<p>参考文档：</p>
+<p><a href="http://www.jeffjade.com/2015/10/08/2015-10-08-js-object-length/" target="_blank" rel="external">JavaScript对象length</a><br>javascript设计模式与开发实践</p>
+  
+	</div>
+		<footer class="article-footer clearfix">
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/js/">js</a><a href="/tags/js设计模式/">js设计模式</a>
+  </div>
+
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/js设计模式笔记/">js设计模式笔记</a>
+</div>
+
+
+<div class="article-share" id="share">
+
+  <div data-url="http://www.xiaohan80s.com/2016/08/08/js设计模式笔记/2016-08-08-part9/" data-title="迭代器模式 | xiaohan80s.com" data-tsina="null" class="share clearfix">
+  </div>
+
+</div>
+</footer>
+   	       
+	</article>
+	
+<nav class="article-nav clearfix">
+ 
+ <div class="prev" >
+ <a href="/2016/08/08/js设计模式笔记/2016-08-08-part10/" title="发布-订阅模式">
+  <strong>PREVIOUS:</strong><br/>
+  <span>
+  发布-订阅模式</span>
+</a>
+</div>
+
+
+<div class="next">
+<a href="/2016/08/08/js设计模式笔记/2016-08-07-part8/"  title="代理模式">
+ <strong>NEXT:</strong><br/> 
+ <span>代理模式
+</span>
+</a>
+</div>
+
+</nav>
+
+	
+<section class="comment">
+	<div class="ds-thread"></div>
+</section>
+
+</div>  
+      <div class="openaside"><a class="navbutton" href="#" title="显示侧边栏"></a></div>
+
+  <div id="toc" class="toc-aside">
+  <strong class="toc-title">文章目录</strong>
+  <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#自己实现一个迭代器"><span class="toc-number">1.</span> <span class="toc-text">自己实现一个迭代器</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#内部迭代器和外部迭代器"><span class="toc-number">2.</span> <span class="toc-text">内部迭代器和外部迭代器</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#迭代类数组对象和字面量对象"><span class="toc-number">3.</span> <span class="toc-text">迭代类数组对象和字面量对象</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#倒序迭代器"><span class="toc-number">4.</span> <span class="toc-text">倒序迭代器</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#中止迭代器"><span class="toc-number">5.</span> <span class="toc-text">中止迭代器</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#迭代器模式的应用举例"><span class="toc-number">6.</span> <span class="toc-text">迭代器模式的应用举例</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#小结"><span class="toc-number"></span> <span class="toc-text">小结</span></a>
+  <div class="comment_bar"><a href="#ds-reset" target="" title="评论区">文章评论</a></div>
+  </div>
+
+<div id="asidepart">
+<div class="closeaside"><a class="closebutton" href="#" title="隐藏侧边栏"></a></div>
+<aside class="clearfix">
+
+  
+<div class="categorieslist">
+	<p class="asidetitle">分类</p>
+		<ul>
+		
+			<li><a href="/categories/js设计模式笔记/" title="js设计模式笔记">js设计模式笔记<sup>10</sup></a></li>
+		
+			<li><a href="/categories/工具/" title="工具">工具<sup>1</sup></a></li>
+		
+		</ul>
+</div>
+
+
+  
+<div class="tagslist">
+	<p class="asidetitle">标签</p>
+		<ul class="clearfix">
+		
+			<li><a href="/tags/js/" title="js">js<sup>10</sup></a></li>
+		
+			<li><a href="/tags/js设计模式/" title="js设计模式">js设计模式<sup>5</sup></a></li>
+		
+			<li><a href="/tags/工具/" title="工具">工具<sup>1</sup></a></li>
+		
+			<li><a href="/tags/搭建博客/" title="搭建博客">搭建博客<sup>1</sup></a></li>
+		
+		</ul>
+</div>
+
+
+  
+  <div class="archiveslist">
+    <p class="asidetitle"><a href="/archives">归档</a></p>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/08/">2016 年 08 月</a><span class="archive-list-count">7</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/07/">2016 年 07 月</a><span class="archive-list-count">4</span></li></ul>
+  </div>
+
+
+
+  
+
+<script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"1","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"16"},"slide":{"type":"slide","bdImg":"4","bdPos":"right","bdTop":"160"}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];</script>
+
+
+</aside>
+</div>
+
+    </div>
+    <footer><div id="footer" >
+	
+	<div class="line">
+		<span></span>
+		<div class="author"></div>
+	</div>
+	
+	
+	<div class="social-font clearfix">
+		
+		
+		
+		
+		
+	</div>
+		<p class="copyright">Powered by <a href="http://hexo.io" target="_blank" title="hexo">hexo</a> and Theme by <a href="https://github.com/A-limon/pacman" target="_blank" title="Pacman">Pacman</a> © 2016
+		
+		<a href="http://www.xiaohan80s.com" target="_blank" title="xiao han 80s">xiao han 80s</a>
+		
+		</p>
+</div>
+</footer>
+    <script src="/js/jquery-2.1.0.min.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){
+  $('.navbar').click(function(){
+    $('header nav').toggleClass('shownav');
+  });
+  var myWidth = 0;
+  function getSize(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+  };
+  var m = $('#main'),
+      a = $('#asidepart'),
+      c = $('.closeaside'),
+      o = $('.openaside');
+
+  $(window).resize(function(){
+    getSize();
+    if (myWidth >= 1024) {
+      $('header nav').removeClass('shownav');
+    }else
+    {
+      m.removeClass('moveMain');
+      a.css('display', 'block').removeClass('fadeOut');
+      o.css('display', 'none');
+      
+      $('#toc.toc-aside').css('display', 'none');
+      
+    }
+  });
+  c.click(function(){
+    a.addClass('fadeOut').css('display', 'none');
+    o.css('display', 'block').addClass('fadeIn');
+    m.addClass('moveMain');
+  });
+  o.click(function(){
+    o.css('display', 'none').removeClass('beforeFadeIn');
+    a.css('display', 'block').removeClass('fadeOut').addClass('fadeIn');
+    m.removeClass('moveMain');
+  });
+  $(window).scroll(function(){
+    o.css("top",Math.max(80,260-$(this).scrollTop()));
+  });
+});
+</script>
+
+<script type="text/javascript">
+$(document).ready(function(){
+  var ai = $('.article-content>iframe'),
+      ae = $('.article-content>embed'),
+      t  = $('#toc'),
+      h  = $('article h2')
+      ah = $('article h2'),
+      ta = $('#toc.toc-aside'),
+      o  = $('.openaside'),
+      c  = $('.closeaside');
+  if(ai.length>0){
+    ai.wrap('<div class="video-container" />');
+  };
+  if(ae.length>0){
+   ae.wrap('<div class="video-container" />');
+  };
+  if(ah.length==0){
+    t.css('display','none');
+  }else{
+    c.click(function(){
+      ta.css('display', 'block').addClass('fadeIn');
+    });
+    o.click(function(){
+      ta.css('display', 'none');
+    });
+    $(window).scroll(function(){
+      ta.css("top",Math.max(140,320-$(this).scrollTop()));
+    });
+  };
+  $('.closeaside').triggerHandler('click');
+});
+</script>
+
+
+<script type="text/javascript">
+$(document).ready(function(){
+  var $this = $('.share'),
+      url = $this.attr('data-url'),
+      encodedUrl = encodeURIComponent(url),
+      title = $this.attr('data-title'),
+      tsina = $this.attr('data-tsina');
+  var html = [
+  // '<a href="#" class="overlay" id="qrcode"></a>',
+  // '<div class="qrcode clearfix"><span>扫描二维码分享到微信朋友圈</span><a class="qrclose" href="#share"></a><strong>Loading...Please wait</strong><img id="qrcode-pic" data-src="http://s.jiathis.com/qrcode.php?url=' + encodedUrl + '"/></div>',
+  '<a href="#textlogo" class="article-back-to-top" title="Top"></a>',
+  // '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+  // '<a href="#qrcode" class="article-share-qrcode" title="QRcode"></a>',
+  // '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+  // '<a href="http://service.weibo.com/share/share.php?title='+title+'&url='+encodedUrl +'&ralateUid='+ tsina +'&searchPic=true&style=number' +'" class="article-share-weibo" target="_blank" title="Weibo"></a>',
+  // '<span title="Share to"></span>'
+  ].join('');
+  $this.append(html);
+  $('.article-share-qrcode').click(function(){
+    var imgSrc = $('#qrcode-pic').attr('data-src');
+    $('#qrcode-pic').attr('src', imgSrc);
+    $('#qrcode-pic').load(function(){
+        $('.qrcode strong').text(' ');
+    });
+  });
+});
+</script>
+
+
+<script type="text/javascript">
+  var duoshuoQuery = {short_name:"xiaohan80s"};
+  (function() {
+    var ds = document.createElement('script');
+    ds.type = 'text/javascript';ds.async = true;
+    ds.src = '//static.duoshuo.com/embed.js';
+    ds.charset = 'UTF-8';
+    (document.getElementsByTagName('head')[0]
+    || document.getElementsByTagName('body')[0]).appendChild(ds);
+  })();
+</script>
+
+
+
+
+
+  </body>
+</html>

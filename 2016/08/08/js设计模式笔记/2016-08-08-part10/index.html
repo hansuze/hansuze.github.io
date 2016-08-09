@@ -1,0 +1,371 @@
+
+ <!DOCTYPE HTML>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  
+    <title>发布-订阅模式 | xiaohan80s.com</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=3, minimum-scale=1">
+    
+    <meta name="author" content="xiao han 80s">
+    
+    <meta name="description" content="发布-订阅者模式又叫观察者模式，它定义对象间的一种一对多的依赖关系，当一个对象的状态发生改变时，所有依赖于它的对象都将得到通知。在JavaScript开发中，我们一般用事件模型来替代传统的发布-订阅者模式。
+DOM 事件只要我们曾经在DOM节点上绑定过事件函数，就使用过发布-订阅者模式1234doc">
+    
+    
+    
+    
+    
+    <link rel="icon" href="/img/favicon.ico">
+    
+    
+    <link rel="apple-touch-icon" href="/img/pacman.jpg">
+    <link rel="apple-touch-icon-precomposed" href="/img/pacman.jpg">
+    
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+
+  <body>
+    <header>
+      <div>
+		
+			<div id="imglogo">
+				<a href="/"><img src="/img/logo.svg" alt="xiaohan80s.com" title="xiaohan80s.com"/></a>
+			</div>
+			
+			<div id="textlogo">
+				<h1 class="site-name"><a href="/" title="xiaohan80s.com">xiaohan80s.com</a></h1>
+				<h2 class="blog-motto">年轻 没有什么不可以!</h2>
+			</div>
+			<div class="navbar"><a class="navbutton navmobile" href="#" title="菜单">
+			</a></div>
+			<nav class="animated">
+				<ul>
+					
+						<li><a href="/">Home</a></li>
+					
+						<li><a href="/archives">Archives</a></li>
+					
+						<li><a href="/categories">Categories</a></li>
+					
+						<li><a href="/about">About</a></li>
+					
+					<li>
+					
+					<!-- <form class="search" action="//baidu.com" method="get" accept-charset="utf-8">
+						<label>Search</label>
+						<input type="text" id="search" name="q" autocomplete="off" maxlength="20" placeholder="搜索" />
+						<input type="hidden" name="q" value="site:www.xiaohan80s.com">
+					</form> -->
+					
+					</li>
+				</ul>
+			</nav>
+</div>
+
+    </header>
+    <div id="container">
+      <div id="main" class="post" itemscope itemprop="blogPost">
+	<article itemprop="articleBody"> 
+		<header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2016/08/08/js设计模式笔记/2016-08-08-part10/" title="发布-订阅模式" itemprop="url">发布-订阅模式</a>
+  </h1>
+  <p class="article-author">By
+    
+      <a href="http://www.xiaohan80s.com" title="xiao han 80s">xiao han 80s</a>
+    </p>
+  <p class="article-time">
+    <time datetime="2016-08-07T16:00:00.000Z" itemprop="datePublished">2016-08-08</time>
+    更新日期:<time datetime="2016-08-09T13:59:05.466Z" itemprop="dateModified">2016-08-09</time>
+    
+  </p>
+</header>
+	<div class="article-content">
+		
+		
+		<div id="toc" class="toc-article">
+			<strong class="toc-title">文章目录</strong>
+		<ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#DOM-事件"><span class="toc-number">1.</span> <span class="toc-text">DOM 事件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#自定义事件"><span class="toc-number">2.</span> <span class="toc-text">自定义事件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#发布订阅模式的通用实现"><span class="toc-number">3.</span> <span class="toc-text">发布订阅模式的通用实现</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#取消订阅的事件"><span class="toc-number">4.</span> <span class="toc-text">取消订阅的事件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#真实的例子-网站登录"><span class="toc-number">5.</span> <span class="toc-text">真实的例子-网站登录</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#全局的发布-订阅对象"><span class="toc-number">6.</span> <span class="toc-text">全局的发布-订阅对象</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#模块间的通信"><span class="toc-number">7.</span> <span class="toc-text">模块间的通信</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#必须先订阅再发布吗"><span class="toc-number">8.</span> <span class="toc-text">必须先订阅再发布吗</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#全局事件的命名冲突"><span class="toc-number">9.</span> <span class="toc-text">全局事件的命名冲突</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#小结"><span class="toc-number"></span> <span class="toc-text">小结</span></a>
+		</div>
+		
+		<p>发布-订阅者模式又叫观察者模式，它定义对象间的一种一对多的依赖关系，当一个对象的状态发生改变时，所有依赖于它的对象都将得到通知。在JavaScript开发中，我们一般用事件模型来替代传统的发布-订阅者模式。</p>
+<h3 id="DOM-事件"><a href="#DOM-事件" class="headerlink" title="DOM 事件"></a>DOM 事件</h3><p>只要我们曾经在DOM节点上绑定过事件函数，就使用过发布-订阅者模式<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">document</span>.body.addEventListener(<span class="string">'click'</span>, <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</div><div class="line">  <span class="built_in">console</span>.log(<span class="number">1</span>);</div><div class="line">&#125;, <span class="literal">false</span>);</div><div class="line"><span class="built_in">document</span>.body.click(); <span class="comment">// 模拟用户点击</span></div></pre></td></tr></table></figure></p>
+<h3 id="自定义事件"><a href="#自定义事件" class="headerlink" title="自定义事件"></a>自定义事件</h3><p>下面我们制作一个有关于售楼的发布-订阅方法：小红，小明需要买房，他们事先把联系方法留给了售楼处，售楼处在有新房的情况下依次发短信给小红和小明。</p>
+<p>现在我们看看如何一步步实现发布-订阅模式</p>
+<ul>
+<li>首先我们制定好谁是发布者</li>
+<li>然后给发布者添加一个缓存列表，用于存放回调函数以便通知订阅者</li>
+<li>最后发布消息的时候，发布者遍历缓存列表，依次触发缓存列表中的回调函数</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> saleOffices = &#123;&#125;;</div><div class="line">saleOffices.clientList=[];</div><div class="line"></div><div class="line">saleOffices.listen = <span class="function"><span class="keyword">function</span>(<span class="params">fn</span>)</span>&#123;</div><div class="line">  saleOffices.clientList.push(fn);</div><div class="line">&#125;;</div><div class="line"></div><div class="line">saleOffices.fire = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line">  <span class="keyword">for</span>(<span class="keyword">var</span> i = <span class="number">0</span>, fn; fn = saleOffices.clientList[i++]; ) &#123;</div><div class="line">    fn.apply(<span class="keyword">this</span>,<span class="built_in">arguments</span>);</div><div class="line">  &#125;</div><div class="line">&#125;;</div><div class="line"></div><div class="line">saleOffices.listen(<span class="function"><span class="keyword">function</span>(<span class="params">price, squareMeter</span>) </span>&#123;  <span class="comment">//  小明订阅的消息</span></div><div class="line">  <span class="built_in">console</span>.log(<span class="string">'squareMeter: '</span> + squareMeter);</div><div class="line">  <span class="built_in">console</span>.log(<span class="string">'价格: '</span> + price);</div><div class="line">&#125;);</div><div class="line"></div><div class="line">saleOffices.listen(<span class="function"><span class="keyword">function</span>(<span class="params">price, squareMeter</span>) </span>&#123;  <span class="comment">// 小红订阅的消息</span></div><div class="line">  <span class="built_in">console</span>.log(<span class="string">'squareMeter: '</span> + squareMeter);</div><div class="line">&#125;);</div><div class="line"></div><div class="line">saleOffices.fire(<span class="number">200000</span>, <span class="number">88</span>);   <span class="comment">// 200w 88平方米</span></div><div class="line">saleOffices.fire(<span class="number">300000</span>, <span class="number">110</span>);  <span class="comment">// 300w 110 平方米</span></div></pre></td></tr></table></figure>
+<p>现在小明只想买88平的房子，售楼处推送给110平米的消息是多余的，现在我们过滤这些信息</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div></pre></td><td class="code"><pre><div class="line"> <span class="keyword">var</span> saleOffices = &#123;&#125;;</div><div class="line"> saleOffices.client = [];</div><div class="line"></div><div class="line"> saleOffices.listen = <span class="function"><span class="keyword">function</span>(<span class="params">key, fn</span>) </span>&#123;</div><div class="line">   <span class="keyword">if</span> (!saleOffices.client[key])&#123;</div><div class="line">     saleOffices.client[key] = [];</div><div class="line">   &#125;</div><div class="line"></div><div class="line">   saleOffices.client[key].push(fn);</div><div class="line"> &#125;;</div><div class="line"></div><div class="line"> saleOffices.fire = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</div><div class="line">   <span class="keyword">var</span> key = <span class="built_in">Array</span>.prototype.shift.call(<span class="built_in">arguments</span>),</div><div class="line">       fns = saleOffices.client[key];</div><div class="line"></div><div class="line">   <span class="keyword">if</span> (fns||fns.length &gt; <span class="number">0</span>) &#123;</div><div class="line">     <span class="keyword">for</span> (<span class="keyword">var</span> i =<span class="number">0</span>, fn; fn = fns[i++]; ) &#123;</div><div class="line">       fn.apply(<span class="keyword">this</span>, <span class="built_in">arguments</span>);</div><div class="line">     &#125;</div><div class="line">   &#125;</div><div class="line"></div><div class="line"> &#125;;</div><div class="line"></div><div class="line">saleOffices.listen(<span class="string">'squareMeter88'</span>, <span class="function"><span class="keyword">function</span>(<span class="params">price</span>) </span>&#123;  <span class="comment">// 小明订阅的信息</span></div><div class="line">  <span class="built_in">console</span>.log(<span class="string">'88平价格: '</span> + price);</div><div class="line">&#125;);</div><div class="line"></div><div class="line">saleOffices.listen(<span class="string">'squareMeter110'</span>, <span class="function"><span class="keyword">function</span>(<span class="params">price</span>) </span>&#123; <span class="comment">// 小红订阅的信息</span></div><div class="line">  <span class="built_in">console</span>.log(<span class="string">'110平价格:'</span> + price);</div><div class="line">&#125;);</div><div class="line"></div><div class="line">saleOffices.fire(<span class="string">'squareMeter88'</span>, <span class="number">2000000</span>);</div><div class="line">saleOffices.fire(<span class="string">'squareMeter110'</span>, <span class="number">3000000</span>);</div></pre></td></tr></table></figure>
+<h3 id="发布订阅模式的通用实现"><a href="#发布订阅模式的通用实现" class="headerlink" title="发布订阅模式的通用实现"></a>发布订阅模式的通用实现</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div></pre></td><td class="code"><pre><div class="line">   <span class="keyword">var</span> event = &#123;</div><div class="line">     clientList: [],</div><div class="line"></div><div class="line">     listen: <span class="function"><span class="keyword">function</span>(<span class="params">key, fn</span>) </span>&#123;</div><div class="line">       <span class="keyword">if</span>(!<span class="keyword">this</span>.clientList[key]) &#123;</div><div class="line">         <span class="keyword">this</span>.clientList[key] = [];</div><div class="line">       &#125;</div><div class="line"></div><div class="line">       <span class="keyword">this</span>.clientList[key].push(fn);</div><div class="line">     &#125;,</div><div class="line"></div><div class="line">     fire: <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</div><div class="line">       <span class="keyword">var</span> key = <span class="built_in">Array</span>.prototype.shift.call(<span class="built_in">arguments</span>);</div><div class="line">           fns = <span class="keyword">this</span>.clientList[key];</div><div class="line"></div><div class="line">       <span class="keyword">if</span> (fns||fns.length &gt; <span class="number">0</span>) &#123;</div><div class="line">         <span class="keyword">for</span> (<span class="keyword">var</span> i =<span class="number">0</span>, fn;fn = fns[i++]; ) &#123;</div><div class="line">           fn.apply(<span class="keyword">this</span>, <span class="built_in">arguments</span>);</div><div class="line">         &#125;</div><div class="line"></div><div class="line">       &#125;</div><div class="line"></div><div class="line">     &#125;</div><div class="line">   &#125;;</div><div class="line"></div><div class="line"><span class="comment">// 绑定函数</span></div><div class="line">   <span class="keyword">var</span> installEvent = <span class="function"><span class="keyword">function</span>(<span class="params">obj</span>) </span>&#123;</div><div class="line">     <span class="keyword">for</span> (<span class="keyword">var</span> i <span class="keyword">in</span> event)&#123;</div><div class="line">       obj[i] = event[i];</div><div class="line">     &#125;</div><div class="line">   &#125;;</div><div class="line"></div><div class="line">   <span class="keyword">var</span> saleOffices = &#123;&#125;;</div><div class="line">   installEvent(saleOffices);</div><div class="line"></div><div class="line">   saleOffices.listen(<span class="string">'squareMeter88'</span>, fn1 = <span class="function"><span class="keyword">function</span>(<span class="params">price</span>) </span>&#123;  <span class="comment">// 小明订阅的信息</span></div><div class="line">     <span class="built_in">console</span>.log(<span class="string">'88平价格：'</span> + price);</div><div class="line">   &#125;);</div><div class="line"></div><div class="line">   saleOffices.listen(<span class="string">'squareMeter110'</span>, fn2 = <span class="function"><span class="keyword">function</span>(<span class="params">price</span>) </span>&#123;  <span class="comment">// 小红订阅的信息</span></div><div class="line">     <span class="built_in">console</span>.log(<span class="string">'110平价格：'</span> + price);</div><div class="line">   &#125;);</div><div class="line"></div><div class="line">   saleOffices.fire(<span class="string">'squareMeter88'</span>, <span class="number">2000000</span>);</div><div class="line">   saleOffices.fire(<span class="string">'squareMeter110'</span>, <span class="number">3000000</span>);</div></pre></td></tr></table></figure>
+<h3 id="取消订阅的事件"><a href="#取消订阅的事件" class="headerlink" title="取消订阅的事件"></a>取消订阅的事件</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div></pre></td><td class="code"><pre><div class="line">event.remove = <span class="function"><span class="keyword">function</span>(<span class="params">key,fn</span>) </span>&#123;</div><div class="line">  <span class="keyword">var</span> fns =<span class="keyword">this</span>.clientList[key];</div><div class="line"></div><div class="line">  <span class="keyword">if</span> (!fns||fns.length === <span class="number">0</span>) &#123;</div><div class="line">    <span class="keyword">return</span>;</div><div class="line">  &#125;</div><div class="line"></div><div class="line">  <span class="keyword">if</span> (!fn) &#123;</div><div class="line">    fns &amp;&amp; (fns.length = <span class="number">0</span>);    <span class="comment">//如果没有指明fn则全部清除</span></div><div class="line">  &#125; <span class="keyword">else</span> &#123;</div><div class="line">    <span class="keyword">for</span>(<span class="keyword">var</span> l = fns.length<span class="number">-1</span>; l &gt;= <span class="number">0</span>; l-- ) &#123;</div><div class="line">      <span class="keyword">var</span> _fn = fns[l];</div><div class="line">      <span class="keyword">if</span> (_fn === fn) &#123;</div><div class="line">        fns.splice(l,<span class="number">1</span>);</div><div class="line">      &#125;</div><div class="line"></div><div class="line">    &#125;</div><div class="line"></div><div class="line">  &#125;</div><div class="line"></div><div class="line">&#125;;</div><div class="line"></div><div class="line"><span class="keyword">var</span> installEvent = <span class="function"><span class="keyword">function</span>(<span class="params">obj</span>) </span>&#123;</div><div class="line">  <span class="keyword">for</span> (<span class="keyword">var</span> i <span class="keyword">in</span> event)&#123;</div><div class="line">    obj[i] = event[i];</div><div class="line">  &#125;</div><div class="line">&#125;;</div><div class="line"></div><div class="line"><span class="keyword">var</span> saleOffices = &#123;&#125;;</div><div class="line">installEvent(saleOffices);</div><div class="line"></div><div class="line">saleOffices.listen(<span class="string">'squareMeter88'</span>, fn1 = <span class="function"><span class="keyword">function</span>(<span class="params">price</span>) </span>&#123;</div><div class="line">  <span class="built_in">console</span>.log(<span class="string">'88平价格：'</span> + price);</div><div class="line">&#125;);</div><div class="line"></div><div class="line">saleOffices.listen(<span class="string">'squareMeter110'</span>, fn2 = <span class="function"><span class="keyword">function</span>(<span class="params">price</span>) </span>&#123;</div><div class="line">  <span class="built_in">console</span>.log(<span class="string">'110平价格：'</span> + price);</div><div class="line">&#125;);</div><div class="line"></div><div class="line">saleOffices.remove(<span class="string">'squareMeter88'</span>, fn1);</div><div class="line">saleOffices.fire(<span class="string">'squareMeter88'</span>, <span class="number">2000000</span>);</div></pre></td></tr></table></figure>
+<h3 id="真实的例子-网站登录"><a href="#真实的例子-网站登录" class="headerlink" title="真实的例子-网站登录"></a>真实的例子-网站登录</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> login = &#123;&#125;;</div><div class="line">installEvent(login);</div><div class="line"></div><div class="line"><span class="keyword">var</span> header = (<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</div><div class="line">  login.listen(<span class="string">'loginSucc'</span>, <span class="function"><span class="keyword">function</span>(<span class="params">data</span>) </span>&#123;</div><div class="line">    header.setAvatar(data);</div><div class="line">  &#125;);</div><div class="line"></div><div class="line">  <span class="keyword">return</span> &#123;</div><div class="line">    setAvatar: <span class="function"><span class="keyword">function</span>(<span class="params">data</span>) </span>&#123;</div><div class="line">      <span class="built_in">console</span>.log(<span class="string">'设置header模块的头像:'</span>+ data);</div><div class="line">    &#125;</div><div class="line">  &#125;;</div><div class="line">&#125;)();</div><div class="line"></div><div class="line"><span class="keyword">var</span> nav = (<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</div><div class="line">  login.listen(<span class="string">'loginSucc'</span>, <span class="function"><span class="keyword">function</span>(<span class="params">data</span>) </span>&#123;</div><div class="line">    nav.setAvatar(data);</div><div class="line">  &#125;);</div><div class="line"></div><div class="line">  <span class="keyword">return</span> &#123;</div><div class="line">    setAvatar: <span class="function"><span class="keyword">function</span>(<span class="params">data</span>) </span>&#123;</div><div class="line">      <span class="built_in">console</span>.log(<span class="string">'设置nav模块的头像'</span> + data);</div><div class="line">    &#125;</div><div class="line">  &#125;</div><div class="line">&#125;)();</div><div class="line"></div><div class="line">$.ajax(&#123;</div><div class="line">  url: <span class="string">'http://www.xxx.com/getUserInfo'</span>,</div><div class="line">  method: <span class="string">'POST'</span>,</div><div class="line">  data:&#123;</div><div class="line">    userID: <span class="string">'111'</span></div><div class="line">  &#125;,</div><div class="line">  dataType: <span class="string">'json'</span></div><div class="line">&#125;).done(<span class="function"><span class="keyword">function</span>(<span class="params">data</span>) </span>&#123;</div><div class="line">  login.fire(<span class="string">'loginSucc'</span>,data);</div><div class="line">&#125;)</div></pre></td></tr></table></figure>
+<h3 id="全局的发布-订阅对象"><a href="#全局的发布-订阅对象" class="headerlink" title="全局的发布-订阅对象"></a>全局的发布-订阅对象</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> Event = (<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</div><div class="line">  <span class="keyword">var</span> clientList =[],</div><div class="line">      listen,</div><div class="line">      trigger,</div><div class="line">      remove;</div><div class="line"></div><div class="line">  listen = <span class="function"><span class="keyword">function</span>(<span class="params">key, fn</span>) </span>&#123;</div><div class="line">    <span class="keyword">if</span> (!clientList[key]) &#123;</div><div class="line">      clientList[key] = [];</div><div class="line">    &#125;</div><div class="line">    clientList[key].push(fn);</div><div class="line">  &#125;;</div><div class="line"></div><div class="line">  trigger = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</div><div class="line">    <span class="keyword">var</span> key = <span class="built_in">Array</span>.prototype.shift.call(<span class="built_in">arguments</span>),</div><div class="line">        fns = clientList[key];</div><div class="line"></div><div class="line">    <span class="keyword">if</span> (!fns||fns.length ===<span class="number">0</span>) &#123;</div><div class="line">      <span class="keyword">return</span> <span class="literal">false</span>;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="keyword">for</span> (<span class="keyword">var</span> i=<span class="number">0</span>, fn; fn = fns[i++]; ) &#123;</div><div class="line">      fn.apply(<span class="keyword">this</span>, <span class="built_in">arguments</span>);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">  &#125;;</div><div class="line"></div><div class="line">  remove = <span class="function"><span class="keyword">function</span>(<span class="params">key, fn</span>) </span>&#123;</div><div class="line">    <span class="keyword">var</span> fns = clientList[key];</div><div class="line">    <span class="keyword">if</span> (!fns||fns.length === <span class="number">0</span>) &#123;</div><div class="line">      <span class="keyword">return</span> <span class="literal">false</span>;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="keyword">if</span>(!fn)&#123;</div><div class="line">      fns &amp;&amp; (fns.length = <span class="number">0</span>);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="keyword">for</span> (<span class="keyword">var</span> i = fns.length; i&gt;=<span class="number">0</span>; i--) &#123;</div><div class="line">      <span class="keyword">var</span> _fn = fns[i];</div><div class="line"></div><div class="line">      <span class="keyword">if</span> (_fn === fn) &#123;</div><div class="line">        fns.splice(i,<span class="number">1</span>);</div><div class="line">      &#125;</div><div class="line">    &#125;</div><div class="line">  &#125;;</div><div class="line"></div><div class="line">  <span class="keyword">return</span> &#123;</div><div class="line">    listen: listen,</div><div class="line">    trigger: trigger,</div><div class="line">    remove: remove</div><div class="line">  &#125;;</div><div class="line">&#125;)();</div><div class="line"></div><div class="line">Event.listen(<span class="string">'squareMeter110'</span>, <span class="function"><span class="keyword">function</span>(<span class="params">price</span>)</span>&#123;</div><div class="line">  <span class="built_in">console</span>.log(<span class="string">'110平价格:'</span> + price);</div><div class="line">&#125;);</div><div class="line">Event.trigger(<span class="string">'squareMeter110'</span>,<span class="number">3000000</span>);</div></pre></td></tr></table></figure>
+<h3 id="模块间的通信"><a href="#模块间的通信" class="headerlink" title="模块间的通信"></a>模块间的通信</h3><figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">button</span> <span class="attr">id</span>=<span class="string">"btn1"</span>&gt;</span>点我<span class="tag">&lt;/<span class="name">button</span>&gt;</span></div><div class="line">  <span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">"show"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></div><div class="line">  <span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="javascript"></span></div><div class="line">    <span class="keyword">var</span> a = (<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</div><div class="line">      <span class="keyword">var</span> count = <span class="number">0</span>,</div><div class="line">          btn = <span class="built_in">document</span>.querySelector(<span class="string">'#btn1'</span>);</div><div class="line"></div><div class="line">      btn.onclick = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</div><div class="line">        Event.trigger(<span class="string">'add'</span>, ++count);</div><div class="line">      &#125;</div><div class="line">    &#125;)();</div><div class="line"></div><div class="line">    <span class="keyword">var</span> b = (<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line">      <span class="keyword">var</span> show = <span class="built_in">document</span>.querySelector(<span class="string">'#show'</span>);</div><div class="line"></div><div class="line">      Event.listen(<span class="string">'add'</span>, <span class="function"><span class="keyword">function</span>(<span class="params">count</span>) </span>&#123;</div><div class="line">        <span class="built_in">console</span>.log(count);</div><div class="line">        show.innerHTML = count;</div><div class="line">      &#125;);</div><div class="line">    &#125;)();</div><div class="line"></div><div class="line">  <span class="tag">&lt;/<span class="name">script</span>&gt;</span></div></pre></td></tr></table></figure>
+<h3 id="必须先订阅再发布吗"><a href="#必须先订阅再发布吗" class="headerlink" title="必须先订阅再发布吗"></a>必须先订阅再发布吗</h3><p>我们所了解的发布-订阅模式，都是订阅者先订阅一个消息，随后才能接收到发布者发布的消息，如果把顺序反过来，发布者先发布一个消息，而在此之前没有订阅者来订阅它，这条消息将消失在宇宙中。<br>在某些情况下，我们要将这条消息保留下来，等到有对象来订阅他的时候，再重新把消息发布给订阅者。<br>例如在之前的网站项目中，获取到用户信息之后才能够渲染用户的导航模块，而获取用户信息的操作是一个ajax请求，当ajax请求成功返回后才会发布事件，在此之前订阅此事件的模块都可以接收到这些消息。<br>但是在实际情况中，我们可能在收到ajax返回的消息，但是nav模块还未加载成功，这时候我们需要兼容 先发布-后订阅的方法。<br>具体请看下面代码</p>
+<h3 id="全局事件的命名冲突"><a href="#全局事件的命名冲突" class="headerlink" title="全局事件的命名冲突"></a>全局事件的命名冲突</h3><p>下面的代码既兼容先发布-后订阅，也支持使用命名空间的功能（避免key命名冲突）<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div><div class="line">88</div><div class="line">89</div><div class="line">90</div><div class="line">91</div><div class="line">92</div><div class="line">93</div><div class="line">94</div><div class="line">95</div><div class="line">96</div><div class="line">97</div><div class="line">98</div><div class="line">99</div><div class="line">100</div><div class="line">101</div><div class="line">102</div><div class="line">103</div><div class="line">104</div><div class="line">105</div><div class="line">106</div><div class="line">107</div><div class="line">108</div><div class="line">109</div><div class="line">110</div><div class="line">111</div><div class="line">112</div><div class="line">113</div><div class="line">114</div><div class="line">115</div><div class="line">116</div><div class="line">117</div><div class="line">118</div><div class="line">119</div><div class="line">120</div><div class="line">121</div><div class="line">122</div><div class="line">123</div><div class="line">124</div><div class="line">125</div><div class="line">126</div><div class="line">127</div><div class="line">128</div><div class="line">129</div><div class="line">130</div><div class="line">131</div><div class="line">132</div><div class="line">133</div><div class="line">134</div><div class="line">135</div><div class="line">136</div><div class="line">137</div><div class="line">138</div><div class="line">139</div><div class="line">140</div><div class="line">141</div><div class="line">142</div><div class="line">143</div><div class="line">144</div><div class="line">145</div><div class="line">146</div><div class="line">147</div><div class="line">148</div><div class="line">149</div><div class="line">150</div><div class="line">151</div><div class="line">152</div><div class="line">153</div><div class="line">154</div><div class="line">155</div><div class="line">156</div><div class="line">157</div><div class="line">158</div><div class="line">159</div><div class="line">160</div><div class="line">161</div><div class="line">162</div><div class="line">163</div><div class="line">164</div><div class="line">165</div><div class="line">166</div><div class="line">167</div><div class="line">168</div><div class="line">169</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> Event = (<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</div><div class="line">  <span class="keyword">var</span> global = <span class="keyword">this</span>,</div><div class="line">      Event,</div><div class="line">      _default = <span class="string">'default'</span>;</div><div class="line"></div><div class="line">  Event = (<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line">    <span class="keyword">var</span> nameSpaceCache =&#123;&#125;,</div><div class="line">        _trigger,</div><div class="line">        _listen,</div><div class="line">        _remove,</div><div class="line">        _create,</div><div class="line">        each,</div><div class="line">        _shift = <span class="built_in">Array</span>.prototype.shift,</div><div class="line">        _unshift = <span class="built_in">Array</span>.prototype.unshift,</div><div class="line">        _slice = <span class="built_in">Array</span>.prototype.slice;</div><div class="line"></div><div class="line">    each = <span class="function"><span class="keyword">function</span>(<span class="params">arr, fn</span>) </span>&#123;</div><div class="line">      <span class="keyword">for</span> (<span class="keyword">var</span> i = <span class="number">0</span>,len =arr.length; i &lt; len; i++) &#123;</div><div class="line">        <span class="keyword">var</span> val =arr[i];</div><div class="line">        fn.call(val, i ,val);</div><div class="line">      &#125;</div><div class="line">    &#125;;</div><div class="line"></div><div class="line">    _listen = <span class="function"><span class="keyword">function</span>(<span class="params">cache, key, fn</span>) </span>&#123;</div><div class="line">      <span class="keyword">if</span> (!cache[key]) &#123;</div><div class="line">        cache[key] = [];</div><div class="line">      &#125;</div><div class="line">      cache[key].push(fn);</div><div class="line">    &#125;;</div><div class="line"></div><div class="line">    _remove = <span class="function"><span class="keyword">function</span>(<span class="params">cache, key, fn</span>) </span>&#123;</div><div class="line">      <span class="keyword">var</span> fns = cache[key];</div><div class="line"></div><div class="line">      <span class="keyword">if</span>(!fns||fns.length) &#123;</div><div class="line">        <span class="keyword">return</span> <span class="literal">false</span>;</div><div class="line">      &#125;</div><div class="line"></div><div class="line">      <span class="keyword">if</span>(fn) &#123;</div><div class="line">        <span class="keyword">for</span>(<span class="keyword">var</span> i = fns.length<span class="number">-1</span>; i&gt;=<span class="number">0</span>; i--) &#123;</div><div class="line">          <span class="keyword">var</span> _fn =fns[i];</div><div class="line"></div><div class="line">          <span class="keyword">if</span> (_fn === fn) &#123;</div><div class="line">            fns.splice(i, <span class="number">1</span>);</div><div class="line">          &#125;</div><div class="line"></div><div class="line">        &#125;</div><div class="line"></div><div class="line">      &#125; <span class="keyword">else</span> &#123;</div><div class="line">        fns &amp;&amp; (fns.length = <span class="number">0</span>);</div><div class="line">      &#125;</div><div class="line"></div><div class="line">    &#125;;</div><div class="line"></div><div class="line">    _trigger = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</div><div class="line">      <span class="keyword">var</span> cache = _shift.call(<span class="built_in">arguments</span>),</div><div class="line">          key = _shift.call(<span class="built_in">arguments</span>),</div><div class="line">          _self = <span class="keyword">this</span>,</div><div class="line">          args = <span class="built_in">arguments</span>,</div><div class="line">          stack = cache[key];</div><div class="line"></div><div class="line">      <span class="keyword">if</span> (!stack||stack.length === <span class="number">0</span>) &#123;</div><div class="line">        <span class="keyword">return</span> <span class="literal">false</span>;</div><div class="line">      &#125;</div><div class="line"></div><div class="line">      each(stack, <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</div><div class="line">        <span class="keyword">this</span>.apply(_self, args) <span class="comment">// this指代stack[i] 也就是函数</span></div><div class="line">      &#125;);</div><div class="line">    &#125;;</div><div class="line"></div><div class="line">    _create = <span class="function"><span class="keyword">function</span>(<span class="params">nameSpace</span>) </span>&#123;</div><div class="line">      <span class="keyword">var</span> nameSpace = nameSpace || _default,</div><div class="line">          cache =&#123;&#125;,</div><div class="line">          offlineStack = [],</div><div class="line">          ret;</div><div class="line"></div><div class="line">      ret = &#123;</div><div class="line">        listen: <span class="function"><span class="keyword">function</span>(<span class="params">key, fn, last</span>) </span>&#123;</div><div class="line">          _listen(cache, key, fn);</div><div class="line">          <span class="keyword">if</span> (!offlineStack[key]) &#123;</div><div class="line">            <span class="keyword">return</span>;</div><div class="line">          &#125;</div><div class="line">          <span class="comment">// 只执行offlineStack[key] 中的最后一个函数</span></div><div class="line">          <span class="keyword">if</span> (last === <span class="string">'last'</span>) &#123;</div><div class="line">            offlineStack[key].pop()();</div><div class="line">          &#125; <span class="keyword">else</span> &#123;</div><div class="line">            each(offlineStack[key], <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</div><div class="line">              <span class="keyword">this</span>();</div><div class="line">            &#125;)</div><div class="line">          &#125;</div><div class="line"></div><div class="line">          offlineStack[key] = <span class="literal">null</span>;</div><div class="line">        &#125;,</div><div class="line"></div><div class="line">        one: <span class="function"><span class="keyword">function</span>(<span class="params">key, fn, last</span>) </span>&#123;</div><div class="line">          <span class="keyword">this</span>.remove(key, fn);</div><div class="line">          <span class="keyword">this</span>.listen(key, fn, last);</div><div class="line">        &#125;,</div><div class="line"></div><div class="line">        remove: <span class="function"><span class="keyword">function</span>(<span class="params">key, fn</span>) </span>&#123;</div><div class="line">          _remove(cache, key, fn);</div><div class="line">        &#125;,</div><div class="line"></div><div class="line">        trigger: <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</div><div class="line">          <span class="keyword">var</span> _fn,</div><div class="line">              args,</div><div class="line">              _self = <span class="keyword">this</span>,</div><div class="line">              key = _slice.call(<span class="built_in">arguments</span>, <span class="number">0</span>, <span class="number">1</span>),</div><div class="line">              stack = cache[key];</div><div class="line"></div><div class="line">          _unshift.call(<span class="built_in">arguments</span>, cache);</div><div class="line">          args = <span class="built_in">arguments</span>;</div><div class="line">          _fn = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</div><div class="line">            <span class="keyword">return</span> _trigger.apply(_self, args);</div><div class="line">          &#125;;</div><div class="line"></div><div class="line">          <span class="keyword">if</span>(!stack||stack.length === <span class="number">0</span>) &#123;</div><div class="line">            <span class="keyword">if</span> (!offlineStack[key]) &#123;</div><div class="line">              offlineStack[key] = [];</div><div class="line">            &#125;</div><div class="line"></div><div class="line">            offlineStack[key].push(_fn);</div><div class="line">          &#125;</div><div class="line"></div><div class="line">          <span class="keyword">return</span> _fn();</div><div class="line">        &#125;</div><div class="line">      &#125;;</div><div class="line"></div><div class="line">      <span class="keyword">return</span> nameSpace?</div><div class="line">            (nameSpaceCache[nameSpace]?nameSpaceCache[nameSpace]:</div><div class="line">              nameSpaceCache[nameSpace] = ret)</div><div class="line">            :ret;</div><div class="line">    &#125;;</div><div class="line"></div><div class="line">    <span class="keyword">return</span> &#123;</div><div class="line">      create:_create,</div><div class="line">      listen: <span class="function"><span class="keyword">function</span>(<span class="params">key, fn, last</span>) </span>&#123;</div><div class="line">        <span class="keyword">var</span> event = <span class="keyword">this</span>.create();</div><div class="line">        event.listen(key, fn, last);</div><div class="line">      &#125;,</div><div class="line"></div><div class="line">      one: <span class="function"><span class="keyword">function</span>(<span class="params">key, fn, last</span>) </span>&#123;</div><div class="line">        <span class="keyword">var</span> event = <span class="keyword">this</span>.create();</div><div class="line">        event.one(key, fn, last);</div><div class="line">      &#125;,</div><div class="line"></div><div class="line">      remove: <span class="function"><span class="keyword">function</span>(<span class="params">key, fn</span>) </span>&#123;</div><div class="line">        <span class="keyword">var</span> event =<span class="keyword">this</span>.create();</div><div class="line">        event.remove(key, fn);</div><div class="line">      &#125;,</div><div class="line"></div><div class="line">      trigger: <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</div><div class="line">        <span class="keyword">var</span> event = <span class="keyword">this</span>.create();</div><div class="line">        event.trigger.apply(<span class="keyword">this</span>, <span class="built_in">arguments</span>);</div><div class="line">      &#125;</div><div class="line">    &#125;;</div><div class="line">  &#125;)();</div><div class="line"></div><div class="line">  <span class="keyword">return</span> Event;</div><div class="line">&#125;)();</div><div class="line"></div><div class="line">Event.trigger(<span class="string">'say'</span>,<span class="string">'hello'</span>);</div><div class="line">Event.listen(<span class="string">'say'</span>, <span class="function"><span class="keyword">function</span>(<span class="params">data</span>) </span>&#123;</div><div class="line">  <span class="built_in">console</span>.log(data);</div><div class="line">&#125;);</div><div class="line">Event.create(<span class="string">'nameSpace1'</span>).trigger(<span class="string">'say'</span>, <span class="string">'hello'</span>);</div><div class="line">Event.create(<span class="string">'nameSpace1'</span>).trigger(<span class="string">'say'</span>, <span class="string">'hello'</span>);</div><div class="line">Event.create(<span class="string">'nameSpace1'</span>).listen(<span class="string">'say'</span>, <span class="function"><span class="keyword">function</span>(<span class="params">data</span>) </span>&#123;</div><div class="line">  <span class="built_in">console</span>.log(data);</div><div class="line">&#125;, <span class="string">'last'</span>);</div></pre></td></tr></table></figure></p>
+<h2 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h2><p>发布订阅模式的优点非常明显，一为时间上的解耦，二为对象之间的解耦。他的应用非常广泛，既可以应用在异步编程中，也可以帮助我们完成更松耦合的代码编写。<br>当然，发布-订阅模式也不是完全没有缺点。创建订阅者本身要消耗一定的时间和内存，而当你订阅一个消息后，也许此消息最后都未发生，但这个订阅者会始终存在于内存中。另外，发布-订阅模式虽然可以弱化对象之间的联系，但如果过度使用的话，对象和对象之间的必要联系也将深埋在背后，会导致程序难以跟踪维护和理解。特别是有多个发布者和订阅者嵌套在一起的时候，要跟踪一个BUG不是意见轻松的事情。</p>
+<hr>
+<p>参考文档：</p>
+<p>javascript设计模式与开发实践</p>
+  
+	</div>
+		<footer class="article-footer clearfix">
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/js/">js</a><a href="/tags/js设计模式/">js设计模式</a>
+  </div>
+
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/js设计模式笔记/">js设计模式笔记</a>
+</div>
+
+
+<div class="article-share" id="share">
+
+  <div data-url="http://www.xiaohan80s.com/2016/08/08/js设计模式笔记/2016-08-08-part10/" data-title="发布-订阅模式 | xiaohan80s.com" data-tsina="null" class="share clearfix">
+  </div>
+
+</div>
+</footer>
+   	       
+	</article>
+	
+<nav class="article-nav clearfix">
+ 
+
+<div class="next">
+<a href="/2016/08/08/js设计模式笔记/2016-08-08-part9/"  title="迭代器模式">
+ <strong>NEXT:</strong><br/> 
+ <span>迭代器模式
+</span>
+</a>
+</div>
+
+</nav>
+
+	
+<section class="comment">
+	<div class="ds-thread"></div>
+</section>
+
+</div>  
+      <div class="openaside"><a class="navbutton" href="#" title="显示侧边栏"></a></div>
+
+  <div id="toc" class="toc-aside">
+  <strong class="toc-title">文章目录</strong>
+  <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#DOM-事件"><span class="toc-number">1.</span> <span class="toc-text">DOM 事件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#自定义事件"><span class="toc-number">2.</span> <span class="toc-text">自定义事件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#发布订阅模式的通用实现"><span class="toc-number">3.</span> <span class="toc-text">发布订阅模式的通用实现</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#取消订阅的事件"><span class="toc-number">4.</span> <span class="toc-text">取消订阅的事件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#真实的例子-网站登录"><span class="toc-number">5.</span> <span class="toc-text">真实的例子-网站登录</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#全局的发布-订阅对象"><span class="toc-number">6.</span> <span class="toc-text">全局的发布-订阅对象</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#模块间的通信"><span class="toc-number">7.</span> <span class="toc-text">模块间的通信</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#必须先订阅再发布吗"><span class="toc-number">8.</span> <span class="toc-text">必须先订阅再发布吗</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#全局事件的命名冲突"><span class="toc-number">9.</span> <span class="toc-text">全局事件的命名冲突</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#小结"><span class="toc-number"></span> <span class="toc-text">小结</span></a>
+  <div class="comment_bar"><a href="#ds-reset" target="" title="评论区">文章评论</a></div>
+  </div>
+
+<div id="asidepart">
+<div class="closeaside"><a class="closebutton" href="#" title="隐藏侧边栏"></a></div>
+<aside class="clearfix">
+
+  
+<div class="categorieslist">
+	<p class="asidetitle">分类</p>
+		<ul>
+		
+			<li><a href="/categories/js设计模式笔记/" title="js设计模式笔记">js设计模式笔记<sup>10</sup></a></li>
+		
+			<li><a href="/categories/工具/" title="工具">工具<sup>1</sup></a></li>
+		
+		</ul>
+</div>
+
+
+  
+<div class="tagslist">
+	<p class="asidetitle">标签</p>
+		<ul class="clearfix">
+		
+			<li><a href="/tags/js/" title="js">js<sup>10</sup></a></li>
+		
+			<li><a href="/tags/js设计模式/" title="js设计模式">js设计模式<sup>5</sup></a></li>
+		
+			<li><a href="/tags/工具/" title="工具">工具<sup>1</sup></a></li>
+		
+			<li><a href="/tags/搭建博客/" title="搭建博客">搭建博客<sup>1</sup></a></li>
+		
+		</ul>
+</div>
+
+
+  
+  <div class="archiveslist">
+    <p class="asidetitle"><a href="/archives">归档</a></p>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/08/">2016 年 08 月</a><span class="archive-list-count">7</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/07/">2016 年 07 月</a><span class="archive-list-count">4</span></li></ul>
+  </div>
+
+
+
+  
+
+<script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"1","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"16"},"slide":{"type":"slide","bdImg":"4","bdPos":"right","bdTop":"160"}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];</script>
+
+
+</aside>
+</div>
+
+    </div>
+    <footer><div id="footer" >
+	
+	<div class="line">
+		<span></span>
+		<div class="author"></div>
+	</div>
+	
+	
+	<div class="social-font clearfix">
+		
+		
+		
+		
+		
+	</div>
+		<p class="copyright">Powered by <a href="http://hexo.io" target="_blank" title="hexo">hexo</a> and Theme by <a href="https://github.com/A-limon/pacman" target="_blank" title="Pacman">Pacman</a> © 2016
+		
+		<a href="http://www.xiaohan80s.com" target="_blank" title="xiao han 80s">xiao han 80s</a>
+		
+		</p>
+</div>
+</footer>
+    <script src="/js/jquery-2.1.0.min.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){
+  $('.navbar').click(function(){
+    $('header nav').toggleClass('shownav');
+  });
+  var myWidth = 0;
+  function getSize(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+  };
+  var m = $('#main'),
+      a = $('#asidepart'),
+      c = $('.closeaside'),
+      o = $('.openaside');
+
+  $(window).resize(function(){
+    getSize();
+    if (myWidth >= 1024) {
+      $('header nav').removeClass('shownav');
+    }else
+    {
+      m.removeClass('moveMain');
+      a.css('display', 'block').removeClass('fadeOut');
+      o.css('display', 'none');
+      
+      $('#toc.toc-aside').css('display', 'none');
+      
+    }
+  });
+  c.click(function(){
+    a.addClass('fadeOut').css('display', 'none');
+    o.css('display', 'block').addClass('fadeIn');
+    m.addClass('moveMain');
+  });
+  o.click(function(){
+    o.css('display', 'none').removeClass('beforeFadeIn');
+    a.css('display', 'block').removeClass('fadeOut').addClass('fadeIn');
+    m.removeClass('moveMain');
+  });
+  $(window).scroll(function(){
+    o.css("top",Math.max(80,260-$(this).scrollTop()));
+  });
+});
+</script>
+
+<script type="text/javascript">
+$(document).ready(function(){
+  var ai = $('.article-content>iframe'),
+      ae = $('.article-content>embed'),
+      t  = $('#toc'),
+      h  = $('article h2')
+      ah = $('article h2'),
+      ta = $('#toc.toc-aside'),
+      o  = $('.openaside'),
+      c  = $('.closeaside');
+  if(ai.length>0){
+    ai.wrap('<div class="video-container" />');
+  };
+  if(ae.length>0){
+   ae.wrap('<div class="video-container" />');
+  };
+  if(ah.length==0){
+    t.css('display','none');
+  }else{
+    c.click(function(){
+      ta.css('display', 'block').addClass('fadeIn');
+    });
+    o.click(function(){
+      ta.css('display', 'none');
+    });
+    $(window).scroll(function(){
+      ta.css("top",Math.max(140,320-$(this).scrollTop()));
+    });
+  };
+  $('.closeaside').triggerHandler('click');
+});
+</script>
+
+
+<script type="text/javascript">
+$(document).ready(function(){
+  var $this = $('.share'),
+      url = $this.attr('data-url'),
+      encodedUrl = encodeURIComponent(url),
+      title = $this.attr('data-title'),
+      tsina = $this.attr('data-tsina');
+  var html = [
+  // '<a href="#" class="overlay" id="qrcode"></a>',
+  // '<div class="qrcode clearfix"><span>扫描二维码分享到微信朋友圈</span><a class="qrclose" href="#share"></a><strong>Loading...Please wait</strong><img id="qrcode-pic" data-src="http://s.jiathis.com/qrcode.php?url=' + encodedUrl + '"/></div>',
+  '<a href="#textlogo" class="article-back-to-top" title="Top"></a>',
+  // '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+  // '<a href="#qrcode" class="article-share-qrcode" title="QRcode"></a>',
+  // '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+  // '<a href="http://service.weibo.com/share/share.php?title='+title+'&url='+encodedUrl +'&ralateUid='+ tsina +'&searchPic=true&style=number' +'" class="article-share-weibo" target="_blank" title="Weibo"></a>',
+  // '<span title="Share to"></span>'
+  ].join('');
+  $this.append(html);
+  $('.article-share-qrcode').click(function(){
+    var imgSrc = $('#qrcode-pic').attr('data-src');
+    $('#qrcode-pic').attr('src', imgSrc);
+    $('#qrcode-pic').load(function(){
+        $('.qrcode strong').text(' ');
+    });
+  });
+});
+</script>
+
+
+<script type="text/javascript">
+  var duoshuoQuery = {short_name:"xiaohan80s"};
+  (function() {
+    var ds = document.createElement('script');
+    ds.type = 'text/javascript';ds.async = true;
+    ds.src = '//static.duoshuo.com/embed.js';
+    ds.charset = 'UTF-8';
+    (document.getElementsByTagName('head')[0]
+    || document.getElementsByTagName('body')[0]).appendChild(ds);
+  })();
+</script>
+
+
+
+
+
+  </body>
+</html>
