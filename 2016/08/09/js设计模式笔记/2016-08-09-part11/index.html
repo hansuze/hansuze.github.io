@@ -1,0 +1,363 @@
+
+ <!DOCTYPE HTML>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  
+    <title>命令模式 | xiaohan80s.com</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=3, minimum-scale=1">
+    
+    <meta name="author" content="xiao han 80s">
+    
+    <meta name="description" content="命令模式是最优雅的模式之一，命令模式中的命令（command）指的是一个执行某些特定事情的指令。常见应用场景：有时候需要向某些对象发送请求，但是并不知道请求的接收者是谁，也不知道被请求的操作是什么。此时希望用一种松耦合方式来设计程序，使得请求发送者和请求接收者能够消除彼此之间的耦合关系。
+命令模式的">
+    
+    
+    
+    
+    
+    <link rel="icon" href="/img/favicon.ico">
+    
+    
+    <link rel="apple-touch-icon" href="/img/pacman.jpg">
+    <link rel="apple-touch-icon-precomposed" href="/img/pacman.jpg">
+    
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+
+  <body>
+    <header>
+      <div>
+		
+			<div id="imglogo">
+				<a href="/"><img src="/img/logo.svg" alt="xiaohan80s.com" title="xiaohan80s.com"/></a>
+			</div>
+			
+			<div id="textlogo">
+				<h1 class="site-name"><a href="/" title="xiaohan80s.com">xiaohan80s.com</a></h1>
+				<h2 class="blog-motto">年轻 没有什么不可以!</h2>
+			</div>
+			<div class="navbar"><a class="navbutton navmobile" href="#" title="菜单">
+			</a></div>
+			<nav class="animated">
+				<ul>
+					
+						<li><a href="/">Home</a></li>
+					
+						<li><a href="/archives">Archives</a></li>
+					
+						<li><a href="/categories">Categories</a></li>
+					
+						<li><a href="/about">About</a></li>
+					
+					<li>
+					
+					<!-- <form class="search" action="//baidu.com" method="get" accept-charset="utf-8">
+						<label>Search</label>
+						<input type="text" id="search" name="q" autocomplete="off" maxlength="20" placeholder="搜索" />
+						<input type="hidden" name="q" value="site:www.xiaohan80s.com">
+					</form> -->
+					
+					</li>
+				</ul>
+			</nav>
+</div>
+
+    </header>
+    <div id="container">
+      <div id="main" class="post" itemscope itemprop="blogPost">
+	<article itemprop="articleBody"> 
+		<header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2016/08/09/js设计模式笔记/2016-08-09-part11/" title="命令模式" itemprop="url">命令模式</a>
+  </h1>
+  <p class="article-author">By
+    
+      <a href="http://www.xiaohan80s.com" title="xiao han 80s">xiao han 80s</a>
+    </p>
+  <p class="article-time">
+    <time datetime="2016-08-08T16:00:00.000Z" itemprop="datePublished">2016-08-09</time>
+    更新日期:<time datetime="2016-08-10T05:42:57.342Z" itemprop="dateModified">2016-08-10</time>
+    
+  </p>
+</header>
+	<div class="article-content">
+		
+		
+		<div id="toc" class="toc-article">
+			<strong class="toc-title">文章目录</strong>
+		<ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#命令模式的例子-菜单程序"><span class="toc-number">1.</span> <span class="toc-text">命令模式的例子-菜单程序</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#JavaScript中的命令模式"><span class="toc-number">2.</span> <span class="toc-text">JavaScript中的命令模式</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#撤销命令"><span class="toc-number">3.</span> <span class="toc-text">撤销命令</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#撤销和重做"><span class="toc-number">4.</span> <span class="toc-text">撤销和重做</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#命令队列"><span class="toc-number">5.</span> <span class="toc-text">命令队列</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#宏命令"><span class="toc-number">6.</span> <span class="toc-text">宏命令</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#智能命令和傻瓜命令"><span class="toc-number">7.</span> <span class="toc-text">智能命令和傻瓜命令</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#小结"><span class="toc-number"></span> <span class="toc-text">小结</span></a>
+		</div>
+		
+		<p>命令模式是最优雅的模式之一，命令模式中的命令（command）指的是一个执行某些特定事情的指令。<br>常见应用场景：有时候需要向某些对象发送请求，但是并不知道请求的接收者是谁，也不知道被请求的操作是什么。此时希望用一种松耦合方式来设计程序，使得请求发送者和请求接收者能够消除彼此之间的耦合关系。</p>
+<h3 id="命令模式的例子-菜单程序"><a href="#命令模式的例子-菜单程序" class="headerlink" title="命令模式的例子-菜单程序"></a>命令模式的例子-菜单程序</h3><p>绘制菜单和编写按钮行为的人不是一个人，绘制菜单的人也不知道这些按钮代表什么操作，这时候他需要预留好安装命令的接口。<br><figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">button</span> <span class="attr">id</span>=<span class="string">"btn1"</span>&gt;</span>点击按钮1<span class="tag">&lt;/<span class="name">button</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">button</span> <span class="attr">id</span>=<span class="string">"btn2"</span>&gt;</span>点击按钮2<span class="tag">&lt;/<span class="name">button</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">button</span> <span class="attr">id</span>=<span class="string">"btn3"</span>&gt;</span>点击按钮3<span class="tag">&lt;/<span class="name">button</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="undefined"></span></div><div class="line">  var btn1 = document.querySelector('#btn1');</div><div class="line">  var btn2 = document.querySelector('#btn2');</div><div class="line">  var btn3 = document.querySelector('#btn3');</div><div class="line"></div><div class="line">  var setCommand = function(button, command) &#123;</div><div class="line">    button.onclick = function() &#123;</div><div class="line">      command.execute();</div><div class="line">    &#125;</div><div class="line">  &#125;</div><div class="line">  var menuBar = &#123;</div><div class="line">    refresh: function() &#123;</div><div class="line">      console.log('刷新菜单目录');</div><div class="line">    &#125;</div><div class="line">  &#125;;</div><div class="line"></div><div class="line">  var subMenu = &#123;</div><div class="line">    add: function() &#123;</div><div class="line">      console.log('增加子菜单');</div><div class="line">    &#125;,</div><div class="line"></div><div class="line">    del: function() &#123;</div><div class="line">      console.log('删除子菜单');</div><div class="line">    &#125;</div><div class="line">  &#125;;</div><div class="line"></div><div class="line">  var RefreshCommand = function(receiver) &#123;</div><div class="line">    this.receiver = receiver;</div><div class="line">  &#125;;</div><div class="line"></div><div class="line">  RefreshCommand.prototype.execute = function() &#123;</div><div class="line">    this.receiver.refresh();</div><div class="line">  &#125;;</div><div class="line"></div><div class="line">  var AddBarCommmand = function(receiver) &#123;</div><div class="line">    this.receiver = receiver;</div><div class="line">  &#125;;</div><div class="line"></div><div class="line">  AddBarCommmand.prototype.execute = function() &#123;</div><div class="line">    this.receiver.add();</div><div class="line">  &#125;;</div><div class="line"></div><div class="line">  var DelBarCommand = function (receiver) &#123;</div><div class="line">    this.receiver = receiver;</div><div class="line">  &#125;;</div><div class="line"></div><div class="line">  DelBarCommand.prototype.execute = function() &#123;</div><div class="line">    this.receiver.del();</div><div class="line">  &#125;;</div><div class="line"></div><div class="line">  setCommand(btn1, new RefreshCommand(menuBar));</div><div class="line">  setCommand(btn2, new AddBarCommmand(subMenu));</div><div class="line">  setCommand(btn3, new DelBarCommand(subMenu));</div><div class="line"><span class="tag">&lt;/<span class="name">script</span>&gt;</span></div></pre></td></tr></table></figure></p>
+<h3 id="JavaScript中的命令模式"><a href="#JavaScript中的命令模式" class="headerlink" title="JavaScript中的命令模式"></a>JavaScript中的命令模式</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> btn1 = <span class="built_in">document</span>.querySelector(<span class="string">'#btn1'</span>);</div><div class="line"><span class="keyword">var</span> menuBar = &#123;</div><div class="line">  refresh: <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</div><div class="line">    <span class="built_in">console</span>.log(<span class="string">'刷新菜单目录'</span>);</div><div class="line">  &#125;</div><div class="line">&#125;;</div><div class="line"></div><div class="line"><span class="keyword">var</span> bindClick = <span class="function"><span class="keyword">function</span>(<span class="params">button, fn</span>) </span>&#123;</div><div class="line">  button.onclick = fn;</div><div class="line">&#125;</div><div class="line"></div><div class="line">bindClick(btn1, menuBar.refresh);</div></pre></td></tr></table></figure>
+<h3 id="撤销命令"><a href="#撤销命令" class="headerlink" title="撤销命令"></a>撤销命令</h3><p>命令模式不仅可以封装模块，还可以方便的给命令对象增加和撤销操作，下面我们使用命令模式做一个小球的移动和撤销移动<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> MoveCommmand = <span class="function"><span class="keyword">function</span>(<span class="params">receiver, pos</span>) </span>&#123;</div><div class="line">  <span class="keyword">this</span>.receiver = receiver;</div><div class="line">  <span class="keyword">this</span>.pos = pos ;</div><div class="line">  <span class="keyword">this</span>.oldPos = <span class="literal">null</span>;</div><div class="line">&#125;;</div><div class="line"></div><div class="line">MoveCommmand.prototype.execute = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</div><div class="line">  <span class="keyword">var</span> pos = <span class="keyword">this</span>.pos;</div><div class="line"></div><div class="line">  <span class="keyword">this</span>.oldPos = <span class="keyword">this</span>.receiver.offset().left;</div><div class="line">  <span class="built_in">console</span>.log(<span class="keyword">this</span>.oldPos);</div><div class="line">  <span class="keyword">this</span>.receiver.animate(&#123;</div><div class="line">    left: pos</div><div class="line">  &#125;, <span class="number">1000</span>);</div><div class="line">&#125;;</div><div class="line"></div><div class="line">MoveCommmand.prototype.undo = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</div><div class="line">  <span class="keyword">var</span> _self =<span class="keyword">this</span>;</div><div class="line"></div><div class="line">  <span class="keyword">if</span>(_self.oldPos)&#123;</div><div class="line">    <span class="keyword">this</span>.receiver.animate(&#123;</div><div class="line">      left: _self.oldPos</div><div class="line">    &#125;, <span class="number">1000</span>);</div><div class="line">  &#125;</div><div class="line"></div><div class="line">&#125;;</div><div class="line"></div><div class="line"></div><div class="line"><span class="keyword">var</span> $btnMove = $(<span class="string">'#move'</span>),</div><div class="line">    $btnCancel = $(<span class="string">'#cancel'</span>),</div><div class="line">    $ball = $(<span class="string">'#ball'</span>),</div><div class="line">    command;</div><div class="line"></div><div class="line">$btnMove.on(<span class="string">'click'</span>, <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</div><div class="line">  <span class="keyword">var</span> pos = $(<span class="string">'#pos'</span>).val();</div><div class="line"></div><div class="line">  command = <span class="keyword">new</span> MoveCommmand($ball, pos);</div><div class="line">  command.execute();</div><div class="line">&#125;) ;</div><div class="line"></div><div class="line">$btnCancel.on(<span class="string">'click'</span> ,<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</div><div class="line">  command.undo();</div><div class="line">&#125;);</div></pre></td></tr></table></figure></p>
+<h3 id="撤销和重做"><a href="#撤销和重做" class="headerlink" title="撤销和重做"></a>撤销和重做</h3><p>有时我们无法顺利的利用undo操作让对象回到execute之前的状态，这时候最好的办法是先让对象回到初始状态，然后把刚才执行的命令重新执行一遍，这一点我们可以使用一个历史的堆栈办到。<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> roy = &#123;</div><div class="line">  attack: <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</div><div class="line">    <span class="built_in">console</span>.log(<span class="string">'攻击'</span>);</div><div class="line">  &#125;,</div><div class="line"></div><div class="line">  defense: <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</div><div class="line">    <span class="built_in">console</span>.log(<span class="string">'防御'</span>);</div><div class="line">  &#125;,</div><div class="line"></div><div class="line">  jump: <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</div><div class="line">    <span class="built_in">console</span>.log(<span class="string">'跳跃'</span>);</div><div class="line">  &#125;,</div><div class="line"></div><div class="line">  crouch: <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</div><div class="line">    <span class="built_in">console</span>.log(<span class="string">'蹲下'</span>);</div><div class="line">  &#125;</div><div class="line">&#125;;</div><div class="line"></div><div class="line"> <span class="keyword">var</span> commands = &#123;</div><div class="line">   <span class="number">119</span>: <span class="string">'jump'</span>,    <span class="comment">// w</span></div><div class="line">   <span class="number">115</span>: <span class="string">'crouch'</span>,  <span class="comment">// s</span></div><div class="line">   <span class="number">97</span>: <span class="string">'defense'</span>,  <span class="comment">// a</span></div><div class="line">   <span class="number">100</span>: <span class="string">'attack'</span>   <span class="comment">// d</span></div><div class="line"> &#125;;</div><div class="line"></div><div class="line"> <span class="keyword">var</span> moveCommand = <span class="function"><span class="keyword">function</span>(<span class="params">receiver</span>) </span>&#123;</div><div class="line">   <span class="keyword">var</span> execute,</div><div class="line">       undo,</div><div class="line">       stack = [];</div><div class="line"></div><div class="line">   execute = <span class="function"><span class="keyword">function</span>(<span class="params">state</span>) </span>&#123;</div><div class="line">     receiver[state]();</div><div class="line">     stack.push(state);</div><div class="line">   &#125;;</div><div class="line"></div><div class="line">   undo = <span class="function"><span class="keyword">function</span>(<span class="params">state</span>) </span>&#123;</div><div class="line">     stack.length &amp;&amp; stack.pop();</div><div class="line">     <span class="keyword">for</span>(<span class="keyword">var</span> i =<span class="number">0</span>, state; state = stack[i++]; ) &#123;</div><div class="line">       receiver[state]();</div><div class="line">     &#125;</div><div class="line"></div><div class="line">   &#125;;</div><div class="line"></div><div class="line">   <span class="keyword">return</span> &#123;</div><div class="line">     execute: execute,</div><div class="line">     undo: undo</div><div class="line">   &#125;;</div><div class="line"></div><div class="line"> &#125;;</div><div class="line"><span class="keyword">var</span> command = moveCommand(roy),</div><div class="line">    replay = <span class="built_in">document</span>.querySelector(<span class="string">'#replay'</span>);</div><div class="line"></div><div class="line"><span class="built_in">document</span>.onkeypress = <span class="function"><span class="keyword">function</span>(<span class="params">e</span>) </span>&#123;</div><div class="line">  <span class="keyword">var</span> key = e.keyCode;</div><div class="line">  </div><div class="line">  command.execute(commands[key]);</div><div class="line">&#125;</div><div class="line">replay.onclick = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</div><div class="line">  command.undo();</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<h3 id="命令队列"><a href="#命令队列" class="headerlink" title="命令队列"></a>命令队列</h3><p>有时我们下命令时，对象还未执行完之前的操作，这时候我们需要将命令存入一个命令队列，在执行完操作时，取出队列中的命令并执行他。<br>下面我们以小球移动作为范例，我们比较关注的是，一个动画完成后如何通知队列，通常我们可以使用回掉函数，和发布-订阅模式来实现。<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div><div class="line">88</div><div class="line">89</div><div class="line">90</div><div class="line">91</div><div class="line">92</div><div class="line">93</div><div class="line">94</div><div class="line">95</div><div class="line">96</div><div class="line">97</div><div class="line">98</div><div class="line">99</div><div class="line">100</div><div class="line">101</div></pre></td><td class="code"><pre><div class="line">    <span class="keyword">var</span> Event = (<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</div><div class="line">  <span class="keyword">var</span> clientList = [],</div><div class="line">      trigger,</div><div class="line">      listen;</div><div class="line"></div><div class="line">  trigger = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</div><div class="line">    <span class="keyword">var</span> key = <span class="built_in">Array</span>.prototype.shift.call(<span class="built_in">arguments</span>);</div><div class="line">    <span class="keyword">var</span> fns = clientList[key];</div><div class="line"></div><div class="line">    <span class="keyword">if</span> (!fns || fns.length === <span class="number">0</span>) &#123;</div><div class="line">      <span class="keyword">return</span> <span class="literal">false</span>;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="keyword">for</span> (<span class="keyword">var</span> i = <span class="number">0</span>, fn; fn = fns[i++]; ) &#123;</div><div class="line">      fn.apply(<span class="keyword">this</span>,<span class="built_in">arguments</span>);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">  &#125;;</div><div class="line"></div><div class="line">  listen = <span class="function"><span class="keyword">function</span>(<span class="params">key, fn</span>) </span>&#123;</div><div class="line">    <span class="keyword">if</span> (!clientList[key]) &#123;</div><div class="line">      clientList[key] = [];</div><div class="line">    &#125;</div><div class="line">    clientList[key].push(fn);</div><div class="line">  &#125;;</div><div class="line"></div><div class="line">  <span class="keyword">return</span> &#123;</div><div class="line">    trigger: trigger,</div><div class="line">    listen: listen</div><div class="line">  &#125;;</div><div class="line">&#125;)();</div><div class="line"></div><div class="line"><span class="keyword">var</span> MoveBall = <span class="function"><span class="keyword">function</span>(<span class="params">receiver</span>) </span>&#123;</div><div class="line">  <span class="keyword">this</span>.receiver = receiver;</div><div class="line">  <span class="keyword">this</span>.hasStart = <span class="literal">false</span>;</div><div class="line">  <span class="keyword">this</span>.undoStack =[];</div><div class="line">  <span class="keyword">this</span>.stack = [];</div><div class="line">&#125;;</div><div class="line"></div><div class="line">MoveBall.prototype.setProperties = <span class="function"><span class="keyword">function</span>(<span class="params">properties</span>) </span>&#123;</div><div class="line">  <span class="keyword">this</span>.stack.push(properties);</div><div class="line">&#125;;</div><div class="line"></div><div class="line">MoveBall.prototype.execute = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</div><div class="line">  <span class="keyword">var</span> _self = <span class="keyword">this</span>,</div><div class="line">      properties;</div><div class="line">  <span class="keyword">if</span> (_self.stack.length &gt; <span class="number">0</span>) &#123;  <span class="comment">// 执行完所有动作</span></div><div class="line">    properties = _self.stack.shift();</div><div class="line">    _self.receiver.animate(properties, <span class="number">1000</span>,</div><div class="line">       <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</div><div class="line">        _self.undoStack.push(properties);</div><div class="line">        Event.trigger(<span class="string">'move'</span>);</div><div class="line">      &#125;);</div><div class="line">  &#125; <span class="keyword">else</span> &#123;</div><div class="line">    <span class="keyword">this</span>.hasStart = <span class="literal">false</span>;</div><div class="line">  &#125;</div><div class="line"></div><div class="line">&#125;;</div><div class="line"></div><div class="line">MoveBall.prototype.start = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</div><div class="line">  <span class="keyword">if</span> (<span class="keyword">this</span>.hasStart) &#123;</div><div class="line">    <span class="keyword">return</span> <span class="literal">true</span>;</div><div class="line">  &#125;</div><div class="line"></div><div class="line">  Event.trigger(<span class="string">'move'</span>);</div><div class="line">  <span class="keyword">return</span> <span class="keyword">this</span>.hasStart = <span class="literal">true</span>;</div><div class="line">&#125;;</div><div class="line"></div><div class="line"> <span class="keyword">var</span> commands = &#123;</div><div class="line">   <span class="number">119</span>: &#123;  <span class="comment">// w</span></div><div class="line">     top: <span class="string">'-='</span> + <span class="number">100</span></div><div class="line">   &#125;,</div><div class="line">   </div><div class="line">   <span class="number">115</span>: &#123;  <span class="comment">// s</span></div><div class="line">     top: <span class="string">'+='</span> + <span class="number">100</span></div><div class="line">   &#125;,</div><div class="line">   </div><div class="line">   <span class="number">97</span>: &#123;  <span class="comment">// a</span></div><div class="line">     left: <span class="string">'-='</span> + <span class="number">100</span></div><div class="line">   &#125;,</div><div class="line">   </div><div class="line">   <span class="number">100</span>: &#123;  <span class="comment">// d</span></div><div class="line">     left: <span class="string">'+='</span> + <span class="number">100</span></div><div class="line">   &#125;</div><div class="line"> &#125;;</div><div class="line"></div><div class="line"></div><div class="line"> <span class="keyword">var</span> $ball = $(<span class="string">'#ball'</span>),</div><div class="line"> moveBall = <span class="keyword">new</span> MoveBall($ball);</div><div class="line"> </div><div class="line"> Event.listen(<span class="string">'move'</span>,<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</div><div class="line">   moveBall.execute();</div><div class="line"> &#125;)</div><div class="line"></div><div class="line"> $(<span class="built_in">document</span>).on (<span class="string">'keypress'</span>, <span class="function"><span class="keyword">function</span>(<span class="params">e</span>) </span>&#123;</div><div class="line">   <span class="keyword">var</span> keyCode = e.keyCode,</div><div class="line">       properties = commands[keyCode];</div><div class="line"></div><div class="line">    moveBall.setProperties(properties);</div><div class="line">    moveBall.start();</div><div class="line"> &#125;);</div></pre></td></tr></table></figure></p>
+<h3 id="宏命令"><a href="#宏命令" class="headerlink" title="宏命令"></a>宏命令</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> closeDoorCommand = &#123;</div><div class="line">  execute: <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</div><div class="line">    <span class="built_in">console</span>.log(<span class="string">'关门'</span>);</div><div class="line">  &#125;</div><div class="line">&#125;;</div><div class="line"></div><div class="line"><span class="keyword">var</span> openPcCommand = &#123;</div><div class="line">  execute: <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</div><div class="line">    <span class="built_in">console</span>.log(<span class="string">'开电脑'</span>)</div><div class="line">  &#125;</div><div class="line">&#125;;</div><div class="line"></div><div class="line"><span class="keyword">var</span> openQQComand = &#123;</div><div class="line">  execute: <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</div><div class="line">    <span class="built_in">console</span>.log(<span class="string">'登陆QQ'</span>)</div><div class="line">  &#125;</div><div class="line">&#125;;</div><div class="line"></div><div class="line"><span class="keyword">var</span> MacroCommand = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</div><div class="line">  <span class="keyword">var</span> commandList = [];</div><div class="line"></div><div class="line">  <span class="keyword">return</span> &#123;</div><div class="line">    add: <span class="function"><span class="keyword">function</span>(<span class="params">command</span>) </span>&#123;</div><div class="line">      commandList.push(command);</div><div class="line">    &#125;,</div><div class="line"></div><div class="line">    execute: <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</div><div class="line">      <span class="keyword">for</span> (<span class="keyword">var</span> i =<span class="number">0</span> , cmd; cmd =commandList[i++]; ) &#123;</div><div class="line">        cmd.execute();</div><div class="line">      &#125;</div><div class="line"></div><div class="line">    &#125;</div><div class="line">  &#125;;</div><div class="line">&#125;;</div><div class="line"><span class="keyword">var</span> macroCommand = MacroCommand();</div><div class="line">macroCommand.add(closeDoorCommand);</div><div class="line">macroCommand.add(openPcCommand);</div><div class="line">macroCommand.add(openQQComand);</div><div class="line">macroCommand.execute();</div></pre></td></tr></table></figure>
+<h3 id="智能命令和傻瓜命令"><a href="#智能命令和傻瓜命令" class="headerlink" title="智能命令和傻瓜命令"></a>智能命令和傻瓜命令</h3><p>让我们看一下上一节 创建的命令<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> closeDoorCommand = &#123;</div><div class="line">  execute: <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</div><div class="line">    <span class="built_in">console</span>.log(<span class="string">'关门'</span>);</div><div class="line">  &#125;</div><div class="line">&#125;;</div></pre></td></tr></table></figure></p>
+<p>很奇怪，在<code>closeDoorCommand</code> 中 我们没有看到<code>receiver</code>的信息,它本身就包揽了执行请求的行为。<br>一般来说 命令模式中都会在command 对象中保存一个 接收者<code>receiver</code>执行客户的请求，在这种情况下命令对象是“傻瓜式”的，它只负责把客户的请求转交给接收者来执行，这种模式的好处是请求发起者和请求接收者之间尽可能的解耦。</p>
+<p>但是我们也可以定义一些更“聪明“的对象，“聪明“的命令对象可以直接实现请求，这样一来就不需要接收者的存在，这种“聪明”<br>的命令也叫做“智能命令”。这种命令退化到和策略模式非常相近，从代码结构上已经无法分辨他们。</p>
+<p>能分辩的只有他们的意图不同，策略模式指向的问题更小，所有策略对象的目标总是一致的，而智能命令模式的指向的问题域更广，command对象解决的目标更具发散性，命令模式还可以完成撤销，排队等功能。</p>
+<h2 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h2><p>JavaScript中的命令模式跟其他语言的命令模式不同，他可以用高阶函数非常方便的实现命令模式，命令模式在JavaScript中一种隐形的模式。</p>
+<hr>
+<p>参考文档：</p>
+<p>javascript设计模式与开发实践</p>
+  
+	</div>
+		<footer class="article-footer clearfix">
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/js/">js</a><a href="/tags/js设计模式/">js设计模式</a>
+  </div>
+
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/js设计模式笔记/">js设计模式笔记</a>
+</div>
+
+
+<div class="article-share" id="share">
+
+  <div data-url="http://www.xiaohan80s.com/2016/08/09/js设计模式笔记/2016-08-09-part11/" data-title="命令模式 | xiaohan80s.com" data-tsina="null" class="share clearfix">
+  </div>
+
+</div>
+</footer>
+   	       
+	</article>
+	
+<nav class="article-nav clearfix">
+ 
+
+<div class="next">
+<a href="/2016/08/08/js设计模式笔记/2016-08-07-part8/"  title="代理模式">
+ <strong>NEXT:</strong><br/> 
+ <span>代理模式
+</span>
+</a>
+</div>
+
+</nav>
+
+	
+<section class="comment">
+	<div class="ds-thread"></div>
+</section>
+
+</div>  
+      <div class="openaside"><a class="navbutton" href="#" title="显示侧边栏"></a></div>
+
+  <div id="toc" class="toc-aside">
+  <strong class="toc-title">文章目录</strong>
+  <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#命令模式的例子-菜单程序"><span class="toc-number">1.</span> <span class="toc-text">命令模式的例子-菜单程序</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#JavaScript中的命令模式"><span class="toc-number">2.</span> <span class="toc-text">JavaScript中的命令模式</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#撤销命令"><span class="toc-number">3.</span> <span class="toc-text">撤销命令</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#撤销和重做"><span class="toc-number">4.</span> <span class="toc-text">撤销和重做</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#命令队列"><span class="toc-number">5.</span> <span class="toc-text">命令队列</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#宏命令"><span class="toc-number">6.</span> <span class="toc-text">宏命令</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#智能命令和傻瓜命令"><span class="toc-number">7.</span> <span class="toc-text">智能命令和傻瓜命令</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#小结"><span class="toc-number"></span> <span class="toc-text">小结</span></a>
+  <div class="comment_bar"><a href="#ds-reset" target="" title="评论区">文章评论</a></div>
+  </div>
+
+<div id="asidepart">
+<div class="closeaside"><a class="closebutton" href="#" title="隐藏侧边栏"></a></div>
+<aside class="clearfix">
+
+  
+<div class="categorieslist">
+	<p class="asidetitle">分类</p>
+		<ul>
+		
+			<li><a href="/categories/js设计模式笔记/" title="js设计模式笔记">js设计模式笔记<sup>11</sup></a></li>
+		
+			<li><a href="/categories/工具/" title="工具">工具<sup>1</sup></a></li>
+		
+		</ul>
+</div>
+
+
+  
+<div class="tagslist">
+	<p class="asidetitle">标签</p>
+		<ul class="clearfix">
+		
+			<li><a href="/tags/js/" title="js">js<sup>11</sup></a></li>
+		
+			<li><a href="/tags/js设计模式/" title="js设计模式">js设计模式<sup>6</sup></a></li>
+		
+			<li><a href="/tags/工具/" title="工具">工具<sup>1</sup></a></li>
+		
+			<li><a href="/tags/搭建博客/" title="搭建博客">搭建博客<sup>1</sup></a></li>
+		
+		</ul>
+</div>
+
+
+  
+  <div class="archiveslist">
+    <p class="asidetitle"><a href="/archives">归档</a></p>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/08/">2016 年 08 月</a><span class="archive-list-count">8</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/07/">2016 年 07 月</a><span class="archive-list-count">4</span></li></ul>
+  </div>
+
+
+
+  
+
+<script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"1","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"16"},"slide":{"type":"slide","bdImg":"4","bdPos":"right","bdTop":"160"}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];</script>
+
+
+</aside>
+</div>
+
+    </div>
+    <footer><div id="footer" >
+	
+	<div class="line">
+		<span></span>
+		<div class="author"></div>
+	</div>
+	
+	
+	<div class="social-font clearfix">
+		
+		
+		
+		
+		
+	</div>
+		<p class="copyright">Powered by <a href="http://hexo.io" target="_blank" title="hexo">hexo</a> and Theme by <a href="https://github.com/A-limon/pacman" target="_blank" title="Pacman">Pacman</a> © 2016
+		
+		<a href="http://www.xiaohan80s.com" target="_blank" title="xiao han 80s">xiao han 80s</a>
+		
+		</p>
+</div>
+</footer>
+    <script src="/js/jquery-2.1.0.min.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){
+  $('.navbar').click(function(){
+    $('header nav').toggleClass('shownav');
+  });
+  var myWidth = 0;
+  function getSize(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+  };
+  var m = $('#main'),
+      a = $('#asidepart'),
+      c = $('.closeaside'),
+      o = $('.openaside');
+
+  $(window).resize(function(){
+    getSize();
+    if (myWidth >= 1024) {
+      $('header nav').removeClass('shownav');
+    }else
+    {
+      m.removeClass('moveMain');
+      a.css('display', 'block').removeClass('fadeOut');
+      o.css('display', 'none');
+      
+      $('#toc.toc-aside').css('display', 'none');
+      
+    }
+  });
+  c.click(function(){
+    a.addClass('fadeOut').css('display', 'none');
+    o.css('display', 'block').addClass('fadeIn');
+    m.addClass('moveMain');
+  });
+  o.click(function(){
+    o.css('display', 'none').removeClass('beforeFadeIn');
+    a.css('display', 'block').removeClass('fadeOut').addClass('fadeIn');
+    m.removeClass('moveMain');
+  });
+  $(window).scroll(function(){
+    o.css("top",Math.max(80,260-$(this).scrollTop()));
+  });
+});
+</script>
+
+<script type="text/javascript">
+$(document).ready(function(){
+  var ai = $('.article-content>iframe'),
+      ae = $('.article-content>embed'),
+      t  = $('#toc'),
+      h  = $('article h2')
+      ah = $('article h2'),
+      ta = $('#toc.toc-aside'),
+      o  = $('.openaside'),
+      c  = $('.closeaside');
+  if(ai.length>0){
+    ai.wrap('<div class="video-container" />');
+  };
+  if(ae.length>0){
+   ae.wrap('<div class="video-container" />');
+  };
+  if(ah.length==0){
+    t.css('display','none');
+  }else{
+    c.click(function(){
+      ta.css('display', 'block').addClass('fadeIn');
+    });
+    o.click(function(){
+      ta.css('display', 'none');
+    });
+    $(window).scroll(function(){
+      ta.css("top",Math.max(140,320-$(this).scrollTop()));
+    });
+  };
+  $('.closeaside').triggerHandler('click');
+});
+</script>
+
+
+<script type="text/javascript">
+$(document).ready(function(){
+  var $this = $('.share'),
+      url = $this.attr('data-url'),
+      encodedUrl = encodeURIComponent(url),
+      title = $this.attr('data-title'),
+      tsina = $this.attr('data-tsina');
+  var html = [
+  // '<a href="#" class="overlay" id="qrcode"></a>',
+  // '<div class="qrcode clearfix"><span>扫描二维码分享到微信朋友圈</span><a class="qrclose" href="#share"></a><strong>Loading...Please wait</strong><img id="qrcode-pic" data-src="http://s.jiathis.com/qrcode.php?url=' + encodedUrl + '"/></div>',
+  '<a href="#textlogo" class="article-back-to-top" title="Top"></a>',
+  // '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+  // '<a href="#qrcode" class="article-share-qrcode" title="QRcode"></a>',
+  // '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+  // '<a href="http://service.weibo.com/share/share.php?title='+title+'&url='+encodedUrl +'&ralateUid='+ tsina +'&searchPic=true&style=number' +'" class="article-share-weibo" target="_blank" title="Weibo"></a>',
+  // '<span title="Share to"></span>'
+  ].join('');
+  $this.append(html);
+  $('.article-share-qrcode').click(function(){
+    var imgSrc = $('#qrcode-pic').attr('data-src');
+    $('#qrcode-pic').attr('src', imgSrc);
+    $('#qrcode-pic').load(function(){
+        $('.qrcode strong').text(' ');
+    });
+  });
+});
+</script>
+
+
+<script type="text/javascript">
+  var duoshuoQuery = {short_name:"xiaohan80s"};
+  (function() {
+    var ds = document.createElement('script');
+    ds.type = 'text/javascript';ds.async = true;
+    ds.src = '//static.duoshuo.com/embed.js';
+    ds.charset = 'UTF-8';
+    (document.getElementsByTagName('head')[0]
+    || document.getElementsByTagName('body')[0]).appendChild(ds);
+  })();
+</script>
+
+
+
+
+
+  </body>
+</html>

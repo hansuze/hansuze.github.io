@@ -1950,6 +1950,9 @@ footer {
   text-align: right;
   padding-right: 1.5em;
 }
+.article-content .line {
+  height: 1.5em;
+}
 .article-content .gist {
   margin: 0.5em 0;
   background: #1d1f21;
