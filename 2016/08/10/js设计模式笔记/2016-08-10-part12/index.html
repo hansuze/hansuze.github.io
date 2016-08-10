@@ -1,0 +1,533 @@
+
+ <!DOCTYPE HTML>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  
+    <title>组合模式 | xiaohan80s.com</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=3, minimum-scale=1">
+    
+    <meta name="author" content="xiao han 80s">
+    
+    <meta name="description" content="组合模式就是用小的子对象来构建更大的对象，而这些小的子对象本身也许是由更小的“孙对象”构成的。
+回顾宏命令我们在上一章 命令模式中学习了 宏命令 .宏命令对象包含了一组具体的子命令对象，不管是宏命令对象，还是子命令对象，都提供了一个execute方法负责执行命令1234567891011121314">
+    
+    
+    
+    
+    
+    <link rel="icon" href="/img/favicon.ico">
+    
+    
+    <link rel="apple-touch-icon" href="/img/pacman.jpg">
+    <link rel="apple-touch-icon-precomposed" href="/img/pacman.jpg">
+    
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+
+  <body>
+    <header>
+      <div>
+		
+			<div id="imglogo">
+				<a href="/"><img src="/img/logo.svg" alt="xiaohan80s.com" title="xiaohan80s.com"/></a>
+			</div>
+			
+			<div id="textlogo">
+				<h1 class="site-name"><a href="/" title="xiaohan80s.com">xiaohan80s.com</a></h1>
+				<h2 class="blog-motto">年轻 没有什么不可以!</h2>
+			</div>
+			<div class="navbar"><a class="navbutton navmobile" href="#" title="菜单">
+			</a></div>
+			<nav class="animated">
+				<ul>
+					
+						<li><a href="/">Home</a></li>
+					
+						<li><a href="/archives">Archives</a></li>
+					
+						<li><a href="/categories">Categories</a></li>
+					
+						<li><a href="/about">About</a></li>
+					
+					<li>
+					
+					<!-- <form class="search" action="//baidu.com" method="get" accept-charset="utf-8">
+						<label>Search</label>
+						<input type="text" id="search" name="q" autocomplete="off" maxlength="20" placeholder="搜索" />
+						<input type="hidden" name="q" value="site:www.xiaohan80s.com">
+					</form> -->
+					
+					</li>
+				</ul>
+			</nav>
+</div>
+
+    </header>
+    <div id="container">
+      <div id="main" class="post" itemscope itemprop="blogPost">
+	<article itemprop="articleBody"> 
+		<header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2016/08/10/js设计模式笔记/2016-08-10-part12/" title="组合模式" itemprop="url">组合模式</a>
+  </h1>
+  <p class="article-author">By
+    
+      <a href="http://www.xiaohan80s.com" title="xiao han 80s">xiao han 80s</a>
+    </p>
+  <p class="article-time">
+    <time datetime="2016-08-09T16:00:00.000Z" itemprop="datePublished">2016-08-10</time>
+    更新日期:<time datetime="2016-08-10T12:28:32.229Z" itemprop="dateModified">2016-08-10</time>
+    
+  </p>
+</header>
+	<div class="article-content">
+		
+		
+		<div id="toc" class="toc-article">
+			<strong class="toc-title">文章目录</strong>
+		<ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#回顾宏命令"><span class="toc-number">1.</span> <span class="toc-text">回顾宏命令</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#组合模式的用途"><span class="toc-number">2.</span> <span class="toc-text">组合模式的用途</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#更强大的宏命令"><span class="toc-number">3.</span> <span class="toc-text">更强大的宏命令</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#透明性带来的安全问题"><span class="toc-number">4.</span> <span class="toc-text">透明性带来的安全问题</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#组合模式的例子–扫描文件夹"><span class="toc-number">5.</span> <span class="toc-text">组合模式的例子–扫描文件夹</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#一些值得注意的地方"><span class="toc-number">6.</span> <span class="toc-text">一些值得注意的地方</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#引用父对象"><span class="toc-number">7.</span> <span class="toc-text">引用父对象</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#何时使用组合模式"><span class="toc-number">8.</span> <span class="toc-text">何时使用组合模式</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#小结"><span class="toc-number"></span> <span class="toc-text">小结</span></a>
+		</div>
+		
+		<p>组合模式就是用小的子对象来构建更大的对象，而这些小的子对象本身也许是由更小的“孙对象”构成的。</p>
+<h3 id="回顾宏命令"><a href="#回顾宏命令" class="headerlink" title="回顾宏命令"></a>回顾宏命令</h3><p>我们在上一章 命令模式中学习了 宏命令 .宏命令对象包含了一组具体的子命令对象，不管是宏命令对象，还是子命令对象，都提供了一个execute方法负责执行命令<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> closeDoorCommand = &#123;</div><div class="line">  execute: <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</div><div class="line">    <span class="built_in">console</span>.log(<span class="string">'关门'</span>);</div><div class="line">  &#125;</div><div class="line">&#125;;</div><div class="line"></div><div class="line"><span class="keyword">var</span> openPcCommand = &#123;</div><div class="line">  execute: <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</div><div class="line">    <span class="built_in">console</span>.log(<span class="string">'开电脑'</span>)</div><div class="line">  &#125;</div><div class="line">&#125;;</div><div class="line"></div><div class="line"><span class="keyword">var</span> openQQComand = &#123;</div><div class="line">  execute: <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</div><div class="line">    <span class="built_in">console</span>.log(<span class="string">'登陆QQ'</span>)</div><div class="line">  &#125;</div><div class="line">&#125;;</div><div class="line"></div><div class="line"><span class="keyword">var</span> MacroCommand = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</div><div class="line">  <span class="keyword">var</span> commandList = [];</div><div class="line"></div><div class="line">  <span class="keyword">return</span> &#123;</div><div class="line">    add: <span class="function"><span class="keyword">function</span>(<span class="params">command</span>) </span>&#123;</div><div class="line">      commandList.push(command);</div><div class="line">    &#125;,</div><div class="line"></div><div class="line">    execute: <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</div><div class="line">      <span class="keyword">for</span> (<span class="keyword">var</span> i =<span class="number">0</span> , cmd; cmd =commandList[i++]; ) &#123;</div><div class="line">        cmd.execute();</div><div class="line">      &#125;</div><div class="line"></div><div class="line">    &#125;</div><div class="line">  &#125;;</div><div class="line">&#125;;</div><div class="line"><span class="keyword">var</span> macroCommand = MacroCommand();</div><div class="line">macroCommand.add(closeDoorCommand);</div><div class="line">macroCommand.add(openPcCommand);</div><div class="line">macroCommand.add(openQQComand);</div><div class="line">macroCommand.execute();</div></pre></td></tr></table></figure></p>
+<p>通过观察上述代码，我们很容易发现，宏命令中包含了一组子命令，他们组成了一个树形结构，宏命令不负责执行具体操作，只负责将操作传递给子命令</p>
+<h3 id="组合模式的用途"><a href="#组合模式的用途" class="headerlink" title="组合模式的用途"></a>组合模式的用途</h3><ul>
+<li><p>表示树形结构<br>通过回顾上面的例子，我们发现只需要执行组合对象中的<code>execute</code>方法，程序就能递归的调用组合对象下叶对象的<code>execute</code>方法，组合模式非常方便描述 对象部分-整体的层次结构</p>
+</li>
+<li><p>利用对象的多态性统一对待组合对象和单个对象<br>利用对象的多态性表现，可以使客户端忽略组合对象和单个对象的不同。<br>这在开发中会给客户带来相当大的便利性，当我们往万能遥控器里面添加一个命令的时候，我们不需要关心他是宏命令还是子命令，我们只需要确定一点，这个对象只要<code>execute</code>方法，就能添加到万能遥控器中。</p>
+</li>
+</ul>
+<h3 id="更强大的宏命令"><a href="#更强大的宏命令" class="headerlink" title="更强大的宏命令"></a>更强大的宏命令</h3><p>我们需要一个万能遥控器，可以控制所有的电器：</p>
+<ul>
+<li>打开空调</li>
+<li>打开电视和音响</li>
+<li>关门、开电脑、登陆QQ</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> MacroCommand = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</div><div class="line">  <span class="keyword">var</span> commandList = [];</div><div class="line"></div><div class="line">  <span class="keyword">return</span> &#123;</div><div class="line">    add: <span class="function"><span class="keyword">function</span>(<span class="params">command</span>) </span>&#123;</div><div class="line">      commandList.push(command);</div><div class="line">    &#125;,</div><div class="line"></div><div class="line">    execute: <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</div><div class="line">      <span class="keyword">for</span> (<span class="keyword">var</span> i =<span class="number">0</span> , cmd; cmd =commandList[i++]; ) &#123;</div><div class="line">        cmd.execute();</div><div class="line">      &#125;</div><div class="line"></div><div class="line">    &#125;</div><div class="line">  &#125;;</div><div class="line"></div><div class="line">&#125;;</div><div class="line"></div><div class="line"><span class="keyword">var</span> openAcCommand = &#123;</div><div class="line">  execute: <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</div><div class="line">    <span class="built_in">console</span>.log(<span class="string">'打开空调'</span>);</div><div class="line">  &#125;</div><div class="line">&#125;;</div><div class="line"></div><div class="line"><span class="keyword">var</span> openTVCommand = &#123;</div><div class="line">  execute: <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</div><div class="line">    <span class="built_in">console</span>.log(<span class="string">'打开电视'</span>);</div><div class="line">  &#125;</div><div class="line">&#125;;</div><div class="line"></div><div class="line"><span class="keyword">var</span> openSoundCommand = &#123;</div><div class="line">  execute: <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</div><div class="line">    <span class="built_in">console</span>.log(<span class="string">'打开音响'</span>);</div><div class="line">  &#125;</div><div class="line">&#125;;</div><div class="line"></div><div class="line"><span class="keyword">var</span> closeDoorCommand = &#123;</div><div class="line">  execute: <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</div><div class="line">    <span class="built_in">console</span>.log(<span class="string">'关门'</span>);</div><div class="line">  &#125;</div><div class="line">&#125;;</div><div class="line"></div><div class="line"><span class="keyword">var</span> openPcCommand = &#123;</div><div class="line">  execute: <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</div><div class="line">    <span class="built_in">console</span>.log(<span class="string">'开电脑'</span>)</div><div class="line">  &#125;</div><div class="line">&#125;;</div><div class="line"></div><div class="line"><span class="keyword">var</span> openQQComand = &#123;</div><div class="line">  execute: <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</div><div class="line">    <span class="built_in">console</span>.log(<span class="string">'登陆QQ'</span>)</div><div class="line">  &#125;</div><div class="line">&#125;;</div><div class="line"></div><div class="line"></div><div class="line"><span class="keyword">var</span> macroCommand1 = MacroCommand();</div><div class="line">macroCommand1.add(openTVCommand);</div><div class="line">macroCommand1.add(openSoundCommand);</div><div class="line"></div><div class="line"><span class="keyword">var</span> macroCommand2 = MacroCommand();</div><div class="line"></div><div class="line">macroCommand2.add(closeDoorCommand);</div><div class="line">macroCommand2.add(openPcCommand);</div><div class="line">macroCommand2.add(openQQComand);</div><div class="line"></div><div class="line"><span class="keyword">var</span> marcroCommand = MacroCommand();</div><div class="line">marcroCommand.add(openAcCommand);</div><div class="line">marcroCommand.add(macroCommand1);</div><div class="line">marcroCommand.add(macroCommand2);</div><div class="line"></div><div class="line">marcroCommand.execute();</div></pre></td></tr></table></figure>
+<h3 id="透明性带来的安全问题"><a href="#透明性带来的安全问题" class="headerlink" title="透明性带来的安全问题"></a>透明性带来的安全问题</h3><p>组合模式的透明性使得发起请求的客户不用去估计树种组合对象的区别，但他们在本质上还是有区别的。<br>组合对象可以拥有子节点，叶对象下面没有子节点，所以我们也许会发生一些误操作，比如试图在叶节点对象中添加子节点。解决的办法是通常给叶对象也添加add方法，在调用add方法时抛出异常。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> MacroCommand = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line">  <span class="keyword">var</span> commandList = [];</div><div class="line"></div><div class="line">  <span class="keyword">return</span> &#123;</div><div class="line">    add: <span class="function"><span class="keyword">function</span>(<span class="params">command</span>) </span>&#123;</div><div class="line">      commandList.push(command);</div><div class="line">    &#125;,</div><div class="line"></div><div class="line">    execute: <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</div><div class="line">      <span class="keyword">for</span> (<span class="keyword">var</span> i =<span class="number">0</span>,command; command = commandList[i++]; ) &#123;</div><div class="line">        command.execute();</div><div class="line">      &#125;</div><div class="line"></div><div class="line">    &#125;</div><div class="line">  &#125;</div><div class="line">&#125;;</div><div class="line"></div><div class="line"><span class="keyword">var</span> openTVCommand = &#123;</div><div class="line">  execute: <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</div><div class="line">    <span class="built_in">console</span>.log(<span class="string">'打开电视'</span>);</div><div class="line">  &#125;,</div><div class="line"></div><div class="line">  add: <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</div><div class="line">    <span class="keyword">throw</span> <span class="keyword">new</span> <span class="built_in">Error</span>(<span class="string">'叶对象不能添加子对象'</span>);</div><div class="line">  &#125;</div><div class="line">&#125;;</div><div class="line"></div><div class="line"><span class="keyword">var</span> marcroCommand = MacroCommand();</div><div class="line">marcroCommand.add(openTVCommand);</div><div class="line">openTVCommand.add(marcroCommand);</div></pre></td></tr></table></figure>
+<h3 id="组合模式的例子–扫描文件夹"><a href="#组合模式的例子–扫描文件夹" class="headerlink" title="组合模式的例子–扫描文件夹"></a>组合模式的例子–扫描文件夹</h3><p>文件夹和文件之间的关系，非常适合用组合模式来描述，文件夹中既可以包含文件，也可以包含其他文件夹，最终可能组合成一棵树。<br>组合模式在文件夹应用中有以下两层好处：</p>
+<ul>
+<li>复制和粘贴文件和文件夹可以使用相同的命令，使得复制和粘贴功能成为了统一的操作。</li>
+<li>当我们扫描文件夹时，往往不会关心里面有多少文件或文件夹，我们只需要执行扫描外层文件的命令即可。</li>
+</ul>
+<pre><code class="js"><span class="keyword">var</span> Folder = <span class="function"><span class="keyword">function</span>(<span class="params">name</span>) </span>{
+  <span class="keyword">this</span>.name = name;
+  <span class="keyword">this</span>.files = [];
+};
+
+Folder.prototype.add = <span class="function"><span class="keyword">function</span>(<span class="params">file</span>) </span>{
+  <span class="keyword">this</span>.files.push(file);
+};
+
+Folder.prototype.scan = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>{
+  <span class="built_in">console</span>.log(<span class="string">'正在扫描文件夹...'</span> + <span class="keyword">this</span>.name);
+  <span class="keyword">for</span> (<span class="keyword">var</span> i = <span class="number">0</span>, file; file = <span class="keyword">this</span>.files[i++]; ) {
+    file.scan();
+  }
+
+};
+
+<span class="keyword">var</span> File = <span class="function"><span class="keyword">function</span>(<span class="params">name</span>) </span>{
+  <span class="keyword">this</span>.name = name;
+};
+
+File.prototype.add = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>{
+  <span class="keyword">throw</span> <span class="keyword">new</span> <span class="built_in">Error</span>(<span class="string">'文件下不能添加子文件'</span>);
+};
+
+File.prototype.scan = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>{
+  <span class="built_in">console</span>.log(<span class="string">'正在扫描文件...'</span> +<span class="keyword">this</span>.name);
+};
+
+<span class="keyword">var</span> folder = <span class="keyword">new</span> Folder(<span class="string">'学习资料'</span>);
+<span class="keyword">var</span> folder1 = <span class="keyword">new</span> Folder(<span class="string">'JavaScript'</span>);
+<span class="keyword">var</span> folder2 = <span class="keyword">new</span> Folder(<span class="string">'jquery'</span>);
+
+<span class="keyword">var</span> file1 = <span class="keyword">new</span> File(<span class="string">'JavaScript 设计模式与开发实践'</span>);
+<span class="keyword">var</span> file2 = <span class="keyword">new</span> File(<span class="string">'精通Jquery'</span>);
+<span class="keyword">var</span> file3 = <span class="keyword">new</span> File(<span class="string">'重构与模式'</span>);
+
+folder1.add(file1);
+folder2.add(file2);
+
+folder.add(folder1);
+folder.add(folder2);
+folder.add(file3);
+
+<span class="comment">// 最后遍历</span>
+folder.scan();
+
+<span class="comment">// 正在扫描文件夹...学习资料</span>
+<span class="comment">// 正在扫描文件夹...JavaScript</span>
+<span class="comment">// 正在扫描文件...JavaScript 设计模式与开发实践</span>
+<span class="comment">// 正在扫描文件夹...jquery</span>
+<span class="comment">// 正在扫描文件...精通Jquery</span>
+<span class="comment">// 正在扫描文件...重构与模式</span>
+</code></pre>
+<h3 id="一些值得注意的地方"><a href="#一些值得注意的地方" class="headerlink" title="一些值得注意的地方"></a>一些值得注意的地方</h3><ul>
+<li><p>组合对象不是父子关系<br>组合对象包含一组叶对象，但叶对象并不是组合对象的子类。组合对象能够把请求委托给叶对象，依赖的是他们具有相同的接口。</p>
+</li>
+<li><p>对叶对象操作的一致性<br>比如公司要给全体员工发元旦过节费1000源，这个场景可以运用组合模式。<br>但场景改为给今天过生日的员工发送一封祝福邮件，组合模式就没有用武之地了，除非把今天过生日的挑出来。</p>
+</li>
+<li><p>双向映射关系<br>比如在发放过节费的时候，有一个人可能属于多个部门，例如这个人又隶属于开发组，又隶属于架构组。在这种情况下，这个人可能会收到两份过节费。</p>
+</li>
+<li><p>用职责链模式提高组合模式的性能<br>在组合模式中，如果树的结构比较复杂，节点数量很多，在遍历树的过程中，性能方面也许表现的不够理想。<br>这时候我们可以借助一些技巧，在实际操作中避免遍历整棵树，有一种现成的方案是借助职责链模式。<br>这也是职责链模式的经典运用场景之一。</p>
+</li>
+</ul>
+<h3 id="引用父对象"><a href="#引用父对象" class="headerlink" title="引用父对象"></a>引用父对象</h3><pre><code class="js"><span class="keyword">var</span> Folder = <span class="function"><span class="keyword">function</span>(<span class="params">name</span>) </span>{
+  <span class="keyword">this</span>.name = name;
+  <span class="keyword">this</span>.files = [];
+  <span class="keyword">this</span>.parrent = <span class="literal">null</span>;
+};
+
+Folder.prototype.add = <span class="function"><span class="keyword">function</span>(<span class="params">file</span>) </span>{
+  file.parrent = <span class="keyword">this</span>;
+  <span class="keyword">this</span>.files.push(file);
+};
+
+Folder.prototype.scan = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>{
+  <span class="built_in">console</span>.log(<span class="string">'正在扫描文件夹...'</span> + <span class="keyword">this</span>.name);
+  <span class="keyword">for</span> (<span class="keyword">var</span> i = <span class="number">0</span>, file; file = <span class="keyword">this</span>.files[i++]; ) {
+    file.scan();
+  }
+
+};
+
+Folder.prototype.remove = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>{
+  <span class="keyword">if</span>(!<span class="keyword">this</span>.parrent) {
+    <span class="keyword">return</span>;
+  }
+
+  <span class="keyword">for</span> (<span class="keyword">var</span> i = <span class="number">0</span>,folder; folder = <span class="keyword">this</span>.parrent.files[i]; i++) {
+    <span class="keyword">if</span> (folder === <span class="keyword">this</span>) {
+      <span class="keyword">this</span>.parrent.files.splice(i, <span class="number">1</span>);
+      <span class="keyword">break</span>;
+    }
+
+  }
+
+};
+
+<span class="keyword">var</span> File = <span class="function"><span class="keyword">function</span>(<span class="params">name</span>) </span>{
+  <span class="keyword">this</span>.name = name;
+  <span class="keyword">this</span>.parrent = <span class="literal">null</span>;
+};
+
+File.prototype.add = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>{
+  <span class="keyword">throw</span> <span class="keyword">new</span> <span class="built_in">Error</span>(<span class="string">'文件下不能添加子文件'</span>);
+};
+
+File.prototype.scan = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>{
+  <span class="built_in">console</span>.log(<span class="string">'正在扫描文件...'</span> +<span class="keyword">this</span>.name);
+};
+
+File.prototype.remove = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>{
+  <span class="keyword">if</span>(!<span class="keyword">this</span>.parrent) {
+    <span class="keyword">return</span>;
+  }
+
+  <span class="keyword">for</span> (<span class="keyword">var</span> i = <span class="number">0</span>,file; file = <span class="keyword">this</span>.parrent.files[i]; i++ ) {
+    <span class="keyword">if</span> (file === <span class="keyword">this</span>) {
+      <span class="keyword">this</span>.parrent.files.splice(i, <span class="number">1</span>);
+    }
+
+  }
+
+};
+
+<span class="keyword">var</span> folder = <span class="keyword">new</span> Folder(<span class="string">'学习资料'</span>);
+<span class="keyword">var</span> folder1 = <span class="keyword">new</span> Folder(<span class="string">'JavaScript'</span>);
+<span class="keyword">var</span> folder2 = <span class="keyword">new</span> Folder(<span class="string">'jquery'</span>);
+
+<span class="keyword">var</span> file1 = <span class="keyword">new</span> File(<span class="string">'JavaScript 设计模式与开发实践'</span>);
+<span class="keyword">var</span> file2 = <span class="keyword">new</span> File(<span class="string">'精通Jquery'</span>);
+<span class="keyword">var</span> file3 = <span class="keyword">new</span> File(<span class="string">'重构与模式'</span>);
+
+folder1.add(file1);
+folder2.add(file2);
+
+folder.add(folder1);
+folder.add(folder2);
+folder.add(file3);
+
+folder.scan();
+<span class="built_in">console</span>.log(<span class="string">'======'</span>);
+folder2.remove();
+file3.remove();
+folder.scan();
+</code></pre>
+<h3 id="何时使用组合模式"><a href="#何时使用组合模式" class="headerlink" title="何时使用组合模式"></a>何时使用组合模式</h3><ul>
+<li><p>表示对象的部分-整体层次结构</p>
+<ul>
+<li>组合模式可以方便地构造一棵树来表示对象的部分-整体结构。特别是我们在开发期间不确定有多少层数的时候。</li>
+<li>我们只需要请求顶层对象，就可以操作树中的所有对象。</li>
+<li>在组合模式中增加删除节点非常方便，符合开放封闭原则</li>
+</ul>
+</li>
+<li><p>客户希望统一对待树中的所有对象<br>用户在面对组合对象这棵树的时候，不用关心当前处理的对象是组合对象还是叶对象，也就是不用写<code>if else</code>来判断他们，当用户发出命令后，组合对象和叶对象会按照自己的方式去做正确的事情，这就是组合模式的强大之处。</p>
+</li>
+</ul>
+<h2 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h2><p>组合模式可以让我们使用树形方式创建对象的结构，我们可以将相同的操作应用在组合对象和单个对象上。在大多数情况下，我们可以忽略组合对象和单个对象的区别，从而使用一致的方式来处理他们</p>
+<p>然而，组合模式并不是完美的，他可能产生一个系统，这个系统的对象看起来都差不多，而各自的差异只有在执行时才能够体现出来，使得代码难以理解。<br>此外，如果通过组合模式创建了大量的对象，那么这些对象可能会让系统负担不起。</p>
+<hr>
+<p>参考文档：</p>
+<p>javascript设计模式与开发实践</p>
+  
+	</div>
+		<footer class="article-footer clearfix">
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/js/">js</a><a href="/tags/js设计模式/">js设计模式</a>
+  </div>
+
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/js设计模式笔记/">js设计模式笔记</a>
+</div>
+
+
+<div class="article-share" id="share">
+
+  <div data-url="http://www.xiaohan80s.com/2016/08/10/js设计模式笔记/2016-08-10-part12/" data-title="组合模式 | xiaohan80s.com" data-tsina="null" class="share clearfix">
+  </div>
+
+</div>
+</footer>
+   	       
+	</article>
+	
+<nav class="article-nav clearfix">
+ 
+
+<div class="next">
+<a href="/2016/08/09/js设计模式笔记/2016-08-09-part11/"  title="命令模式">
+ <strong>NEXT:</strong><br/> 
+ <span>命令模式
+</span>
+</a>
+</div>
+
+</nav>
+
+	
+<section class="comment">
+	<div class="ds-thread"></div>
+</section>
+
+</div>  
+      <div class="openaside"><a class="navbutton" href="#" title="显示侧边栏"></a></div>
+
+  <div id="toc" class="toc-aside">
+  <strong class="toc-title">文章目录</strong>
+  <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#回顾宏命令"><span class="toc-number">1.</span> <span class="toc-text">回顾宏命令</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#组合模式的用途"><span class="toc-number">2.</span> <span class="toc-text">组合模式的用途</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#更强大的宏命令"><span class="toc-number">3.</span> <span class="toc-text">更强大的宏命令</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#透明性带来的安全问题"><span class="toc-number">4.</span> <span class="toc-text">透明性带来的安全问题</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#组合模式的例子–扫描文件夹"><span class="toc-number">5.</span> <span class="toc-text">组合模式的例子–扫描文件夹</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#一些值得注意的地方"><span class="toc-number">6.</span> <span class="toc-text">一些值得注意的地方</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#引用父对象"><span class="toc-number">7.</span> <span class="toc-text">引用父对象</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#何时使用组合模式"><span class="toc-number">8.</span> <span class="toc-text">何时使用组合模式</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#小结"><span class="toc-number"></span> <span class="toc-text">小结</span></a>
+  <div class="comment_bar"><a href="#ds-reset" target="" title="评论区">文章评论</a></div>
+  </div>
+
+<div id="asidepart">
+<div class="closeaside"><a class="closebutton" href="#" title="隐藏侧边栏"></a></div>
+<aside class="clearfix">
+
+  
+<div class="categorieslist">
+	<p class="asidetitle">分类</p>
+		<ul>
+		
+			<li><a href="/categories/js设计模式笔记/" title="js设计模式笔记">js设计模式笔记<sup>12</sup></a></li>
+		
+			<li><a href="/categories/工具/" title="工具">工具<sup>1</sup></a></li>
+		
+		</ul>
+</div>
+
+
+  
+<div class="tagslist">
+	<p class="asidetitle">标签</p>
+		<ul class="clearfix">
+		
+			<li><a href="/tags/js/" title="js">js<sup>12</sup></a></li>
+		
+			<li><a href="/tags/js设计模式/" title="js设计模式">js设计模式<sup>7</sup></a></li>
+		
+			<li><a href="/tags/工具/" title="工具">工具<sup>1</sup></a></li>
+		
+			<li><a href="/tags/搭建博客/" title="搭建博客">搭建博客<sup>1</sup></a></li>
+		
+		</ul>
+</div>
+
+
+  
+  <div class="archiveslist">
+    <p class="asidetitle"><a href="/archives">归档</a></p>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/08/">2016 年 08 月</a><span class="archive-list-count">9</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/07/">2016 年 07 月</a><span class="archive-list-count">4</span></li></ul>
+  </div>
+
+
+
+  
+
+<script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"1","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"16"},"slide":{"type":"slide","bdImg":"4","bdPos":"right","bdTop":"160"}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];</script>
+
+
+</aside>
+</div>
+
+    </div>
+    <footer><div id="footer" >
+	
+	<div class="line">
+		<span></span>
+		<div class="author"></div>
+	</div>
+	
+	
+	<div class="social-font clearfix">
+		
+		
+		
+		
+		
+	</div>
+		<p class="copyright">Powered by <a href="http://hexo.io" target="_blank" title="hexo">hexo</a> and Theme by <a href="https://github.com/A-limon/pacman" target="_blank" title="Pacman">Pacman</a> © 2016
+		
+		<a href="http://www.xiaohan80s.com" target="_blank" title="xiao han 80s">xiao han 80s</a>
+		
+		</p>
+</div>
+</footer>
+    <script src="/js/jquery-2.1.0.min.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){
+  $('.navbar').click(function(){
+    $('header nav').toggleClass('shownav');
+  });
+  var myWidth = 0;
+  function getSize(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+  };
+  var m = $('#main'),
+      a = $('#asidepart'),
+      c = $('.closeaside'),
+      o = $('.openaside');
+
+  $(window).resize(function(){
+    getSize();
+    if (myWidth >= 1024) {
+      $('header nav').removeClass('shownav');
+    }else
+    {
+      m.removeClass('moveMain');
+      a.css('display', 'block').removeClass('fadeOut');
+      o.css('display', 'none');
+      
+      $('#toc.toc-aside').css('display', 'none');
+      
+    }
+  });
+  c.click(function(){
+    a.addClass('fadeOut').css('display', 'none');
+    o.css('display', 'block').addClass('fadeIn');
+    m.addClass('moveMain');
+  });
+  o.click(function(){
+    o.css('display', 'none').removeClass('beforeFadeIn');
+    a.css('display', 'block').removeClass('fadeOut').addClass('fadeIn');
+    m.removeClass('moveMain');
+  });
+  $(window).scroll(function(){
+    o.css("top",Math.max(80,260-$(this).scrollTop()));
+  });
+});
+</script>
+
+<script type="text/javascript">
+$(document).ready(function(){
+  var ai = $('.article-content>iframe'),
+      ae = $('.article-content>embed'),
+      t  = $('#toc'),
+      h  = $('article h2')
+      ah = $('article h2'),
+      ta = $('#toc.toc-aside'),
+      o  = $('.openaside'),
+      c  = $('.closeaside');
+  if(ai.length>0){
+    ai.wrap('<div class="video-container" />');
+  };
+  if(ae.length>0){
+   ae.wrap('<div class="video-container" />');
+  };
+  if(ah.length==0){
+    t.css('display','none');
+  }else{
+    c.click(function(){
+      ta.css('display', 'block').addClass('fadeIn');
+    });
+    o.click(function(){
+      ta.css('display', 'none');
+    });
+    $(window).scroll(function(){
+      ta.css("top",Math.max(140,320-$(this).scrollTop()));
+    });
+  };
+  $('.closeaside').triggerHandler('click');
+});
+</script>
+
+
+<script type="text/javascript">
+$(document).ready(function(){
+  var $this = $('.share'),
+      url = $this.attr('data-url'),
+      encodedUrl = encodeURIComponent(url),
+      title = $this.attr('data-title'),
+      tsina = $this.attr('data-tsina');
+  var html = [
+  // '<a href="#" class="overlay" id="qrcode"></a>',
+  // '<div class="qrcode clearfix"><span>扫描二维码分享到微信朋友圈</span><a class="qrclose" href="#share"></a><strong>Loading...Please wait</strong><img id="qrcode-pic" data-src="http://s.jiathis.com/qrcode.php?url=' + encodedUrl + '"/></div>',
+  '<a href="#textlogo" class="article-back-to-top" title="Top"></a>',
+  // '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+  // '<a href="#qrcode" class="article-share-qrcode" title="QRcode"></a>',
+  // '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+  // '<a href="http://service.weibo.com/share/share.php?title='+title+'&url='+encodedUrl +'&ralateUid='+ tsina +'&searchPic=true&style=number' +'" class="article-share-weibo" target="_blank" title="Weibo"></a>',
+  // '<span title="Share to"></span>'
+  ].join('');
+  $this.append(html);
+  $('.article-share-qrcode').click(function(){
+    var imgSrc = $('#qrcode-pic').attr('data-src');
+    $('#qrcode-pic').attr('src', imgSrc);
+    $('#qrcode-pic').load(function(){
+        $('.qrcode strong').text(' ');
+    });
+  });
+});
+</script>
+
+
+<script type="text/javascript">
+  var duoshuoQuery = {short_name:"xiaohan80s"};
+  (function() {
+    var ds = document.createElement('script');
+    ds.type = 'text/javascript';ds.async = true;
+    ds.src = '//static.duoshuo.com/embed.js';
+    ds.charset = 'UTF-8';
+    (document.getElementsByTagName('head')[0]
+    || document.getElementsByTagName('body')[0]).appendChild(ds);
+  })();
+</script>
+
+
+
+
+
+  </body>
+</html>

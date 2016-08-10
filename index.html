@@ -66,6 +66,21 @@
 
   <section class="post" itemscope itemprop="blogPost">
   
+    <a href="/2016/08/10/js设计模式笔记/2016-08-10-part12/" title="组合模式" itemprop="url">
+  
+    <h1 itemprop="name">组合模式</h1>
+    
+     
+           <p itemprop="description" >组合模式就是用小的子对象来构建更大的对象，而这些小的子对象本身也许是由更小的“孙对象”构成的。
+回顾宏命令我们在上一章 命令模式中学习了 宏命令 .宏命令对象包含了一组具体的子命令对象，不管是宏命令对象，还是子命令对象，都提供了一个execute方法负责执行命令123456789</p>
+        
+    
+    <time datetime="2016-08-09T16:00:00.000Z" itemprop="datePublished">2016-08-10</time>
+  </a>
+</section>
+
+  <section class="post" itemscope itemprop="blogPost">
+  
     <a href="/2016/08/09/js设计模式笔记/2016-08-09-part11/" title="命令模式" itemprop="url">
   
     <h1 itemprop="name">命令模式</h1>
@@ -80,14 +95,13 @@
 
   <section class="post" itemscope itemprop="blogPost">
   
-    <a href="/2016/08/08/js设计模式笔记/2016-08-07-part8/" title="代理模式" itemprop="url">
+    <a href="/2016/08/08/js设计模式笔记/2016-08-08-part9/" title="迭代器模式" itemprop="url">
   
-    <h1 itemprop="name">代理模式</h1>
+    <h1 itemprop="name">迭代器模式</h1>
     
      
-           <p itemprop="description" >代理模式是为了一个对象提供一个待用品或者占位符，以便控制对他的访问。代理模式的关键是，当客户不方便直接访问一个对象或者不满足需要的时候，提供一个替身客户来控制对这个对象的访问，客户实际访问的是替身对象。替身对象对客户的请求做出处理之后，再把请求转交给本体对象。
-代理模式
-保护代理</p>
+           <p itemprop="description" >迭代器模式是指提供一种方法顺序访问一个聚合对象内的各个元素，而又不需要暴露该对象的内部表示。
+自己实现一个迭代器我们首先实现一个数组或者类数组的迭代器123456789var each = function(ary, callback) &amp;#123;  for(var i = 0</p>
         
     
     <time datetime="2016-08-07T16:00:00.000Z" itemprop="datePublished">2016-08-08</time>
@@ -111,33 +125,17 @@ DOM 事件只要我们曾经在DOM节点上绑定过事件函数，就使用过�
 
   <section class="post" itemscope itemprop="blogPost">
   
-    <a href="/2016/08/08/js设计模式笔记/2016-08-08-part9/" title="迭代器模式" itemprop="url">
+    <a href="/2016/08/08/js设计模式笔记/2016-08-07-part8/" title="代理模式" itemprop="url">
   
-    <h1 itemprop="name">迭代器模式</h1>
+    <h1 itemprop="name">代理模式</h1>
     
      
-           <p itemprop="description" >迭代器模式是指提供一种方法顺序访问一个聚合对象内的各个元素，而又不需要暴露该对象的内部表示。
-自己实现一个迭代器我们首先实现一个数组或者类数组的迭代器123456789var each = function(ary, callback) &amp;#123;  for(var i = 0</p>
+           <p itemprop="description" >代理模式是为了一个对象提供一个待用品或者占位符，以便控制对他的访问。代理模式的关键是，当客户不方便直接访问一个对象或者不满足需要的时候，提供一个替身客户来控制对这个对象的访问，客户实际访问的是替身对象。替身对象对客户的请求做出处理之后，再把请求转交给本体对象。
+代理模式
+保护代理</p>
         
     
     <time datetime="2016-08-07T16:00:00.000Z" itemprop="datePublished">2016-08-08</time>
-  </a>
-</section>
-
-  <section class="post" itemscope itemprop="blogPost">
-  
-    <a href="/2016/08/06/js设计模式笔记/2016-08-06-part7/" title="策略模式" itemprop="url">
-  
-    <h1 itemprop="name">策略模式</h1>
-    
-     
-           <p itemprop="description" >使用策略模式计算奖金我们来做一个按照级别和薪水来计算奖金的函数
-
-最初的代码实现
-1234567891011var calculateBouns = function(level, salary)&amp;#123;  if(level===&#39;S&#39;) &amp;#123;    return s</p>
-        
-    
-    <time datetime="2016-08-05T16:00:00.000Z" itemprop="datePublished">2016-08-06</time>
   </a>
 </section>
 
@@ -160,18 +158,18 @@ DOM 事件只要我们曾经在DOM节点上绑定过事件函数，就使用过�
 
   <section class="post" itemscope itemprop="blogPost">
   
-    <a href="/2016/08/04/js设计模式笔记/2016-08-04-part4/" title="初探 闭包" itemprop="url">
+    <a href="/2016/08/06/js设计模式笔记/2016-08-06-part7/" title="策略模式" itemprop="url">
   
-    <h1 itemprop="name">初探 闭包</h1>
+    <h1 itemprop="name">策略模式</h1>
     
      
-           <p itemprop="description" >本章主要讲解闭包的的形成和应用闭包的形成闭包的形成与变量的作用域和变量的生存周期密切相关，首先我们先了解这两个概念
+           <p itemprop="description" >使用策略模式计算奖金我们来做一个按照级别和薪水来计算奖金的函数
 
-变量的作用域变量分为全局变量和局部变量，全局变量全局都有效，局部变量在一般情况下只在函数内部有效
-变量的生存周期全局变量的生存周期是永久的，局部变量的生存周期一般</p>
+最初的代码实现
+1234567891011var calculateBouns = function(level, salary)&amp;#123;  if(level===&#39;S&#39;) &amp;#123;    return s</p>
         
     
-    <time datetime="2016-08-03T16:00:00.000Z" itemprop="datePublished">2016-08-04</time>
+    <time datetime="2016-08-05T16:00:00.000Z" itemprop="datePublished">2016-08-06</time>
   </a>
 </section>
 
@@ -199,17 +197,18 @@ ajax 函数
 
   <section class="post" itemscope itemprop="blogPost">
   
-    <a href="/2016/07/31/js设计模式笔记/2016-07-31-part1/" title="JavaScript中的对象" itemprop="url">
+    <a href="/2016/08/04/js设计模式笔记/2016-08-04-part4/" title="初探 闭包" itemprop="url">
   
-    <h1 itemprop="name">JavaScript中的对象</h1>
+    <h1 itemprop="name">初探 闭包</h1>
     
      
-           <p itemprop="description" >对象的三大特性：封装、继承、多态。我们来聊一下JavaScript中的对象的这三个特性1.多态 多态的定义：同一操作 作用在不同的对象上可以产生不同的执行结果
- JavaScrip作为一种弱类型的语言,又叫做动态类型语言，他在实现多态时与java等强类型语言有些不一样。
-例如有一</p>
+           <p itemprop="description" >本章主要讲解闭包的的形成和应用闭包的形成闭包的形成与变量的作用域和变量的生存周期密切相关，首先我们先了解这两个概念
+
+变量的作用域变量分为全局变量和局部变量，全局变量全局都有效，局部变量在一般情况下只在函数内部有效
+变量的生存周期全局变量的生存周期是永久的，局部变量的生存周期一般</p>
         
     
-    <time datetime="2016-07-30T16:00:00.000Z" itemprop="datePublished">2016-07-31</time>
+    <time datetime="2016-08-03T16:00:00.000Z" itemprop="datePublished">2016-08-04</time>
   </a>
 </section>
 
@@ -246,7 +245,7 @@ ajax 函数
 	<p class="asidetitle">分类</p>
 		<ul>
 		
-			<li><a href="/categories/js设计模式笔记/" title="js设计模式笔记">js设计模式笔记<sup>11</sup></a></li>
+			<li><a href="/categories/js设计模式笔记/" title="js设计模式笔记">js设计模式笔记<sup>12</sup></a></li>
 		
 			<li><a href="/categories/工具/" title="工具">工具<sup>1</sup></a></li>
 		
@@ -259,9 +258,9 @@ ajax 函数
 	<p class="asidetitle">标签</p>
 		<ul class="clearfix">
 		
-			<li><a href="/tags/js/" title="js">js<sup>11</sup></a></li>
+			<li><a href="/tags/js/" title="js">js<sup>12</sup></a></li>
 		
-			<li><a href="/tags/js设计模式/" title="js设计模式">js设计模式<sup>6</sup></a></li>
+			<li><a href="/tags/js设计模式/" title="js设计模式">js设计模式<sup>7</sup></a></li>
 		
 			<li><a href="/tags/工具/" title="工具">工具<sup>1</sup></a></li>
 		
@@ -274,7 +273,7 @@ ajax 函数
   
   <div class="archiveslist">
     <p class="asidetitle"><a href="/archives">归档</a></p>
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/08/">2016 年 08 月</a><span class="archive-list-count">8</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/07/">2016 年 07 月</a><span class="archive-list-count">4</span></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/08/">2016 年 08 月</a><span class="archive-list-count">9</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/07/">2016 年 07 月</a><span class="archive-list-count">4</span></li></ul>
   </div>
 
 
