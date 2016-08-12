@@ -1,0 +1,371 @@
+
+ <!DOCTYPE HTML>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  
+    <title>中介者模式 | xiaohan80s.com</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=3, minimum-scale=1">
+    
+    <meta name="author" content="xiao han 80s">
+    
+    <meta name="description" content="在我们生活的世界中，每个人每个物体之间都会产生一些错综复杂的联系。在应用程序里也是一样，程序由大大小小的单一对象组成，所有这些对象都按照某种关系和规则来通信面向对象设计鼓励将行为分布到各个对象中，把对象划分成更小的粒度，有助于增强对象的可复用性，但由于这些粒度对象之间的联系激增，又有可能会反过来降低">
+    
+    
+    
+    
+    
+    <link rel="icon" href="/img/favicon.ico">
+    
+    
+    <link rel="apple-touch-icon" href="/img/pacman.jpg">
+    <link rel="apple-touch-icon-precomposed" href="/img/pacman.jpg">
+    
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+
+  <body>
+    <header>
+      <div>
+		
+			<div id="imglogo">
+				<a href="/"><img src="/img/logo.svg" alt="xiaohan80s.com" title="xiaohan80s.com"/></a>
+			</div>
+			
+			<div id="textlogo">
+				<h1 class="site-name"><a href="/" title="xiaohan80s.com">xiaohan80s.com</a></h1>
+				<h2 class="blog-motto">年轻 没有什么不可以!</h2>
+			</div>
+			<div class="navbar"><a class="navbutton navmobile" href="#" title="菜单">
+			</a></div>
+			<nav class="animated">
+				<ul>
+					
+						<li><a href="/">Home</a></li>
+					
+						<li><a href="/archives">Archives</a></li>
+					
+						<li><a href="/categories">Categories</a></li>
+					
+						<li><a href="/about">About</a></li>
+					
+					<li>
+					
+					<!-- <form class="search" action="//baidu.com" method="get" accept-charset="utf-8">
+						<label>Search</label>
+						<input type="text" id="search" name="q" autocomplete="off" maxlength="20" placeholder="搜索" />
+						<input type="hidden" name="q" value="site:www.xiaohan80s.com">
+					</form> -->
+					
+					</li>
+				</ul>
+			</nav>
+</div>
+
+    </header>
+    <div id="container">
+      <div id="main" class="post" itemscope itemprop="blogPost">
+	<article itemprop="articleBody"> 
+		<header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2016/08/11/js设计模式笔记/2016-08-12-part16/" title="中介者模式" itemprop="url">中介者模式</a>
+  </h1>
+  <p class="article-author">By
+    
+      <a href="http://www.xiaohan80s.com" title="xiao han 80s">xiao han 80s</a>
+    </p>
+  <p class="article-time">
+    <time datetime="2016-08-10T16:00:00.000Z" itemprop="datePublished">2016-08-11</time>
+    更新日期:<time datetime="2016-08-12T15:44:02.058Z" itemprop="dateModified">2016-08-12</time>
+    
+  </p>
+</header>
+	<div class="article-content">
+		
+		
+		<div id="toc" class="toc-article">
+			<strong class="toc-title">文章目录</strong>
+		<ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#现实中的中介者"><span class="toc-number">1.</span> <span class="toc-text">现实中的中介者</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#中介者模式的例子–泡泡堂游戏"><span class="toc-number">2.</span> <span class="toc-text">中介者模式的例子–泡泡堂游戏</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#玩家增多带来的困扰"><span class="toc-number">3.</span> <span class="toc-text">玩家增多带来的困扰</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#使用中介者模式改造泡泡堂游戏"><span class="toc-number">4.</span> <span class="toc-text">使用中介者模式改造泡泡堂游戏</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#中介者模式的例子–购买商品"><span class="toc-number">5.</span> <span class="toc-text">中介者模式的例子–购买商品</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#小结"><span class="toc-number"></span> <span class="toc-text">小结</span></a>
+		</div>
+		
+		<p>在我们生活的世界中，每个人每个物体之间都会产生一些错综复杂的联系。在应用程序里也是一样，程序由大大小小的单一对象组成，所有这些对象都按照某种关系和规则来通信<br>面向对象设计鼓励将行为分布到各个对象中，把对象划分成更小的粒度，有助于增强对象的可复用性，但由于这些粒度对象之间的联系激增，又有可能会反过来降低他们的可服用性。中介者模式的作用就是解除对象之间的紧耦合关系。</p>
+<h3 id="现实中的中介者"><a href="#现实中的中介者" class="headerlink" title="现实中的中介者"></a>现实中的中介者</h3><ul>
+<li>机场指挥塔<br>如果没有指挥塔的存在，每一架飞机要和方圆百里内的所有飞机通信，才能确定航线以及飞行状况。<br>现实情况是 每架飞机都只需要和指挥塔通信，指挥塔作为调度者，了解每个飞机的飞行状况，安排所有飞机的航线和起降时间。</li>
+<li>博彩公司<br>在世界杯期间，如果没有博彩公司作为中介，成千万人一起计算赔率和输赢绝对不可能实现的事情，有了博彩公司作为中介。每个人跟博彩公司发生管理，博彩公司会根据所有人的投注计算好赔率，彩民们赢了钱就从博彩公司拿，输了钱就交给博彩公司。<h3 id="中介者模式的例子–泡泡堂游戏"><a href="#中介者模式的例子–泡泡堂游戏" class="headerlink" title="中介者模式的例子–泡泡堂游戏"></a>中介者模式的例子–泡泡堂游戏</h3>下面是一个初级的泡泡堂游戏，因为玩家的数量为2，所以当其中一个玩家死亡，就会通知另一个对手胜利。<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> Player = <span class="function"><span class="keyword">function</span>(<span class="params">name</span>) </span>&#123;</div><div class="line">  <span class="keyword">this</span>.name = name;</div><div class="line">  <span class="keyword">this</span>.enemy = <span class="literal">null</span>;</div><div class="line">&#125;;</div><div class="line"></div><div class="line">Player.prototype.win = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</div><div class="line">  <span class="built_in">console</span>.log(<span class="string">'win:'</span> + <span class="keyword">this</span>.name);</div><div class="line">&#125;;</div><div class="line"></div><div class="line">Player.prototype.lose = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</div><div class="line">  <span class="built_in">console</span>.log(<span class="string">'lose:'</span> + <span class="keyword">this</span>.name);</div><div class="line">&#125;;</div><div class="line"></div><div class="line">Player.prototype.die = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</div><div class="line">  <span class="keyword">this</span>.lose();</div><div class="line">  <span class="keyword">this</span>.enemy.win();</div><div class="line">&#125;;</div><div class="line"></div><div class="line"><span class="keyword">var</span> p1 = <span class="keyword">new</span> Player(<span class="string">'xiaohan'</span>),</div><div class="line">    p2 = <span class="keyword">new</span> Player(<span class="string">'xiaolu'</span>);</div><div class="line"></div><div class="line">p1.enemy = p2;</div><div class="line">p2.enemy = p1;</div><div class="line">p1.die();</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>为游戏增加队伍<br>现在我们改进一下游戏，因为玩家增多，用下面的方式设置队友和敌人无疑很低效<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> Player = <span class="function"><span class="keyword">function</span>(<span class="params">name, teamColor</span>) </span>&#123;</div><div class="line">  <span class="keyword">this</span>.name = name;</div><div class="line">  <span class="keyword">this</span>.teamColor = teamColor;</div><div class="line">  <span class="keyword">this</span>.partners = [];</div><div class="line">  <span class="keyword">this</span>.enemies = [];</div><div class="line">  <span class="keyword">this</span>.state = <span class="string">'live'</span>;</div><div class="line">&#125;;</div><div class="line"></div><div class="line">Player.prototype.win = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</div><div class="line">  <span class="built_in">console</span>.log(<span class="string">'win:'</span> + <span class="keyword">this</span>.name);</div><div class="line">&#125;;</div><div class="line"></div><div class="line">Player.prototype.lose = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</div><div class="line">  <span class="built_in">console</span>.log(<span class="string">'lose:'</span> + <span class="keyword">this</span>.name);</div><div class="line">&#125;;</div><div class="line"></div><div class="line">Player.prototype.die = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</div><div class="line">  <span class="keyword">var</span> allDead = <span class="string">'true'</span>;</div><div class="line"></div><div class="line">  <span class="keyword">this</span>.state = <span class="string">'dead'</span>;</div><div class="line">  <span class="keyword">for</span> (<span class="keyword">var</span> i = <span class="number">0</span>,player; player = <span class="keyword">this</span>.partners[i]; i++) &#123;</div><div class="line">    <span class="keyword">if</span> (player.state !== <span class="string">'dead'</span>) &#123;</div><div class="line">      allDead = <span class="string">'false'</span>;</div><div class="line">      <span class="keyword">break</span>;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">  &#125;</div><div class="line"></div><div class="line">  <span class="keyword">if</span> (allDead === <span class="string">'true'</span>) &#123;</div><div class="line">    <span class="keyword">this</span>.lose();</div><div class="line">    <span class="keyword">for</span> (<span class="keyword">var</span> i = <span class="number">0</span>,player; player = <span class="keyword">this</span>.partners[i]; i++) &#123;</div><div class="line">      player.lose();</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="keyword">for</span> (<span class="keyword">var</span> i =<span class="number">0</span>,enemy; enemy = <span class="keyword">this</span>.enemies[i]; i++) &#123;</div><div class="line">      enemy.win();</div><div class="line">    &#125;</div><div class="line"></div><div class="line">  &#125;</div><div class="line"></div><div class="line">&#125;;</div><div class="line"></div><div class="line"><span class="keyword">var</span> PlayerFactory = (<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</div><div class="line">  <span class="keyword">var</span> players = [];</div><div class="line"></div><div class="line">  <span class="keyword">return</span> <span class="function"><span class="keyword">function</span>(<span class="params">name, teamColor</span>) </span>&#123;</div><div class="line">    <span class="keyword">var</span> newPlayer = <span class="keyword">new</span> Player(name, teamColor);</div><div class="line"></div><div class="line">    <span class="keyword">for</span> (<span class="keyword">var</span> i = <span class="number">0</span>, player; player = players[i]; i++) &#123;</div><div class="line">      <span class="keyword">if</span> (player.teamColor === newPlayer.teamColor) &#123;</div><div class="line">        player.partners.push(newPlayer);</div><div class="line">        newPlayer.partners.push(player);</div><div class="line">      &#125; <span class="keyword">else</span> &#123;</div><div class="line">        player.enemies.push(newPlayer);</div><div class="line">        newPlayer.enemies.push(player);</div><div class="line">      &#125;</div><div class="line"></div><div class="line">    &#125;</div><div class="line"></div><div class="line">    players.push(newPlayer);</div><div class="line">    <span class="keyword">return</span> newPlayer;</div><div class="line">  &#125;;</div><div class="line"></div><div class="line">&#125;)();</div><div class="line"></div><div class="line"><span class="keyword">var</span> p1 = <span class="keyword">new</span> PlayerFactory(<span class="string">'皮蛋'</span>,<span class="string">'red'</span>),</div><div class="line">    p2 = <span class="keyword">new</span> PlayerFactory(<span class="string">'小乖'</span>,<span class="string">'red'</span>),</div><div class="line">    p3 = <span class="keyword">new</span> PlayerFactory(<span class="string">'宝宝'</span>,<span class="string">'red'</span>),</div><div class="line">    p4= <span class="keyword">new</span> PlayerFactory(<span class="string">'小强'</span>,<span class="string">'red'</span>);</div><div class="line"></div><div class="line"><span class="keyword">var</span> p5= <span class="keyword">new</span> PlayerFactory(<span class="string">'黑妞'</span>,<span class="string">'blue'</span>),</div><div class="line">    p6= <span class="keyword">new</span> PlayerFactory(<span class="string">'葱头'</span>,<span class="string">'blue'</span>),</div><div class="line">    p7= <span class="keyword">new</span> PlayerFactory(<span class="string">'胖墩'</span>,<span class="string">'blue'</span>),</div><div class="line">    p8= <span class="keyword">new</span> PlayerFactory(<span class="string">'海盗'</span>,<span class="string">'blue'</span>);</div><div class="line"></div><div class="line">p1.die();</div><div class="line">p2.die();</div><div class="line">p3.die();</div><div class="line">p4.die();</div></pre></td></tr></table></figure></p>
+<h3 id="玩家增多带来的困扰"><a href="#玩家增多带来的困扰" class="headerlink" title="玩家增多带来的困扰"></a>玩家增多带来的困扰</h3><p>上面的代码每个玩家和其他玩家都是紧紧耦合在一起的。每个玩家都有两个属性,<code>partners</code>和<code>enemies</code>,当玩家状态改变时：例如玩家死亡，换队，掉线。都要显示的通知其他对象。</p>
+<h3 id="使用中介者模式改造泡泡堂游戏"><a href="#使用中介者模式改造泡泡堂游戏" class="headerlink" title="使用中介者模式改造泡泡堂游戏"></a>使用中介者模式改造泡泡堂游戏</h3><p>Player 构造方法<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> Player = <span class="function"><span class="keyword">function</span>(<span class="params">name, teamColor</span>) </span>&#123;</div><div class="line">  <span class="keyword">this</span>.name = name;</div><div class="line">  <span class="keyword">this</span>.teamColor = teamColor;</div><div class="line">  <span class="keyword">this</span>.state = <span class="string">'live'</span>;</div><div class="line">&#125;;</div><div class="line"></div><div class="line">Player.prototype.win = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</div><div class="line">  <span class="built_in">console</span>.log(<span class="string">'win:'</span> + <span class="keyword">this</span>.name);</div><div class="line">&#125;;</div><div class="line"></div><div class="line">Player.prototype.lose = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</div><div class="line">  <span class="built_in">console</span>.log(<span class="string">'lose:'</span> + <span class="keyword">this</span>.name);</div><div class="line">&#125;;</div><div class="line"></div><div class="line">Player.prototype.remove = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</div><div class="line">  playerDirector.receiveMessage(<span class="string">'remove'</span>, <span class="keyword">this</span>);</div><div class="line">&#125;;</div><div class="line"></div><div class="line">Player.prototype.changeTeam = <span class="function"><span class="keyword">function</span>(<span class="params">color</span>) </span>&#123;</div><div class="line">  playerDirector.receiveMessage(<span class="string">'changeTeam'</span>, <span class="keyword">this</span> , color);</div><div class="line">&#125;;</div><div class="line"></div><div class="line">Player.prototype.die = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</div><div class="line">  playerDirector.receiveMessage(<span class="string">'playerDead'</span>, <span class="keyword">this</span>);</div><div class="line">&#125;;</div></pre></td></tr></table></figure></p>
+<p>使用工厂函数创建玩家<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> PlayerFactory = <span class="function"><span class="keyword">function</span>(<span class="params">name, teamColor</span>)</span>&#123;</div><div class="line">  <span class="keyword">var</span> player = <span class="keyword">new</span> Player(name, teamColor);</div><div class="line"></div><div class="line">  playerDirector.receiveMessage(<span class="string">'add'</span>,player);</div><div class="line"></div><div class="line">  <span class="keyword">return</span> player;</div><div class="line">&#125;;</div></pre></td></tr></table></figure></p>
+<p>一般中介者对象和其他对象通信，使用以下两种方式<br>中介者：playerDirector </p>
+<ul>
+<li>发布-订阅模式，各个player作为发布者，一旦player的状态改变，playerDirector就可以接收到消息，消息经过处理后再发给其他player</li>
+<li>在playerDirector中开放一些接收消息的接口，各个player可以通过调用接口给中介者发送消息，player只需传递一个参数给playerDirector，这个参数可以识别发送者。 同样 playerDirector 在接收到消息后将处理结果发给player。<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> playerDirector = (<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</div><div class="line">  <span class="keyword">var</span> players = [],</div><div class="line">      operations = &#123;&#125;;</div><div class="line"></div><div class="line">  operations.add = <span class="function"><span class="keyword">function</span>(<span class="params">player</span>) </span>&#123;</div><div class="line">    <span class="keyword">var</span> teamColor = player.teamColor;</div><div class="line"></div><div class="line">    <span class="keyword">if</span> (!players[teamColor]) &#123;</div><div class="line">      players[teamColor] = [];</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    players[teamColor].push(player);</div><div class="line">  &#125;;</div><div class="line"></div><div class="line">  operations.remove = <span class="function"><span class="keyword">function</span>(<span class="params">player</span>) </span>&#123;</div><div class="line">    <span class="keyword">var</span> teamPlayers = players[player.teamColor];</div><div class="line"></div><div class="line">    <span class="keyword">for</span> (<span class="keyword">var</span> i = <span class="number">0</span>, _player; _player = teamPlayers[i]; i++) &#123;</div><div class="line">      <span class="keyword">if</span> (_player === player) &#123;</div><div class="line">        teamPlayers.splice(i, <span class="number">1</span>);</div><div class="line">      &#125;</div><div class="line"></div><div class="line">    &#125;</div><div class="line"></div><div class="line">  &#125;;</div><div class="line"></div><div class="line">  operations.changeTeam = <span class="function"><span class="keyword">function</span>(<span class="params">player, newTeamColor</span>) </span>&#123;</div><div class="line">    operations.remove(player);</div><div class="line">    player.teamColor = newTeamColor;</div><div class="line">    operations.add(player);</div><div class="line">  &#125;;</div><div class="line"></div><div class="line">  operations.playerDead = <span class="function"><span class="keyword">function</span>(<span class="params">player</span>) </span>&#123;</div><div class="line">    <span class="keyword">var</span> allDead = <span class="literal">true</span>,</div><div class="line">        teamPlayers = players[player.teamColor],</div><div class="line">        playColor = player.teamColor;</div><div class="line"></div><div class="line">    player.state = <span class="string">'dead'</span>;</div><div class="line">    <span class="keyword">for</span> (<span class="keyword">var</span> i = <span class="number">0</span>,player; player = teamPlayers[i]; i++) &#123;</div><div class="line">      <span class="keyword">if</span> (player.state !== <span class="string">'dead'</span>) &#123;</div><div class="line">        allDead = <span class="literal">false</span>;</div><div class="line">        <span class="keyword">break</span>;</div><div class="line">      &#125;</div><div class="line"></div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="keyword">if</span> (allDead === <span class="literal">true</span>) &#123;</div><div class="line">      <span class="keyword">for</span> (<span class="keyword">var</span> i = <span class="number">0</span>,player; player = teamPlayers[i]; i++) &#123;</div><div class="line">        player.lose();</div><div class="line">      &#125;</div><div class="line"></div><div class="line">      <span class="keyword">for</span> (<span class="keyword">var</span> teamColor <span class="keyword">in</span> players) &#123;</div><div class="line">        <span class="keyword">if</span> (teamColor !== playColor) &#123;</div><div class="line">          <span class="keyword">var</span> _teamPlayers = players[teamColor];</div><div class="line"></div><div class="line">          <span class="keyword">for</span>(<span class="keyword">var</span> i = <span class="number">0</span>,player; player = _teamPlayers[i]; i++) &#123;</div><div class="line">            player.win();</div><div class="line">          &#125;</div><div class="line"></div><div class="line">        &#125;</div><div class="line"></div><div class="line">      &#125;</div><div class="line"></div><div class="line">    &#125;</div><div class="line"></div><div class="line">  &#125;;</div><div class="line"></div><div class="line">  <span class="keyword">return</span> &#123;</div><div class="line">    receiveMessage: <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</div><div class="line">      <span class="keyword">var</span> message = <span class="built_in">Array</span>.prototype.shift.call(<span class="built_in">arguments</span>);</div><div class="line">      <span class="keyword">if</span> (message <span class="keyword">in</span> operations) &#123;</div><div class="line">        operations[message].apply(<span class="keyword">this</span>,<span class="built_in">arguments</span>);</div><div class="line">      &#125;</div><div class="line">    &#125;</div><div class="line">  &#125;;</div><div class="line"></div><div class="line">&#125;)();</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>调用<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> p1 = <span class="keyword">new</span> PlayerFactory(<span class="string">'皮蛋'</span>,<span class="string">'red'</span>),</div><div class="line">    p2 = <span class="keyword">new</span> PlayerFactory(<span class="string">'小乖'</span>,<span class="string">'red'</span>),</div><div class="line">    p3 = <span class="keyword">new</span> PlayerFactory(<span class="string">'宝宝'</span>,<span class="string">'red'</span>),</div><div class="line">    p4= <span class="keyword">new</span> PlayerFactory(<span class="string">'小强'</span>,<span class="string">'red'</span>);</div><div class="line"></div><div class="line"><span class="keyword">var</span> p5= <span class="keyword">new</span> PlayerFactory(<span class="string">'黑妞'</span>,<span class="string">'blue'</span>),</div><div class="line">    p6= <span class="keyword">new</span> PlayerFactory(<span class="string">'葱头'</span>,<span class="string">'blue'</span>),</div><div class="line">    p7= <span class="keyword">new</span> PlayerFactory(<span class="string">'胖墩'</span>,<span class="string">'blue'</span>),</div><div class="line">    p8= <span class="keyword">new</span> PlayerFactory(<span class="string">'海盗'</span>,<span class="string">'blue'</span>);</div><div class="line"></div><div class="line">p1.remove();</div><div class="line">p2.changeTeam();</div><div class="line">p3.die();</div><div class="line">p4.die();</div></pre></td></tr></table></figure></p>
+<h3 id="中介者模式的例子–购买商品"><a href="#中介者模式的例子–购买商品" class="headerlink" title="中介者模式的例子–购买商品"></a>中介者模式的例子–购买商品</h3><figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div></pre></td><td class="code"><pre><div class="line">请选择颜色：</div><div class="line"><span class="tag">&lt;<span class="name">select</span>  <span class="attr">id</span>=<span class="string">"color-select"</span>&gt;</span></div><div class="line">  <span class="tag">&lt;<span class="name">option</span> <span class="attr">value</span>=<span class="string">""</span>&gt;</span>请选择<span class="tag">&lt;/<span class="name">option</span>&gt;</span></div><div class="line">  <span class="tag">&lt;<span class="name">option</span> <span class="attr">value</span>=<span class="string">"red"</span>&gt;</span>红色<span class="tag">&lt;/<span class="name">option</span>&gt;</span></div><div class="line">  <span class="tag">&lt;<span class="name">option</span> <span class="attr">value</span>=<span class="string">"blue"</span>&gt;</span>蓝色<span class="tag">&lt;/<span class="name">option</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">select</span>&gt;</span></div><div class="line">请输入购买数量: <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"text"</span> <span class="attr">id</span> =<span class="string">"number-input"</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">br</span>&gt;</span></div><div class="line">您选择了颜色：<span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span> = <span class="string">"color-info"</span>&gt;</span> <span class="tag">&lt;/<span class="name">div</span>&gt;</span></div><div class="line">你输入了内存： <span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">"memory-info"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></div><div class="line">你输入了数量: <span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span> = <span class="string">"number-info"</span>&gt;</span> <span class="tag">&lt;/<span class="name">div</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">button</span> <span class="attr">id</span> = <span class="string">"next-btn"</span> <span class="attr">disabled</span>=<span class="string">"true"</span>&gt;</span>请选择手机颜色和购买数量<span class="tag">&lt;/<span class="name">button</span>&gt;</span></div><div class="line"></div><div class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="javascript"></span></div><div class="line"><span class="keyword">var</span> goods = &#123;</div><div class="line">  red: <span class="number">4</span>,</div><div class="line">  blue: <span class="number">6</span></div><div class="line">&#125;;</div><div class="line"></div><div class="line"><span class="keyword">var</span> colorSelect = <span class="built_in">document</span>.querySelector(<span class="string">'#color-select'</span>),</div><div class="line">    numberInput = <span class="built_in">document</span>.querySelector(<span class="string">'#number-input'</span>),</div><div class="line">    colorInfo = <span class="built_in">document</span>.querySelector(<span class="string">'#color-info'</span>),</div><div class="line">    numberInfo = <span class="built_in">document</span>.querySelector(<span class="string">'#number-info'</span>),</div><div class="line">    nextBtn = <span class="built_in">document</span>.querySelector(<span class="string">'#next-btn'</span>);</div><div class="line"></div><div class="line">colorSelect.onchange = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</div><div class="line">  <span class="keyword">var</span> color = colorSelect.value,</div><div class="line">      number = numberInput.value,</div><div class="line">      stock = goods[color];</div><div class="line"></div><div class="line">  colorInfo.innerHTML = color;</div><div class="line">  <span class="keyword">if</span> (!color) &#123;</div><div class="line">    nextBtn.disabled = <span class="literal">true</span>;</div><div class="line">    nextBtn.innerHTML = <span class="string">'请选择颜色'</span>;</div><div class="line">    <span class="keyword">return</span> ;</div><div class="line">  &#125;</div><div class="line"></div><div class="line">  <span class="keyword">if</span>(!(<span class="built_in">Number</span>.isInteger(number) &amp;&amp; number &gt; <span class="number">0</span>)) &#123;</div><div class="line">    nextBtn.disabled = <span class="literal">true</span>;</div><div class="line">    nextBtn.innerHTML = <span class="string">'请输入正确的数量'</span>;</div><div class="line">    <span class="keyword">return</span> ;</div><div class="line">  &#125;</div><div class="line"></div><div class="line">  <span class="keyword">if</span>(number &gt; stock) &#123;</div><div class="line">    nextBtn.disabled = <span class="literal">true</span>;</div><div class="line">    nextBtn.innerHTML = <span class="string">'库存不足'</span>;</div><div class="line">    <span class="keyword">return</span> ;</div><div class="line">  &#125;</div><div class="line"></div><div class="line">  nextBtn.disabled = <span class="literal">false</span>;</div><div class="line">  nextBtn.innerHTML = <span class="string">'请放入购物车'</span>;</div><div class="line">&#125;;</div><div class="line"></div><div class="line">numberInput.oninput = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</div><div class="line">  <span class="keyword">var</span> color = colorSelect.value,</div><div class="line">      number = numberInput.value,</div><div class="line">      stock = goods[color];</div><div class="line"></div><div class="line">  numberInfo.innerHTML = number;</div><div class="line">  <span class="keyword">if</span> (!color) &#123;</div><div class="line">    nextBtn.disabled = <span class="literal">true</span>;</div><div class="line">    nextBtn.innerHTML = <span class="string">'请选择颜色'</span>;</div><div class="line">    <span class="keyword">return</span> ;</div><div class="line">  &#125;</div><div class="line"></div><div class="line">  <span class="keyword">if</span>(!(<span class="built_in">Number</span>.isInteger(+number) &amp;&amp; number &gt; <span class="number">0</span>)) &#123;</div><div class="line">    nextBtn.disabled = <span class="literal">true</span>;</div><div class="line">    nextBtn.innerHTML = <span class="string">'请输入正确的数量'</span>;</div><div class="line">    <span class="keyword">return</span> ;</div><div class="line">  &#125;</div><div class="line"></div><div class="line">  <span class="keyword">if</span>(number &gt; stock) &#123;</div><div class="line">    nextBtn.disabled = <span class="literal">true</span>;</div><div class="line">    nextBtn.innerHTML = <span class="string">'库存不足'</span>;</div><div class="line">    <span class="keyword">return</span> ;</div><div class="line">  &#125;</div><div class="line"></div><div class="line">  nextBtn.disabled = <span class="literal">false</span>;</div><div class="line">  nextBtn.innerHTML = <span class="string">'请放入购物车'</span>;</div><div class="line">&#125;;</div><div class="line"><span class="tag">&lt;/<span class="name">script</span>&gt;</span></div></pre></td></tr></table></figure>
+<p>使用中介者模式 重构代码</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div><div class="line">88</div><div class="line">89</div><div class="line">90</div><div class="line">91</div><div class="line">92</div><div class="line">93</div><div class="line">94</div><div class="line">95</div><div class="line">96</div><div class="line">97</div><div class="line">98</div><div class="line">99</div><div class="line">100</div><div class="line">101</div><div class="line">102</div><div class="line">103</div><div class="line">104</div><div class="line">105</div><div class="line">106</div><div class="line">107</div><div class="line">108</div><div class="line">109</div><div class="line">110</div><div class="line">111</div><div class="line">112</div><div class="line">113</div><div class="line">114</div><div class="line">115</div><div class="line">116</div><div class="line">117</div><div class="line">118</div><div class="line">119</div><div class="line">120</div><div class="line">121</div><div class="line">122</div><div class="line">123</div><div class="line">124</div><div class="line">125</div><div class="line">126</div><div class="line">127</div><div class="line">128</div><div class="line">129</div><div class="line">130</div><div class="line">131</div><div class="line">132</div><div class="line">133</div><div class="line">134</div><div class="line">135</div><div class="line">136</div><div class="line">137</div><div class="line">138</div><div class="line">139</div><div class="line">140</div><div class="line">141</div><div class="line">142</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">请选择颜色：</div><div class="line"><span class="tag">&lt;<span class="name">select</span>  <span class="attr">id</span>=<span class="string">"color-select"</span>&gt;</span></div><div class="line">  <span class="tag">&lt;<span class="name">option</span> <span class="attr">value</span>=<span class="string">""</span>&gt;</span>请选择<span class="tag">&lt;/<span class="name">option</span>&gt;</span></div><div class="line">  <span class="tag">&lt;<span class="name">option</span> <span class="attr">value</span>=<span class="string">"red"</span>&gt;</span>红色<span class="tag">&lt;/<span class="name">option</span>&gt;</span></div><div class="line">  <span class="tag">&lt;<span class="name">option</span> <span class="attr">value</span>=<span class="string">"blue"</span>&gt;</span>蓝色<span class="tag">&lt;/<span class="name">option</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">select</span>&gt;</span></div><div class="line">请选择内存：</div><div class="line"><span class="tag">&lt;<span class="name">select</span> <span class="attr">id</span>=<span class="string">"memory-input"</span>&gt;</span></div><div class="line">  <span class="tag">&lt;<span class="name">option</span> <span class="attr">value</span>=<span class="string">""</span>&gt;</span>请选择<span class="tag">&lt;/<span class="name">option</span>&gt;</span></div><div class="line">  <span class="tag">&lt;<span class="name">option</span> <span class="attr">value</span>=<span class="string">"32G"</span>&gt;</span>32G<span class="tag">&lt;/<span class="name">option</span>&gt;</span></div><div class="line">  <span class="tag">&lt;<span class="name">option</span> <span class="attr">value</span>=<span class="string">"16G"</span>&gt;</span>16G<span class="tag">&lt;/<span class="name">option</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">select</span>&gt;</span></div><div class="line">请输入购买数量: <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"text"</span> <span class="attr">id</span> =<span class="string">"number-input"</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">br</span>&gt;</span></div><div class="line">您选择了颜色：<span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span> = <span class="string">"color-info"</span>&gt;</span> <span class="tag">&lt;/<span class="name">div</span>&gt;</span></div><div class="line">你输入了内存： <span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">"memory-info"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></div><div class="line">你输入了数量: <span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span> = <span class="string">"number-info"</span>&gt;</span> <span class="tag">&lt;/<span class="name">div</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">button</span> <span class="attr">id</span> = <span class="string">"next-btn"</span> <span class="attr">disabled</span>=<span class="string">"true"</span>&gt;</span>请选择手机颜色和购买数量<span class="tag">&lt;/<span class="name">button</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="javascript"></span></div><div class="line"><span class="keyword">var</span> mediator = (<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</div><div class="line">  <span class="keyword">var</span> colorSelect = <span class="built_in">document</span>.querySelector(<span class="string">'#color-select'</span>),</div><div class="line">      numberInput = <span class="built_in">document</span>.querySelector(<span class="string">'#number-input'</span>),</div><div class="line">      memoryInput = <span class="built_in">document</span>.querySelector(<span class="string">'#memory-input'</span>),</div><div class="line">      colorInfo = <span class="built_in">document</span>.querySelector(<span class="string">'#color-info'</span>),</div><div class="line">      numberInfo = <span class="built_in">document</span>.querySelector(<span class="string">'#number-info'</span>),</div><div class="line">      memoryInfo = <span class="built_in">document</span>.querySelector(<span class="string">'#memory-info'</span>),</div><div class="line">      nextBtn = <span class="built_in">document</span>.querySelector(<span class="string">'#next-btn'</span>),</div><div class="line">      setNextBtn,</div><div class="line">      checkColor,</div><div class="line">      checkMemory,</div><div class="line">      checkNumber,</div><div class="line">      checkStock,</div><div class="line">      changed,</div><div class="line">      color,</div><div class="line">      number,</div><div class="line">      memory,</div><div class="line">      stock;</div><div class="line"></div><div class="line">  change = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</div><div class="line">    <span class="keyword">var</span> successor;</div><div class="line"></div><div class="line">    color = colorSelect.value;</div><div class="line">    number = numberInput.value;</div><div class="line">    memory = memoryInput.value;</div><div class="line">    stock = goods[color + <span class="string">'|'</span> + memory];</div><div class="line"></div><div class="line"></div><div class="line">    colorInfo.innerHTML = color;</div><div class="line">    numberInfo.innerHTML = number;</div><div class="line">    memoryInfo.innerHTML = memory;</div><div class="line">    successor = checkColor.nextFn(checkMemory)</div><div class="line">                          .nextFn(checkNumber)</div><div class="line">                          .nextFn(checkStock)</div><div class="line">                          .nextFn(putInCart);</div><div class="line">    successor();</div><div class="line">  &#125;;</div><div class="line"></div><div class="line">  <span class="built_in">Function</span>.prototype.nextFn = <span class="function"><span class="keyword">function</span>(<span class="params">fn</span>) </span>&#123;</div><div class="line">    <span class="keyword">var</span> _self = <span class="keyword">this</span>;</div><div class="line"></div><div class="line">    <span class="keyword">return</span> <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</div><div class="line">      <span class="keyword">var</span> ret = _self.apply(<span class="keyword">this</span>,<span class="built_in">arguments</span>);</div><div class="line"></div><div class="line">      <span class="keyword">if</span> (ret !==<span class="string">'stop'</span>) &#123;</div><div class="line">        <span class="keyword">return</span> fn.apply(<span class="keyword">this</span>,<span class="built_in">arguments</span>);</div><div class="line">      &#125;</div><div class="line"></div><div class="line">      <span class="keyword">return</span> ret;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">  &#125;;</div><div class="line"></div><div class="line">  setBtnDisabled = <span class="function"><span class="keyword">function</span>(<span class="params">state, message</span>) </span>&#123;</div><div class="line">    nextBtn.disabled = state;</div><div class="line">    nextBtn.innerHTML = message;</div><div class="line">  &#125;</div><div class="line"></div><div class="line">  checkColor = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</div><div class="line">    <span class="keyword">if</span> (!color) &#123;</div><div class="line">      setBtnDisabled(<span class="literal">true</span>,<span class="string">'请选择颜色'</span>);</div><div class="line">      <span class="keyword">return</span> <span class="string">'stop'</span>;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">  &#125;;</div><div class="line"></div><div class="line">  checkMemory = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</div><div class="line">    <span class="keyword">if</span> (!memory) &#123;</div><div class="line">      setBtnDisabled(<span class="literal">true</span>,<span class="string">'请选择内存大小'</span>);</div><div class="line">      <span class="keyword">return</span> <span class="string">'stop'</span>;</div><div class="line">    &#125;</div><div class="line">  &#125;;</div><div class="line"></div><div class="line">  checkNumber = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</div><div class="line">    <span class="keyword">if</span> (!(<span class="built_in">Number</span>.isInteger(+number) &amp;&amp; number &gt; <span class="number">0</span>)) &#123;</div><div class="line">        setBtnDisabled(<span class="literal">true</span>,<span class="string">'请输入正确的数量'</span>);</div><div class="line">        <span class="keyword">return</span> <span class="string">'stop'</span>;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">  &#125;;</div><div class="line"></div><div class="line">  checkStock = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</div><div class="line">    <span class="keyword">if</span>(number &gt; stock) &#123;</div><div class="line">        setBtnDisabled(<span class="literal">true</span>,<span class="string">'库存不足'</span>);</div><div class="line">        <span class="keyword">return</span> <span class="string">'stop'</span>;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">  &#125;;</div><div class="line"></div><div class="line">  putInCart = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</div><div class="line">    setBtnDisabled(<span class="literal">false</span>,<span class="string">'放入购物车'</span>);</div><div class="line">  &#125;;</div><div class="line"></div><div class="line">  <span class="keyword">return</span> &#123;</div><div class="line">    change: change</div><div class="line">  &#125;</div><div class="line"></div><div class="line">&#125;)();</div><div class="line"></div><div class="line"><span class="keyword">var</span> goods = &#123;</div><div class="line">  <span class="string">"red|16G"</span>: <span class="number">4</span>,</div><div class="line">  <span class="string">"red|32G"</span>: <span class="number">10</span>,</div><div class="line">  <span class="string">"blue|16G"</span>: <span class="number">3</span>,</div><div class="line">  <span class="string">"blue|32G"</span>: <span class="number">0</span></div><div class="line">&#125;;</div><div class="line"></div><div class="line"><span class="keyword">var</span> colorSelect = <span class="built_in">document</span>.querySelector(<span class="string">'#color-select'</span>),</div><div class="line">    numberInput = <span class="built_in">document</span>.querySelector(<span class="string">'#number-input'</span>),</div><div class="line">    memoryInput = <span class="built_in">document</span>.querySelector(<span class="string">'#memory-input'</span>);</div><div class="line"></div><div class="line">colorSelect.onchange = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</div><div class="line">  mediator.change();</div><div class="line">&#125;;</div><div class="line"></div><div class="line">numberInput.oninput = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</div><div class="line">  mediator.change();</div><div class="line">&#125;;</div><div class="line"></div><div class="line">memoryInput.onchange = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</div><div class="line">  mediator.change();</div><div class="line">&#125;;</div><div class="line"><span class="tag">&lt;/<span class="name">script</span>&gt;</span></div></pre></td></tr></table></figure>
+<h2 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h2><p>中介者模式是迎合最少知识原则的一种实现，最少知识原则 是指一个对象应该尽少的了解另外的对象。如果耦合度太高，一个对象发生改变后，难免会影响到其他对象。中介者模式使得各个对象之间得以解耦。以中介者和对象之间的一对多关系取代了复杂的多对多关系。<br>中介者也存在一些缺点，系统会增加一个中介者对象，因为对象之间交互的复杂性转译到中介者中，使得中介者对象变得非常巨大并且变得难以维护。</p>
+<hr>
+<p>参考文档：</p>
+<p>javascript设计模式与开发实践</p>
+  
+	</div>
+		<footer class="article-footer clearfix">
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/js/">js</a><a href="/tags/js设计模式/">js设计模式</a>
+  </div>
+
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/js设计模式笔记/">js设计模式笔记</a>
+</div>
+
+
+<div class="article-share" id="share">
+
+  <div data-url="http://www.xiaohan80s.com/2016/08/11/js设计模式笔记/2016-08-12-part16/" data-title="中介者模式 | xiaohan80s.com" data-tsina="null" class="share clearfix">
+  </div>
+
+</div>
+</footer>
+   	       
+	</article>
+	
+<nav class="article-nav clearfix">
+ 
+
+<div class="next">
+<a href="/2016/08/11/js设计模式笔记/2016-08-11-part13/"  title="模板方法模式">
+ <strong>NEXT:</strong><br/> 
+ <span>模板方法模式
+</span>
+</a>
+</div>
+
+</nav>
+
+	
+<section class="comment">
+	<div class="ds-thread"></div>
+</section>
+
+</div>  
+      <div class="openaside"><a class="navbutton" href="#" title="显示侧边栏"></a></div>
+
+  <div id="toc" class="toc-aside">
+  <strong class="toc-title">文章目录</strong>
+  <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#现实中的中介者"><span class="toc-number">1.</span> <span class="toc-text">现实中的中介者</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#中介者模式的例子–泡泡堂游戏"><span class="toc-number">2.</span> <span class="toc-text">中介者模式的例子–泡泡堂游戏</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#玩家增多带来的困扰"><span class="toc-number">3.</span> <span class="toc-text">玩家增多带来的困扰</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#使用中介者模式改造泡泡堂游戏"><span class="toc-number">4.</span> <span class="toc-text">使用中介者模式改造泡泡堂游戏</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#中介者模式的例子–购买商品"><span class="toc-number">5.</span> <span class="toc-text">中介者模式的例子–购买商品</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#小结"><span class="toc-number"></span> <span class="toc-text">小结</span></a>
+  <div class="comment_bar"><a href="#ds-reset" target="" title="评论区">文章评论</a></div>
+  </div>
+
+<div id="asidepart">
+<div class="closeaside"><a class="closebutton" href="#" title="隐藏侧边栏"></a></div>
+<aside class="clearfix">
+
+  
+<div class="categorieslist">
+	<p class="asidetitle">分类</p>
+		<ul>
+		
+			<li><a href="/categories/js设计模式笔记/" title="js设计模式笔记">js设计模式笔记<sup>16</sup></a></li>
+		
+			<li><a href="/categories/工具/" title="工具">工具<sup>1</sup></a></li>
+		
+		</ul>
+</div>
+
+
+  
+<div class="tagslist">
+	<p class="asidetitle">标签</p>
+		<ul class="clearfix">
+		
+			<li><a href="/tags/js/" title="js">js<sup>16</sup></a></li>
+		
+			<li><a href="/tags/js设计模式/" title="js设计模式">js设计模式<sup>11</sup></a></li>
+		
+			<li><a href="/tags/工具/" title="工具">工具<sup>1</sup></a></li>
+		
+			<li><a href="/tags/搭建博客/" title="搭建博客">搭建博客<sup>1</sup></a></li>
+		
+		</ul>
+</div>
+
+
+  
+  <div class="archiveslist">
+    <p class="asidetitle"><a href="/archives">归档</a></p>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/08/">2016 年 08 月</a><span class="archive-list-count">13</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/07/">2016 年 07 月</a><span class="archive-list-count">4</span></li></ul>
+  </div>
+
+
+
+  
+
+<script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"1","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"16"},"slide":{"type":"slide","bdImg":"4","bdPos":"right","bdTop":"160"}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];</script>
+
+
+</aside>
+</div>
+
+    </div>
+    <footer><div id="footer" >
+	
+	<div class="line">
+		<span></span>
+		<div class="author"></div>
+	</div>
+	
+	
+	<div class="social-font clearfix">
+		
+		
+		
+		
+		
+	</div>
+		<p class="copyright">Powered by <a href="http://hexo.io" target="_blank" title="hexo">hexo</a> and Theme by <a href="https://github.com/A-limon/pacman" target="_blank" title="Pacman">Pacman</a> © 2016
+		
+		<a href="http://www.xiaohan80s.com" target="_blank" title="xiao han 80s">xiao han 80s</a>
+		
+		</p>
+</div>
+</footer>
+    <script src="/js/jquery-2.1.0.min.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){
+  $('.navbar').click(function(){
+    $('header nav').toggleClass('shownav');
+  });
+  var myWidth = 0;
+  function getSize(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+  };
+  var m = $('#main'),
+      a = $('#asidepart'),
+      c = $('.closeaside'),
+      o = $('.openaside');
+
+  $(window).resize(function(){
+    getSize();
+    if (myWidth >= 1024) {
+      $('header nav').removeClass('shownav');
+    }else
+    {
+      m.removeClass('moveMain');
+      a.css('display', 'block').removeClass('fadeOut');
+      o.css('display', 'none');
+      
+      $('#toc.toc-aside').css('display', 'none');
+      
+    }
+  });
+  c.click(function(){
+    a.addClass('fadeOut').css('display', 'none');
+    o.css('display', 'block').addClass('fadeIn');
+    m.addClass('moveMain');
+  });
+  o.click(function(){
+    o.css('display', 'none').removeClass('beforeFadeIn');
+    a.css('display', 'block').removeClass('fadeOut').addClass('fadeIn');
+    m.removeClass('moveMain');
+  });
+  $(window).scroll(function(){
+    o.css("top",Math.max(80,260-$(this).scrollTop()));
+  });
+});
+</script>
+
+<script type="text/javascript">
+$(document).ready(function(){
+  var ai = $('.article-content>iframe'),
+      ae = $('.article-content>embed'),
+      t  = $('#toc'),
+      h  = $('article h2')
+      ah = $('article h2'),
+      ta = $('#toc.toc-aside'),
+      o  = $('.openaside'),
+      c  = $('.closeaside');
+  if(ai.length>0){
+    ai.wrap('<div class="video-container" />');
+  };
+  if(ae.length>0){
+   ae.wrap('<div class="video-container" />');
+  };
+  if(ah.length==0){
+    t.css('display','none');
+  }else{
+    c.click(function(){
+      ta.css('display', 'block').addClass('fadeIn');
+    });
+    o.click(function(){
+      ta.css('display', 'none');
+    });
+    $(window).scroll(function(){
+      ta.css("top",Math.max(140,320-$(this).scrollTop()));
+    });
+  };
+  $('.closeaside').triggerHandler('click');
+});
+</script>
+
+
+<script type="text/javascript">
+$(document).ready(function(){
+  var $this = $('.share'),
+      url = $this.attr('data-url'),
+      encodedUrl = encodeURIComponent(url),
+      title = $this.attr('data-title'),
+      tsina = $this.attr('data-tsina');
+  var html = [
+  // '<a href="#" class="overlay" id="qrcode"></a>',
+  // '<div class="qrcode clearfix"><span>扫描二维码分享到微信朋友圈</span><a class="qrclose" href="#share"></a><strong>Loading...Please wait</strong><img id="qrcode-pic" data-src="http://s.jiathis.com/qrcode.php?url=' + encodedUrl + '"/></div>',
+  '<a href="#textlogo" class="article-back-to-top" title="Top"></a>',
+  // '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+  // '<a href="#qrcode" class="article-share-qrcode" title="QRcode"></a>',
+  // '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+  // '<a href="http://service.weibo.com/share/share.php?title='+title+'&url='+encodedUrl +'&ralateUid='+ tsina +'&searchPic=true&style=number' +'" class="article-share-weibo" target="_blank" title="Weibo"></a>',
+  // '<span title="Share to"></span>'
+  ].join('');
+  $this.append(html);
+  $('.article-share-qrcode').click(function(){
+    var imgSrc = $('#qrcode-pic').attr('data-src');
+    $('#qrcode-pic').attr('src', imgSrc);
+    $('#qrcode-pic').load(function(){
+        $('.qrcode strong').text(' ');
+    });
+  });
+});
+</script>
+
+
+<script type="text/javascript">
+  var duoshuoQuery = {short_name:"xiaohan80s"};
+  (function() {
+    var ds = document.createElement('script');
+    ds.type = 'text/javascript';ds.async = true;
+    ds.src = '//static.duoshuo.com/embed.js';
+    ds.charset = 'UTF-8';
+    (document.getElementsByTagName('head')[0]
+    || document.getElementsByTagName('body')[0]).appendChild(ds);
+  })();
+</script>
+
+
+
+
+
+  </body>
+</html>
