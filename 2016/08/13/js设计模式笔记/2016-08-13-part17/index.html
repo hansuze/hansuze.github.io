@@ -1,0 +1,393 @@
+
+ <!DOCTYPE HTML>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  
+    <title>装饰者模式 | xiaohan80s.com</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=3, minimum-scale=1">
+    
+    <meta name="author" content="xiao han 80s">
+    
+    <meta name="description" content="在传统的面向对象语言中，给对象添加功能常常使用继承的方式。但是继承的方式并不灵活，还会带来许多问题：一方面会导致超类和子类之间的耦合性，另一方面，继承这种功能复用的方式通常称为“白箱复用”，“白箱”是相对与可见性而言的，在继承方式中，超类的内部细节是对子类可见的，继承常常被认为破坏了封装性。本章我们">
+    
+    
+    
+    
+    
+    <link rel="icon" href="/img/favicon.ico">
+    
+    
+    <link rel="apple-touch-icon" href="/img/pacman.jpg">
+    <link rel="apple-touch-icon-precomposed" href="/img/pacman.jpg">
+    
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+
+  <body>
+    <header>
+      <div>
+		
+			<div id="imglogo">
+				<a href="/"><img src="/img/logo.svg" alt="xiaohan80s.com" title="xiaohan80s.com"/></a>
+			</div>
+			
+			<div id="textlogo">
+				<h1 class="site-name"><a href="/" title="xiaohan80s.com">xiaohan80s.com</a></h1>
+				<h2 class="blog-motto">年轻 没有什么不可以!</h2>
+			</div>
+			<div class="navbar"><a class="navbutton navmobile" href="#" title="菜单">
+			</a></div>
+			<nav class="animated">
+				<ul>
+					
+						<li><a href="/">Home</a></li>
+					
+						<li><a href="/archives">Archives</a></li>
+					
+						<li><a href="/categories">Categories</a></li>
+					
+						<li><a href="/about">About</a></li>
+					
+					<li>
+					
+					<!-- <form class="search" action="//baidu.com" method="get" accept-charset="utf-8">
+						<label>Search</label>
+						<input type="text" id="search" name="q" autocomplete="off" maxlength="20" placeholder="搜索" />
+						<input type="hidden" name="q" value="site:www.xiaohan80s.com">
+					</form> -->
+					
+					</li>
+				</ul>
+			</nav>
+</div>
+
+    </header>
+    <div id="container">
+      <div id="main" class="post" itemscope itemprop="blogPost">
+	<article itemprop="articleBody"> 
+		<header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2016/08/13/js设计模式笔记/2016-08-13-part17/" title="装饰者模式" itemprop="url">装饰者模式</a>
+  </h1>
+  <p class="article-author">By
+    
+      <a href="http://www.xiaohan80s.com" title="xiao han 80s">xiao han 80s</a>
+    </p>
+  <p class="article-time">
+    <time datetime="2016-08-12T16:00:00.000Z" itemprop="datePublished">2016-08-13</time>
+    更新日期:<time datetime="2016-08-15T03:41:11.593Z" itemprop="dateModified">2016-08-15</time>
+    
+  </p>
+</header>
+	<div class="article-content">
+		
+		
+		<div id="toc" class="toc-article">
+			<strong class="toc-title">文章目录</strong>
+		<ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#模拟传统面向对象语言的装饰者模式"><span class="toc-number">1.</span> <span class="toc-text">模拟传统面向对象语言的装饰者模式</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#装饰者也是包装器"><span class="toc-number">2.</span> <span class="toc-text">装饰者也是包装器</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#回到JavaScript的装饰者"><span class="toc-number">3.</span> <span class="toc-text">回到JavaScript的装饰者</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#装饰函数"><span class="toc-number">4.</span> <span class="toc-text">装饰函数</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#用AOP装饰函数"><span class="toc-number">5.</span> <span class="toc-text">用AOP装饰函数</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#AOP的应用实例"><span class="toc-number">6.</span> <span class="toc-text">AOP的应用实例</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#装饰者模式和代理模式"><span class="toc-number">7.</span> <span class="toc-text">装饰者模式和代理模式</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#小结"><span class="toc-number"></span> <span class="toc-text">小结</span></a>
+		</div>
+		
+		<p>在传统的面向对象语言中，给对象添加功能常常使用继承的方式。但是继承的方式并不灵活，还会带来许多问题：一方面会导致超类和子类之间的耦合性，另一方面，继承这种功能复用的方式通常称为“白箱复用”，“白箱”是相对与可见性而言的，在继承方式中，超类的内部细节是对子类可见的，继承常常被认为破坏了封装性。<br>本章我们来介绍装饰者模式，他能够在不改变自身对象的基础上，在程序运行期间动态地添加职责。跟继承相比，装饰着是一种更轻便灵活的做法，这是一种“即用即付”的方式，比如天冷了就多穿件外套，需要飞行时插一只竹蜻蜓。</p>
+<h3 id="模拟传统面向对象语言的装饰者模式"><a href="#模拟传统面向对象语言的装饰者模式" class="headerlink" title="模拟传统面向对象语言的装饰者模式"></a>模拟传统面向对象语言的装饰者模式</h3><p>飞机可以升级，一开始只能发射普通子弹，升到第二级后可以发射导弹，升到第三级可以发射原子弹。<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> Plane = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;&#125;;</div><div class="line"></div><div class="line">Plane.prototype.fire = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</div><div class="line">  <span class="built_in">console</span>.log(<span class="string">'发射普通子弹'</span>);</div><div class="line">&#125;;</div><div class="line"></div><div class="line"><span class="keyword">var</span> MissileDecorator = <span class="function"><span class="keyword">function</span>(<span class="params">plane</span>) </span>&#123;</div><div class="line">  <span class="keyword">this</span>.plane = plane;</div><div class="line">&#125;;</div><div class="line"></div><div class="line">MissileDecorator.prototype.fire = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</div><div class="line">  <span class="keyword">this</span>.plane.fire();</div><div class="line">  <span class="built_in">console</span>.log(<span class="string">'发射导弹'</span>);</div><div class="line">&#125;;</div><div class="line"></div><div class="line"><span class="keyword">var</span> AtomDecorator = <span class="function"><span class="keyword">function</span>(<span class="params">plane</span>) </span>&#123;</div><div class="line">  <span class="keyword">this</span>.plane = plane;</div><div class="line">&#125;;</div><div class="line"></div><div class="line">AtomDecorator.prototype.fire = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</div><div class="line">  <span class="keyword">this</span>.plane.fire();</div><div class="line">  <span class="built_in">console</span>.log(<span class="string">'发射原子弹'</span>);</div><div class="line">&#125;;</div><div class="line"></div><div class="line"><span class="keyword">var</span> plane = <span class="keyword">new</span> Plane();</div><div class="line">    plane = <span class="keyword">new</span> MissileDecorator(plane);</div><div class="line">    plane = <span class="keyword">new</span> AtomDecorator(plane);</div><div class="line"></div><div class="line">plane.fire();</div></pre></td></tr></table></figure></p>
+<h3 id="装饰者也是包装器"><a href="#装饰者也是包装器" class="headerlink" title="装饰者也是包装器"></a>装饰者也是包装器</h3><p>在《设计模式成书之前》，GoF原想吧装饰者模式(decorator)成为包装器(wrapper).<br>从功能上而言，decorator可以很好的描述这个模式，但从结构上看，wrapper的说法更加贴切。装饰者模式将一个对象嵌入另一个对象之中，实际上相当于这个对象呗另一个对象包装起来，形成包装链。</p>
+<h3 id="回到JavaScript的装饰者"><a href="#回到JavaScript的装饰者" class="headerlink" title="回到JavaScript的装饰者"></a>回到JavaScript的装饰者</h3><p>JavaScript语言动态改变对象相当容易，我们可以直接改写对象或者对象的某个方法，并不需要使用“类”来实现装饰者模式。<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> plane =&#123;</div><div class="line">  fire: <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</div><div class="line">    <span class="built_in">console</span>.log(<span class="string">'发射普通子弹'</span>);</div><div class="line">  &#125;</div><div class="line">&#125;;</div><div class="line"></div><div class="line"><span class="keyword">var</span> missileDecorator = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</div><div class="line">  <span class="built_in">console</span>.log(<span class="string">'发射导弹'</span>);</div><div class="line">&#125;;</div><div class="line"></div><div class="line"><span class="keyword">var</span> atomDecorator = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</div><div class="line">  <span class="built_in">console</span>.log(<span class="string">'发射原子弹'</span>);</div><div class="line">&#125;;</div><div class="line"></div><div class="line"><span class="keyword">var</span> fire1 = plane.fire;</div><div class="line"></div><div class="line">plane.fire = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</div><div class="line">  fire1();</div><div class="line">  missileDecorator();</div><div class="line">&#125;;</div><div class="line"></div><div class="line"><span class="keyword">var</span> fire2 = plane.fire;</div><div class="line"></div><div class="line">plane.fire = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</div><div class="line">  fire2();</div><div class="line">  atomDecorator();</div><div class="line">&#125;;</div><div class="line"></div><div class="line">plane.fire();</div></pre></td></tr></table></figure></p>
+<h3 id="装饰函数"><a href="#装饰函数" class="headerlink" title="装饰函数"></a>装饰函数</h3><p>要想为函数添加一些功能，最简单粗暴的方式是直接改写该函数，但这是最差的办法，直接违反了开放-封闭原则<br>我们可以通过保存原引用的方式就可以改写某个函数，例如我们想给<code>window</code>绑定<code>onload</code>事件，但是又不确定这个事件是不是已经被其他人绑定过，为了避免覆盖掉之前的<code>window.onload</code>函数的行为，我们一般会保存好原先<code>window.onload</code>，把他放入新的<code>window.onload</code>里执行。<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">window</span>.onload = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</div><div class="line">  alert(<span class="number">1</span>);</div><div class="line">&#125;;</div><div class="line"></div><div class="line"><span class="keyword">var</span> _onload = <span class="built_in">window</span>.onload || <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;&#125;;</div><div class="line"></div><div class="line"><span class="built_in">window</span>.onload = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</div><div class="line">  _onload();</div><div class="line">  alert(<span class="number">2</span>);</div><div class="line">&#125;;</div></pre></td></tr></table></figure></p>
+<p>但是这样的方式有很多缺点</p>
+<ul>
+<li>必须维护<code>_onload</code>这个中间变量，虽然看起来并不起眼，但如果函数的装饰链较长，或者需要装饰的函数变多，这些中间变量会越来越多。</li>
+<li>其实还遇到了this被劫持的问题，在上例上我们没有这个烦恼，是因为调用<code>_onload</code>时 <code>this</code>指向<code>window</code> 。现在我们把<code>window.onload</code> 改成<code>document.querySelector</code>。</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> _querySelector = <span class="built_in">document</span>.querySelector;</div><div class="line"></div><div class="line"><span class="built_in">document</span>.querySelector = <span class="function"><span class="keyword">function</span>(<span class="params">selector</span>) </span>&#123;</div><div class="line">  alert(<span class="number">1</span>);</div><div class="line">  <span class="keyword">return</span> _querySelector(selector);</div><div class="line">&#125;;</div><div class="line"></div><div class="line"><span class="keyword">var</span> btn1 = <span class="built_in">document</span>.querySelector(<span class="string">'#btn1'</span>);</div></pre></td></tr></table></figure>
+<p>执行这段代码时，我们看到弹出<code>alert(1)</code>紧接着控制台抛出了异常：<code>Uncaught TypeError: Illegal invocation</code><br>是因为<code>document.querySelector</code>内部实现需要<code>this</code>的引用，而<code>_querySelector</code>的<code>this</code>指向不是<code>document</code> 而是<code>window</code>。<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> _querySelector = <span class="built_in">document</span>.querySelector;</div><div class="line"></div><div class="line"><span class="built_in">document</span>.querySelector = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</div><div class="line">  alert(<span class="number">1</span>);</div><div class="line">  <span class="keyword">return</span> _querySelector.apply(<span class="built_in">document</span>,<span class="built_in">arguments</span>);</div><div class="line">&#125;;</div><div class="line"></div><div class="line"><span class="keyword">var</span> btn1 = <span class="built_in">document</span>.querySelector(<span class="string">'#btn1'</span>);</div></pre></td></tr></table></figure></p>
+<h3 id="用AOP装饰函数"><a href="#用AOP装饰函数" class="headerlink" title="用AOP装饰函数"></a>用AOP装饰函数</h3><p>使用<code>Function.prototype.before</code>和<code>Function.prototype.after</code> 方法动态织入，我们首先保留原函数，并返回一个新函数，新函数的工作是把请求分别发给织入的函数和原函数，并保证一定的执行顺序，这样就实现了动态装饰的效果。<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">Function</span>.prototype.before = <span class="function"><span class="keyword">function</span>(<span class="params">beforeFn</span>) </span>&#123;</div><div class="line">  <span class="keyword">var</span> _self = <span class="keyword">this</span>;</div><div class="line"></div><div class="line">  <span class="keyword">return</span> <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</div><div class="line">    beforeFn.apply(<span class="keyword">this</span>, <span class="built_in">arguments</span>);</div><div class="line">    <span class="keyword">return</span> _self.apply(<span class="keyword">this</span>, <span class="built_in">arguments</span>);</div><div class="line">  &#125;</div><div class="line">&#125;;</div><div class="line"></div><div class="line"><span class="built_in">Function</span>.prototype.after = <span class="function"><span class="keyword">function</span>(<span class="params">afterFn</span>) </span>&#123;</div><div class="line">  <span class="keyword">var</span> _self = <span class="keyword">this</span>;</div><div class="line"></div><div class="line">  <span class="keyword">return</span> <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</div><div class="line">    <span class="keyword">var</span> ret = _self.apply(<span class="keyword">this</span>, <span class="built_in">arguments</span>);</div><div class="line"></div><div class="line">    afterFn.apply(<span class="keyword">this</span>. arguments);</div><div class="line">    <span class="keyword">return</span> ret;</div><div class="line">  &#125;</div><div class="line">&#125;;</div></pre></td></tr></table></figure></p>
+<p>使用before实现给<code>document.querySelector</code>添加新职责<br><figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">button</span> <span class="attr">id</span> =<span class="string">'btn1'</span>&gt;</span><span class="tag">&lt;/<span class="name">button</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="javascript"></span></div><div class="line">  <span class="built_in">document</span>.querySelector = <span class="built_in">document</span>.querySelector.before(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</div><div class="line">    alert(<span class="number">1</span>);</div><div class="line">  &#125;);</div><div class="line"></div><div class="line">  <span class="built_in">document</span>.querySelector(<span class="string">'#btn1'</span>);</div><div class="line"><span class="tag">&lt;/<span class="name">script</span>&gt;</span></div></pre></td></tr></table></figure></p>
+<p>很多人可能不喜欢这种污染原型的方式，我们可以做一些变通，把原函数和新函数都作为参数传入before或者after方法<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> before = <span class="function"><span class="keyword">function</span>(<span class="params">fn, beforeFn</span>) </span>&#123;</div><div class="line">  <span class="keyword">return</span> <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</div><div class="line">    beforeFn.apply(<span class="keyword">this</span>, <span class="built_in">arguments</span>);</div><div class="line">    <span class="keyword">return</span> fn.apply(<span class="keyword">this</span>, <span class="built_in">arguments</span>);</div><div class="line">  &#125;;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="keyword">var</span> fn = before(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</div><div class="line">  <span class="built_in">console</span>.log(<span class="number">3</span>);</div><div class="line">&#125;, <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</div><div class="line">  <span class="built_in">console</span>.log(<span class="number">2</span>);</div><div class="line">&#125;);</div><div class="line"></div><div class="line">fn();</div></pre></td></tr></table></figure></p>
+<h3 id="AOP的应用实例"><a href="#AOP的应用实例" class="headerlink" title="AOP的应用实例"></a>AOP的应用实例</h3><ul>
+<li>数据统计上报<br>比如页面中有一个登陆button，点击这个button会弹出登录浮层，与此同时要进行数据上报，来统计有多少用户点击了这个登陆按钮button:<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">button</span> <span class="attr">tag</span> =<span class="string">"login"</span>&gt;</span>点击打开登陆浮层<span class="tag">&lt;/<span class="name">button</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="javascript"></span></div><div class="line">  <span class="keyword">var</span> showLogin = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</div><div class="line">    <span class="built_in">console</span>.log(<span class="string">'打开登陆浮层'</span>);</div><div class="line">    log(<span class="keyword">this</span>.getAttribute(<span class="string">'tag'</span>));</div><div class="line">  &#125;;</div><div class="line"></div><div class="line">  <span class="keyword">var</span> log = <span class="function"><span class="keyword">function</span>(<span class="params">tag</span>) </span>&#123;</div><div class="line">    <span class="built_in">console</span>.log(<span class="string">'上报的标签为'</span> + tag);</div><div class="line">    <span class="comment">// 上报代码略</span></div><div class="line">  &#125;;</div><div class="line"></div><div class="line">  <span class="built_in">document</span>.querySelector(<span class="string">'button'</span>).onclick = showLogin;</div><div class="line"><span class="tag">&lt;/<span class="name">script</span>&gt;</span></div></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>在上例中 <code>showLogin</code>函数既要负责打开登陆浮层，又要负责数据上报，这是两个层面的功能，在此处被耦合在一起。使用AOP分离之后，代码如下：<br><figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div></pre></td><td class="code"><pre><div class="line">var after = function(fn, afterFn) &#123;</div><div class="line">  return function() &#123;</div><div class="line">    var ret = fn.apply(this, arguments);</div><div class="line"></div><div class="line">    afterFn.apply(this, arguments);</div><div class="line">    return ret;</div><div class="line">  &#125;;</div><div class="line"></div><div class="line">&#125;;</div><div class="line"></div><div class="line">var showLogin = function() &#123;</div><div class="line">  console.log('打开登陆浮层');</div><div class="line">&#125;;</div><div class="line"></div><div class="line">var log = function() &#123;</div><div class="line">  var tag = this.getAttribute('tag');</div><div class="line"></div><div class="line">  console.log('上报的标签为' + tag);</div><div class="line">&#125;</div><div class="line"></div><div class="line">var showLogin = after(showLogin, log);</div><div class="line"></div><div class="line">document.querySelector('button').onclick = showLogin;</div></pre></td></tr></table></figure></p>
+<ul>
+<li>用AOP动态改变函数的参数</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> before = <span class="function"><span class="keyword">function</span>(<span class="params">fn, beforeFn</span>) </span>&#123;</div><div class="line">  <span class="keyword">return</span> <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</div><div class="line">    beforeFn.apply(<span class="keyword">this</span>, <span class="built_in">arguments</span>);</div><div class="line">    <span class="keyword">return</span> fn.apply(<span class="keyword">this</span>, <span class="built_in">arguments</span>);</div><div class="line">  &#125;;</div><div class="line"></div><div class="line">&#125;;</div></pre></td></tr></table></figure>
+<p>我们观察before方法，可以发现<code>beforeFn</code>和原函数<code>fn</code>共用一组参数列表，我们在<code>beforeFn</code>内部改变参数时，原函数接收的参数列表也会发生变化。<br>下面的例子中展示了如何通过<code>beforeFn</code>方法给<code>fn</code>的参数<code>param</code>动态加入属性B<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> fn = <span class="function"><span class="keyword">function</span>(<span class="params">param</span>) </span>&#123;</div><div class="line">  <span class="built_in">console</span>.log(param);</div><div class="line">&#125;;</div><div class="line"></div><div class="line"><span class="keyword">var</span> fn1 = <span class="function"><span class="keyword">function</span>(<span class="params">param</span>) </span>&#123;</div><div class="line">  param.b = <span class="string">'b'</span>;</div><div class="line">  <span class="built_in">console</span>.log(<span class="string">'fn1'</span>, param);</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="keyword">var</span> fn = before(fn, fn1);</div><div class="line"></div><div class="line">fn(&#123;a:<span class="string">"a"</span>&#125;);   <span class="comment">// &#123;a:"a"&#125;,&#123;b:"b"&#125;</span></div></pre></td></tr></table></figure></p>
+<p>现在有一个<code>ajax</code>请求的函数，这个函数负责项目中的ajax异步请求。<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> ajax = <span class="function"><span class="keyword">function</span>(<span class="params">type, url ,param</span>) </span>&#123;</div><div class="line">  <span class="built_in">console</span>.log(type, url ,param);</div><div class="line">&#125;;</div></pre></td></tr></table></figure></p>
+<p>ajax函数一直运转良好，跟cgi的合作也很愉快，直到有一天，我们的网站受到了CSRF攻击，解决的最简单办法就是在HTTP请求上带一个<code>Token</code>参数。<br>假设我们已经有了一个用于生成<code>Token</code>的函数，现在的任务是给每个ajax请求上都加上<code>Token</code>参数<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> getToken = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</div><div class="line">  <span class="keyword">return</span> <span class="string">'token'</span>;</div><div class="line">&#125;;</div><div class="line"></div><div class="line"><span class="keyword">var</span> ajax = <span class="function"><span class="keyword">function</span>(<span class="params">type, url, param</span>) </span>&#123;</div><div class="line">  <span class="keyword">var</span> param = param || &#123;&#125;;</div><div class="line"></div><div class="line">  param.token = getToken();</div><div class="line">  <span class="built_in">console</span>.log(type, url , param);</div><div class="line">&#125;</div><div class="line"></div><div class="line">ajax(<span class="string">'get'</span>, <span class="string">'http://www.xxx.com/userinfo'</span>, &#123;name: <span class="string">"xiaohan"</span>&#125;);</div></pre></td></tr></table></figure></p>
+<p>我们不改变原来的<code>ajax</code>函数，使用<code>before</code>方法把<code>Token</code>参数装饰到<code>param</code>上<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> getToken = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</div><div class="line">     <span class="keyword">return</span> <span class="string">'token'</span>;</div><div class="line">   &#125;;</div><div class="line">   </div><div class="line">   <span class="keyword">var</span> ajax = <span class="function"><span class="keyword">function</span>(<span class="params">type, url ,param</span>) </span>&#123;</div><div class="line">     <span class="built_in">console</span>.log(type, url ,param);</div><div class="line">   &#125;;</div><div class="line">   </div><div class="line">   ajax = before(ajax, <span class="function"><span class="keyword">function</span>(<span class="params">type, url, param</span>) </span>&#123;</div><div class="line">     param.token = getToken();</div><div class="line">   &#125;)</div><div class="line">   </div><div class="line">   ajax(<span class="string">'get'</span>, <span class="string">'http://www.xxx.com/userinfo'</span>, &#123;name: <span class="string">"xiaohan"</span>&#125;);</div></pre></td></tr></table></figure></p>
+<ul>
+<li>插件式的表单验证<br>在表单提交前，我们需要做一下额验证，例如用户名和密码是否为空。<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">form</span> <span class="attr">action</span>=<span class="string">""</span>&gt;</span></div><div class="line">  用户名：<span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"text"</span> <span class="attr">name</span>=<span class="string">"username"</span>&gt;</span></div><div class="line">  密码： <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"password"</span> <span class="attr">name</span>=<span class="string">"pwd"</span>&gt;</span></div><div class="line">  <span class="tag">&lt;<span class="name">button</span>&gt;</span>提交<span class="tag">&lt;/<span class="name">button</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">form</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">type</span>=<span class="string">"text/javascript"</span>&gt;</span><span class="javascript"></span></div><div class="line">  <span class="keyword">var</span> ajax = <span class="function"><span class="keyword">function</span>(<span class="params">type, url ,param</span>) </span>&#123;</div><div class="line">    <span class="built_in">console</span>.log(type, url ,param);</div><div class="line">  &#125;;</div><div class="line"></div><div class="line">  <span class="keyword">var</span> form = <span class="built_in">document</span>.querySelector(<span class="string">'form'</span>);</div><div class="line"></div><div class="line">  <span class="keyword">var</span> formSubmit = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</div><div class="line">    <span class="keyword">var</span> param;</div><div class="line"></div><div class="line">    <span class="keyword">if</span> (<span class="keyword">this</span>.username.value === <span class="string">''</span>) &#123;</div><div class="line">      <span class="keyword">return</span> alert(<span class="string">'用户名不能为空'</span>);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="keyword">if</span> (<span class="keyword">this</span>.pwd.value === <span class="string">''</span>) &#123;</div><div class="line">      <span class="keyword">return</span> alert(<span class="string">'密码不能为空'</span>);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    param = &#123;</div><div class="line">      username: <span class="keyword">this</span>.username.value,</div><div class="line">      password: <span class="keyword">this</span>.pwd.value</div><div class="line">    &#125;;</div><div class="line"></div><div class="line">    ajax(<span class="string">'post'</span>, <span class="string">'http://www.xxx.com/login'</span>, param);</div><div class="line">  &#125;</div><div class="line"></div><div class="line">  form.onsubmit = <span class="function"><span class="keyword">function</span>(<span class="params">e</span>) </span>&#123;</div><div class="line">    e.preventDefault();</div><div class="line">    formSubmit.apply(<span class="keyword">this</span>);</div><div class="line">  &#125;;</div><div class="line">  </div><div class="line"><span class="tag">&lt;/<span class="name">script</span>&gt;</span></div></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>上面的<code>formSubmit</code>承担了两个职责：表单验证和提交ajax，我们使用<code>before</code>函数实现职责分离：<br>把表单验证的逻辑放入<code>validata</code>函数中，<code>before</code>函数略作改变，如果传入的<code>validata</code>函数返回false，则不执行<code>ajax</code>函数.<br><figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">form</span> <span class="attr">action</span>=<span class="string">""</span>&gt;</span></div><div class="line">  用户名：<span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"text"</span> <span class="attr">name</span>=<span class="string">"username"</span>&gt;</span></div><div class="line">  密码： <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"password"</span> <span class="attr">name</span>=<span class="string">"pwd"</span>&gt;</span></div><div class="line">  <span class="tag">&lt;<span class="name">button</span>&gt;</span>提交<span class="tag">&lt;/<span class="name">button</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">form</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">type</span>=<span class="string">"text/javascript"</span>&gt;</span><span class="javascript"></span></div><div class="line">  <span class="keyword">var</span> before = <span class="function"><span class="keyword">function</span>(<span class="params">fn, beforeFn</span>) </span>&#123;</div><div class="line">    <span class="keyword">return</span> <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</div><div class="line">      <span class="keyword">if</span> (beforeFn.apply(<span class="keyword">this</span>, <span class="built_in">arguments</span>) !== <span class="string">'false'</span>) &#123;</div><div class="line">        <span class="keyword">return</span> fn.apply(<span class="keyword">this</span>,<span class="built_in">arguments</span>);</div><div class="line">      &#125;</div><div class="line"></div><div class="line">    &#125;;</div><div class="line"></div><div class="line">  &#125;;</div><div class="line"></div><div class="line">  <span class="keyword">var</span> ajax = <span class="function"><span class="keyword">function</span>(<span class="params">type, url ,param</span>) </span>&#123;</div><div class="line">    <span class="built_in">console</span>.log(type, url ,param);</div><div class="line">  &#125;;</div><div class="line"></div><div class="line">  <span class="keyword">var</span> form = <span class="built_in">document</span>.querySelector(<span class="string">'form'</span>);</div><div class="line"></div><div class="line">  <span class="keyword">var</span> formSubmit = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</div><div class="line">    <span class="keyword">var</span> param;</div><div class="line">    param = &#123;</div><div class="line">      username: <span class="keyword">this</span>.username.value,</div><div class="line">      password: <span class="keyword">this</span>.pwd.value</div><div class="line">    &#125;;</div><div class="line"></div><div class="line">    ajax(<span class="string">'post'</span>, <span class="string">'http://www.xxx.com/login'</span>, param);</div><div class="line">  &#125;;</div><div class="line"></div><div class="line">  <span class="keyword">var</span> validata = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</div><div class="line">    <span class="keyword">if</span> (<span class="keyword">this</span>.username.value === <span class="string">''</span>) &#123;</div><div class="line">       alert(<span class="string">'用户名不能为空'</span>);</div><div class="line">       <span class="keyword">return</span> <span class="literal">false</span>;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="keyword">if</span> (<span class="keyword">this</span>.pwd.value === <span class="string">''</span>) &#123;</div><div class="line">      alert(<span class="string">'密码不能为空'</span>);</div><div class="line">      <span class="keyword">return</span> <span class="literal">false</span>;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">  &#125;;</div><div class="line"></div><div class="line">  formSubmit = before(formSubmit, validata)</div><div class="line"></div><div class="line">  form.onsubmit = <span class="function"><span class="keyword">function</span>(<span class="params">e</span>) </span>&#123;</div><div class="line">    e.preventDefault();</div><div class="line">    formSubmit.apply(<span class="keyword">this</span>);</div><div class="line">  &#125;;</div><div class="line">  </div><div class="line"><span class="tag">&lt;/<span class="name">script</span>&gt;</span></div></pre></td></tr></table></figure></p>
+<h3 id="装饰者模式和代理模式"><a href="#装饰者模式和代理模式" class="headerlink" title="装饰者模式和代理模式"></a>装饰者模式和代理模式</h3><p>装饰者模式和代理模式的结构看起来非常相像，这两种模式都描述了怎样为对象提供一定程度上的间接引用，他们的实现部分都保留了对另一个对象的引用，并且向那个对象发送请求。<br>代理模式和装饰者模式最重要的去区别在与他们的意图和设计目的：<br>代理模式的目的是，当直接访问本体不方便或者不符合需要时，为这个本体提供一个替代者，本体定义了关键功能，而代理提供或拒绝对本体的访问，或者在访问本体前做一些额外的事情。这种关系在一开始就可以被确定。<br>装饰者模式的作用就是为对象动态加入行为。装饰者用于一开始不能确定对象的全部功能，在使用时通过为对象加入行为实现新的功能。</p>
+<h2 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h2><p>本章通过数据上报、动态改变函数参数，以及插件式的表单验证这4个例子，我们了解了装饰函数，它是javascript中独特的装饰者模式，这种模式在实际开发中非常有用。</p>
+<hr>
+<p>参考文档：</p>
+<p>javascript设计模式与开发实践</p>
+  
+	</div>
+		<footer class="article-footer clearfix">
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/js/">js</a><a href="/tags/js设计模式/">js设计模式</a>
+  </div>
+
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/js设计模式笔记/">js设计模式笔记</a>
+</div>
+
+
+<div class="article-share" id="share">
+
+  <div data-url="http://www.xiaohan80s.com/2016/08/13/js设计模式笔记/2016-08-13-part17/" data-title="装饰者模式 | xiaohan80s.com" data-tsina="null" class="share clearfix">
+  </div>
+
+</div>
+</footer>
+   	       
+	</article>
+	
+<nav class="article-nav clearfix">
+ 
+ <div class="prev" >
+ <a href="/2016/08/14/js设计模式笔记/2016-08-14-part18/" title="状态模式">
+  <strong>PREVIOUS:</strong><br/>
+  <span>
+  状态模式</span>
+</a>
+</div>
+
+
+<div class="next">
+<a href="/2016/08/11/js设计模式笔记/2016-08-12-part16/"  title="中介者模式">
+ <strong>NEXT:</strong><br/> 
+ <span>中介者模式
+</span>
+</a>
+</div>
+
+</nav>
+
+	
+<section class="comment">
+	<div class="ds-thread"></div>
+</section>
+
+</div>  
+      <div class="openaside"><a class="navbutton" href="#" title="显示侧边栏"></a></div>
+
+  <div id="toc" class="toc-aside">
+  <strong class="toc-title">文章目录</strong>
+  <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#模拟传统面向对象语言的装饰者模式"><span class="toc-number">1.</span> <span class="toc-text">模拟传统面向对象语言的装饰者模式</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#装饰者也是包装器"><span class="toc-number">2.</span> <span class="toc-text">装饰者也是包装器</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#回到JavaScript的装饰者"><span class="toc-number">3.</span> <span class="toc-text">回到JavaScript的装饰者</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#装饰函数"><span class="toc-number">4.</span> <span class="toc-text">装饰函数</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#用AOP装饰函数"><span class="toc-number">5.</span> <span class="toc-text">用AOP装饰函数</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#AOP的应用实例"><span class="toc-number">6.</span> <span class="toc-text">AOP的应用实例</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#装饰者模式和代理模式"><span class="toc-number">7.</span> <span class="toc-text">装饰者模式和代理模式</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#小结"><span class="toc-number"></span> <span class="toc-text">小结</span></a>
+  <div class="comment_bar"><a href="#ds-reset" target="" title="评论区">文章评论</a></div>
+  </div>
+
+<div id="asidepart">
+<div class="closeaside"><a class="closebutton" href="#" title="隐藏侧边栏"></a></div>
+<aside class="clearfix">
+
+  
+<div class="categorieslist">
+	<p class="asidetitle">分类</p>
+		<ul>
+		
+			<li><a href="/categories/js设计模式笔记/" title="js设计模式笔记">js设计模式笔记<sup>18</sup></a></li>
+		
+			<li><a href="/categories/工具/" title="工具">工具<sup>1</sup></a></li>
+		
+		</ul>
+</div>
+
+
+  
+<div class="tagslist">
+	<p class="asidetitle">标签</p>
+		<ul class="clearfix">
+		
+			<li><a href="/tags/js/" title="js">js<sup>18</sup></a></li>
+		
+			<li><a href="/tags/js设计模式/" title="js设计模式">js设计模式<sup>13</sup></a></li>
+		
+			<li><a href="/tags/工具/" title="工具">工具<sup>1</sup></a></li>
+		
+			<li><a href="/tags/搭建博客/" title="搭建博客">搭建博客<sup>1</sup></a></li>
+		
+		</ul>
+</div>
+
+
+  
+  <div class="archiveslist">
+    <p class="asidetitle"><a href="/archives">归档</a></p>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/08/">2016 年 08 月</a><span class="archive-list-count">15</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/07/">2016 年 07 月</a><span class="archive-list-count">4</span></li></ul>
+  </div>
+
+
+
+  
+
+<script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"1","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"16"},"slide":{"type":"slide","bdImg":"4","bdPos":"right","bdTop":"160"}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];</script>
+
+
+</aside>
+</div>
+
+    </div>
+    <footer><div id="footer" >
+	
+	<div class="line">
+		<span></span>
+		<div class="author"></div>
+	</div>
+	
+	
+	<div class="social-font clearfix">
+		
+		
+		
+		
+		
+	</div>
+		<p class="copyright">Powered by <a href="http://hexo.io" target="_blank" title="hexo">hexo</a> and Theme by <a href="https://github.com/A-limon/pacman" target="_blank" title="Pacman">Pacman</a> © 2016
+		
+		<a href="http://www.xiaohan80s.com" target="_blank" title="xiao han 80s">xiao han 80s</a>
+		
+		</p>
+</div>
+</footer>
+    <script src="/js/jquery-2.1.0.min.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){
+  $('.navbar').click(function(){
+    $('header nav').toggleClass('shownav');
+  });
+  var myWidth = 0;
+  function getSize(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+  };
+  var m = $('#main'),
+      a = $('#asidepart'),
+      c = $('.closeaside'),
+      o = $('.openaside');
+
+  $(window).resize(function(){
+    getSize();
+    if (myWidth >= 1024) {
+      $('header nav').removeClass('shownav');
+    }else
+    {
+      m.removeClass('moveMain');
+      a.css('display', 'block').removeClass('fadeOut');
+      o.css('display', 'none');
+      
+      $('#toc.toc-aside').css('display', 'none');
+      
+    }
+  });
+  c.click(function(){
+    a.addClass('fadeOut').css('display', 'none');
+    o.css('display', 'block').addClass('fadeIn');
+    m.addClass('moveMain');
+  });
+  o.click(function(){
+    o.css('display', 'none').removeClass('beforeFadeIn');
+    a.css('display', 'block').removeClass('fadeOut').addClass('fadeIn');
+    m.removeClass('moveMain');
+  });
+  $(window).scroll(function(){
+    o.css("top",Math.max(80,260-$(this).scrollTop()));
+  });
+});
+</script>
+
+<script type="text/javascript">
+$(document).ready(function(){
+  var ai = $('.article-content>iframe'),
+      ae = $('.article-content>embed'),
+      t  = $('#toc'),
+      h  = $('article h2')
+      ah = $('article h2'),
+      ta = $('#toc.toc-aside'),
+      o  = $('.openaside'),
+      c  = $('.closeaside');
+  if(ai.length>0){
+    ai.wrap('<div class="video-container" />');
+  };
+  if(ae.length>0){
+   ae.wrap('<div class="video-container" />');
+  };
+  if(ah.length==0){
+    t.css('display','none');
+  }else{
+    c.click(function(){
+      ta.css('display', 'block').addClass('fadeIn');
+    });
+    o.click(function(){
+      ta.css('display', 'none');
+    });
+    $(window).scroll(function(){
+      ta.css("top",Math.max(140,320-$(this).scrollTop()));
+    });
+  };
+  $('.closeaside').triggerHandler('click');
+});
+</script>
+
+
+<script type="text/javascript">
+$(document).ready(function(){
+  var $this = $('.share'),
+      url = $this.attr('data-url'),
+      encodedUrl = encodeURIComponent(url),
+      title = $this.attr('data-title'),
+      tsina = $this.attr('data-tsina');
+  var html = [
+  // '<a href="#" class="overlay" id="qrcode"></a>',
+  // '<div class="qrcode clearfix"><span>扫描二维码分享到微信朋友圈</span><a class="qrclose" href="#share"></a><strong>Loading...Please wait</strong><img id="qrcode-pic" data-src="http://s.jiathis.com/qrcode.php?url=' + encodedUrl + '"/></div>',
+  '<a href="#textlogo" class="article-back-to-top" title="Top"></a>',
+  // '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+  // '<a href="#qrcode" class="article-share-qrcode" title="QRcode"></a>',
+  // '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+  // '<a href="http://service.weibo.com/share/share.php?title='+title+'&url='+encodedUrl +'&ralateUid='+ tsina +'&searchPic=true&style=number' +'" class="article-share-weibo" target="_blank" title="Weibo"></a>',
+  // '<span title="Share to"></span>'
+  ].join('');
+  $this.append(html);
+  $('.article-share-qrcode').click(function(){
+    var imgSrc = $('#qrcode-pic').attr('data-src');
+    $('#qrcode-pic').attr('src', imgSrc);
+    $('#qrcode-pic').load(function(){
+        $('.qrcode strong').text(' ');
+    });
+  });
+});
+</script>
+
+
+<script type="text/javascript">
+  var duoshuoQuery = {short_name:"xiaohan80s"};
+  (function() {
+    var ds = document.createElement('script');
+    ds.type = 'text/javascript';ds.async = true;
+    ds.src = '//static.duoshuo.com/embed.js';
+    ds.charset = 'UTF-8';
+    (document.getElementsByTagName('head')[0]
+    || document.getElementsByTagName('body')[0]).appendChild(ds);
+  })();
+</script>
+
+
+
+
+
+  </body>
+</html>
