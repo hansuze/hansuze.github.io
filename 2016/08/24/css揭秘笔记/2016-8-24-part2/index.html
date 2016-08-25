@@ -1,0 +1,468 @@
+
+ <!DOCTYPE HTML>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  
+    <title>第二章 背景与边框 | xiaohan80s.com</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=3, minimum-scale=1">
+    
+    <meta name="author" content="xiao han 80s">
+    
+    <meta name="description" content="第二章 背景与边框知识点：半透明边框 多重边框 灵活的背景定位 边框内圆角 条纹背景 复杂的背景图案 伪随机背景 连续的图像边框
+半透明边框
+box-shadow 方案假设我们想给一个容器设置一个白色背景和一个半透明的白色边框，背景的颜色可以通过半透明边框透上来最开始的代码可能是这样的1234567">
+    
+    
+    
+    
+    
+    <link rel="icon" href="/img/favicon.ico">
+    
+    
+    <link rel="apple-touch-icon" href="/img/pacman.jpg">
+    <link rel="apple-touch-icon-precomposed" href="/img/pacman.jpg">
+    
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+
+  <body>
+    <header>
+      <div>
+		
+			<div id="imglogo">
+				<a href="/"><img src="/img/logo.svg" alt="xiaohan80s.com" title="xiaohan80s.com"/></a>
+			</div>
+			
+			<div id="textlogo">
+				<h1 class="site-name"><a href="/" title="xiaohan80s.com">xiaohan80s.com</a></h1>
+				<h2 class="blog-motto">年轻 没有什么不可以!</h2>
+			</div>
+			<div class="navbar"><a class="navbutton navmobile" href="#" title="菜单">
+			</a></div>
+			<nav class="animated">
+				<ul>
+					
+						<li><a href="/">Home</a></li>
+					
+						<li><a href="/archives">Archives</a></li>
+					
+						<li><a href="/categories">Categories</a></li>
+					
+						<li><a href="/about">About</a></li>
+					
+					<li>
+					
+					<!-- <form class="search" action="//baidu.com" method="get" accept-charset="utf-8">
+						<label>Search</label>
+						<input type="text" id="search" name="q" autocomplete="off" maxlength="20" placeholder="搜索" />
+						<input type="hidden" name="q" value="site:www.xiaohan80s.com">
+					</form> -->
+					
+					</li>
+				</ul>
+			</nav>
+</div>
+
+    </header>
+    <div id="container">
+      <div id="main" class="post" itemscope itemprop="blogPost">
+	<article itemprop="articleBody"> 
+		<header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2016/08/24/css揭秘笔记/2016-8-24-part2/" title="第二章 背景与边框" itemprop="url">第二章 背景与边框</a>
+  </h1>
+  <p class="article-author">By
+    
+      <a href="http://www.xiaohan80s.com" title="xiao han 80s">xiao han 80s</a>
+    </p>
+  <p class="article-time">
+    <time datetime="2016-08-23T16:00:00.000Z" itemprop="datePublished">2016-08-24</time>
+    更新日期:<time datetime="2016-08-25T15:57:01.601Z" itemprop="dateModified">2016-08-25</time>
+    
+  </p>
+</header>
+	<div class="article-content">
+		
+		
+		<div id="toc" class="toc-article">
+			<strong class="toc-title">文章目录</strong>
+		<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#第二章-背景与边框"><span class="toc-number">1.</span> <span class="toc-text">第二章 背景与边框</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#半透明边框"><span class="toc-number">1.0.1.</span> <span class="toc-text">半透明边框</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#多重边框"><span class="toc-number">1.0.2.</span> <span class="toc-text">多重边框</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#灵活的背景定位"><span class="toc-number">1.0.3.</span> <span class="toc-text">灵活的背景定位</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#边框内圆角"><span class="toc-number">1.0.4.</span> <span class="toc-text">边框内圆角</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#条纹背景"><span class="toc-number">1.0.5.</span> <span class="toc-text">条纹背景</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#复杂的背景图案"><span class="toc-number">1.0.6.</span> <span class="toc-text">复杂的背景图案</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#伪随机背景"><span class="toc-number">1.0.7.</span> <span class="toc-text">伪随机背景</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#连续的图像边框"><span class="toc-number">1.0.8.</span> <span class="toc-text">连续的图像边框</span></a></li></ol></li></ol></li></ol>
+		</div>
+		
+		<h2 id="第二章-背景与边框"><a href="#第二章-背景与边框" class="headerlink" title="第二章 背景与边框"></a>第二章 背景与边框</h2><p>知识点：半透明边框 多重边框 灵活的背景定位 边框内圆角 条纹背景 复杂的背景图案 伪随机背景 连续的图像边框</p>
+<h4 id="半透明边框"><a href="#半透明边框" class="headerlink" title="半透明边框"></a>半透明边框</h4><ol>
+<li>box-shadow 方案<br>假设我们想给一个容器设置一个白色背景和一个半透明的白色边框，背景的颜色可以通过半透明边框透上来<br>最开始的代码可能是这样的<figure class="highlight css"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="selector-class">.border1</span> &#123;</div><div class="line">  <span class="attribute">border</span>: <span class="number">10px</span> solid <span class="built_in">hsla</span>(360, 0%, 100%, .5);</div><div class="line">  <span class="attribute">width</span>: <span class="number">100px</span>;</div><div class="line">  <span class="attribute">height</span>: <span class="number">100px</span>;</div><div class="line"></div><div class="line">  <span class="attribute">background</span>: white;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>但是我们发现边框没了，而且我们使用半透明颜色都不能实现半透明边框，那还有什么办法？<br>下面使用虚线边框来看一下我们的边框消失了没有<br><figure class="highlight css"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="selector-class">.border2</span> &#123;</div><div class="line">  <span class="attribute">border</span>: <span class="number">10px</span> dashed <span class="built_in">hsla</span>(360, 0%, 100%, .5);</div><div class="line">  <span class="attribute">width</span>: <span class="number">100px</span>;</div><div class="line">  <span class="attribute">height</span>: <span class="number">100px</span>;</div><div class="line"></div><div class="line">  <span class="attribute">background</span>: <span class="number">#ff0066</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>我们发现边框确实存在，但是有一个问题background延伸到边框的底部了，这是导致我们失败的原因<br>我们引进一个<code>background-clip</code> 属性 他默认是 <code>border-box</code>意味着背景的会被边框的外延框切掉（会延伸到外边距边沿）。现在我们换成<code>padding-box</code>,这样浏览器会用内边距的边沿来把北京切掉(背景只能延伸到内边距外延)。<br><figure class="highlight css"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="selector-class">.border4</span> &#123;</div><div class="line">  <span class="attribute">border</span>: <span class="number">10px</span> solid <span class="built_in">hsla</span>(360, 0%, 100%, .5);</div><div class="line">  <span class="attribute">width</span>: <span class="number">100px</span>;</div><div class="line">  <span class="attribute">height</span>: <span class="number">100px</span>;</div><div class="line"></div><div class="line">  <span class="attribute">background</span>: <span class="number">#fff</span>;</div><div class="line">  <span class="attribute">background-clip</span>: padding-box;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p><a href="http://js.jirengu.com/biqofasizo/1/edit" target="_blank" rel="external">尝试一下！</a></p>
+<h4 id="多重边框"><a href="#多重边框" class="headerlink" title="多重边框"></a>多重边框</h4><p>目前为止，我们大都数人可能都已经用过 box-shadow 来生成投影。一般的写法是 box-shadow:(水平偏移,垂直偏移,模糊半径,扩张距离)<br>模糊半径：负值是不允许的。如果模糊值为零，阴影的边缘是尖锐的。否则，值越大，阴影的边缘就越模糊。<br>扩张距离：制定正值或者负值，可以让投影面积加大或者减小。(如果水平和垂直偏移都为0 那使用负值就挡在下面了)<br><figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">div.shadow1 &#123;</div><div class="line">  width: 100px;</div><div class="line">  height: 100px;</div><div class="line">  margin: 15px;</div><div class="line"></div><div class="line">  background: yellowgreen;</div><div class="line">  box-shadow: 0 0 0 10px #655,</div><div class="line">              0 0 0 15px deeppink;</div><div class="line">              0 2px 5px 15px rgba(0, 0, 0, .6);</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>但是投影的行为和边框不完全一致，因为它不影响布局，而且也不会受到box-sizing属性的影响，不过可以通过给加上外边距来模拟一个边框，但是这种办法不能触发鼠标的悬停或者点击事件(因为是外边框撑开的).<br>如果需要触发事件，你需要在<code>box-shadow</code>上加入<code>inset</code>属性让<code>box-shadow</code>向内扩张.<br><a href="http://dabblet.com/gist/525eb8e9cdade71723c1" target="_blank" rel="external">书上范例</a></p>
+<p>2.outline方案<br>使用<code>outline</code> 和<code>border</code>一起配合可以获得两层边框效果。这种方法的优点再用样式十分灵活，不需要使用<code>margin</code>或者<code>padding</code>模拟实线边框（假设我们需要产生虚线边框效果，box-shadow就没辙了）。但outline也不影响布局，不能触发鼠标事件。<br>我们实现和上面一样的效果</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="selector-tag">div</span><span class="selector-class">.outline1</span> &#123;</div><div class="line">  <span class="attribute">margin</span>: <span class="number">15px</span>;</div><div class="line">  <span class="attribute">border</span>: <span class="number">5px</span> solid deeppink;</div><div class="line">  <span class="attribute">width</span>: <span class="number">100px</span>;</div><div class="line">  <span class="attribute">height</span>: <span class="number">100px</span>;</div><div class="line"></div><div class="line">  <span class="attribute">background</span>: yellowgreen;</div><div class="line"></div><div class="line">  <span class="attribute">outline</span>: <span class="number">10px</span> solid <span class="number">#655</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>使用<code>outline-offset</code>实现简单封边的效果，这种可以触发鼠标事件<br><figure class="highlight css"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="selector-tag">div</span><span class="selector-class">.outline2</span> &#123;</div><div class="line">  <span class="attribute">margin</span>: <span class="number">15px</span>;</div><div class="line">  <span class="attribute">border-radius</span>: <span class="number">5px</span>;</div><div class="line">  <span class="attribute">width</span>: <span class="number">100px</span>;</div><div class="line">  <span class="attribute">height</span>: <span class="number">100px</span>;</div><div class="line"></div><div class="line">  <span class="attribute">background</span>: <span class="number">#655</span>;</div><div class="line"></div><div class="line">  <span class="attribute">outline</span>: <span class="number">1px</span> dashed <span class="number">#fff</span>;</div><div class="line">  <span class="attribute">outline-offset</span>: -<span class="number">10px</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p><a href="http://js.jirengu.com/riquhenino/1/edit?html,css,console,output" target="_blank" rel="external">尝试一下！</a><br>在绝大多数情况下 outline都是矩形的，如果你想使用这个属性，请在不同浏览器上测试<br><figure class="highlight css"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="selector-tag">div</span><span class="selector-class">.outline3</span> &#123;</div><div class="line">  <span class="attribute">border-radius</span>: <span class="number">5px</span>;</div><div class="line">  <span class="attribute">margin</span>: <span class="number">15px</span>;</div><div class="line">  <span class="attribute">width</span>: <span class="number">100px</span>;</div><div class="line">  <span class="attribute">height</span>: <span class="number">100px</span>;</div><div class="line"></div><div class="line">  <span class="attribute">background-color</span>: yellowgreen;</div><div class="line"></div><div class="line">  <span class="attribute">outline</span>: <span class="number">5px</span> solid <span class="number">#655</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<h4 id="灵活的背景定位"><a href="#灵活的背景定位" class="headerlink" title="灵活的背景定位"></a>灵活的背景定位</h4><ul>
+<li>background-position 扩展语法方案<br>background-position 已经得到扩展 它允许我们制定图片距离任意角的偏移量。</li>
+</ul>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="selector-class">.position</span> &#123;</div><div class="line">  <span class="attribute">width</span>: <span class="number">200px</span>;</div><div class="line">  <span class="attribute">height</span>: <span class="number">200px</span>;</div><div class="line"></div><div class="line">  <span class="attribute">background</span>:<span class="number">#58a</span> <span class="built_in">url</span>(http://ob53pbgjl.bkt.clouddn.com/1.gif) no-repeat;</div><div class="line">  <span class="attribute">background-position</span>: right <span class="number">20px</span> bottom <span class="number">10px</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<ul>
+<li>background-origin 方案<br>有一种情况 要求图片的偏移量和padding的值一致。我们使用background-position 扩展语法也是可以实现的，但是如果修改padding 要同时修改3个值，这样并不DRY</li>
+</ul>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="selector-class">.position1</span> &#123;</div><div class="line">  <span class="attribute">padding</span>: <span class="number">20px</span>;</div><div class="line">  <span class="attribute">width</span>: <span class="number">200px</span>;</div><div class="line">  <span class="attribute">height</span>: <span class="number">200px</span>;</div><div class="line"></div><div class="line">  <span class="attribute">background</span>: <span class="number">#58a</span> <span class="built_in">url</span>(http://ob53pbgjl.bkt.clouddn.com/1.gif) no-repeat bottom right;</div><div class="line">  <span class="attribute">background-position</span>: bottom <span class="number">20px</span> right <span class="number">20px</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>你可能疑惑 <code>background-position</code> 的top 和left到底是哪个左上角？ 每个元素都有三个矩形框：<code>border-box</code>(边框的外沿) <code>padding-box</code>（内边距的外沿）  和<code>content-box</code>（内容区的外沿）;我们<code>background-position</code> 的默认是：<code>padding-box</code>（因为这样不会被边框遮挡） 我们可以通过设置<code>position-origin</code> 属性为 <code>content-box</code> 改变计算的起始位置<br><figure class="highlight css"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="selector-class">.origin</span> &#123;</div><div class="line">  <span class="attribute">margin-top</span>: <span class="number">20px</span>;</div><div class="line">  <span class="attribute">padding</span>: <span class="number">20px</span>;</div><div class="line">  <span class="attribute">width</span>: <span class="number">200px</span>;</div><div class="line">  <span class="attribute">height</span>: <span class="number">200px</span>;</div><div class="line"></div><div class="line">  <span class="attribute">background</span>: <span class="number">#58a</span> <span class="built_in">url</span>(http://ob53pbgjl.bkt.clouddn.com/1.gif) no-repeat bottom right;</div><div class="line">  <span class="attribute">background-origin</span>: content-box;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<ul>
+<li>calc() 方案</li>
+</ul>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="selector-class">.calc</span> &#123;</div><div class="line">  <span class="attribute">padding</span>: <span class="number">20px</span>;</div><div class="line">  <span class="attribute">width</span>: <span class="number">200px</span>;</div><div class="line">  <span class="attribute">height</span>: <span class="number">200px</span>;</div><div class="line"></div><div class="line">  <span class="attribute">background</span>: <span class="number">#58a</span> <span class="built_in">url</span>(http://ob53pbgjl.bkt.clouddn.com/1.gif) no-repeat;</div><div class="line">  <span class="attribute">background-position</span>: <span class="built_in">calc</span>(100% - 20px) <span class="built_in">calc</span>(100% - 20px);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p><a href="http://js.jirengu.com/zijodoliza/1/edit?html,output" target="_blank" rel="external">尝试一下！</a></p>
+<h4 id="边框内圆角"><a href="#边框内圆角" class="headerlink" title="边框内圆角"></a>边框内圆角</h4><p>有时我们需要一个容器，只在内侧有圆角，最简单和实用的办法是使用两个div<br><figure class="highlight css"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"><span class="selector-class">.ct</span> &#123;</div><div class="line">  <span class="attribute">display</span>: inline-block;</div><div class="line">  <span class="attribute">padding</span>: <span class="number">1.2em</span>;</div><div class="line"></div><div class="line">  <span class="attribute">background</span>: <span class="number">#655</span>;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="selector-class">.ct</span> &gt; <span class="selector-tag">div</span> &#123;</div><div class="line">  <span class="attribute">border-radius</span>: .<span class="number">8em</span>;</div><div class="line">  <span class="attribute">padding</span>: <span class="number">1em</span>;</div><div class="line"></div><div class="line">  <span class="attribute">background</span>: tan;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>还有一种办法，但是不推荐使用 就是使用outline + box-shadow ,因为outline是直角的 我们需要让box-shadow填补打圆角的空白就OK了<br><figure class="highlight css"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="selector-class">.ct2</span> &#123;</div><div class="line">  <span class="attribute">display</span>: inline-block;</div><div class="line"></div><div class="line">  <span class="attribute">border-radius</span>: .<span class="number">8em</span>;</div><div class="line">  <span class="attribute">padding</span>: <span class="number">1em</span>;</div><div class="line"></div><div class="line">  <span class="attribute">background</span>: tan;</div><div class="line"></div><div class="line">  <span class="attribute">outline</span>: solid <span class="number">1.2em</span> <span class="number">#655</span>;</div><div class="line">  <span class="attribute">box-shadow</span>: <span class="number">0</span> <span class="number">0</span> <span class="number">0</span> <span class="built_in">calc</span>(.8em * (1.4 - 1)) <span class="number">#655</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p><a href="http://js.jirengu.com/jesobojolo/1/edit" target="_blank" rel="external">尝试一下吧！</a></p>
+<h4 id="条纹背景"><a href="#条纹背景" class="headerlink" title="条纹背景"></a>条纹背景</h4><ul>
+<li><p>水平条纹<br>首先我们先了解一下 linear-gradient的用法<br>其中 0-20% 是纯色<code>#fb3</code> 80%-100% 是纯色<code>#58a</code>,中间就是过渡地带</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="selector-class">.linear</span> &#123;</div><div class="line">  <span class="attribute">width</span>: <span class="number">200px</span>;</div><div class="line">  <span class="attribute">height</span>: <span class="number">150px</span>;</div><div class="line"></div><div class="line">  <span class="attribute">background</span>: <span class="built_in">linear-gradient</span>(#fb3 20%, #58a 80%);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>我们改成50% 消除过渡地带</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="selector-class">.linear1</span> &#123;</div><div class="line">  <span class="attribute">width</span>: <span class="number">200px</span>;</div><div class="line">  <span class="attribute">height</span>: <span class="number">150px</span>;</div><div class="line"></div><div class="line">  <span class="attribute">background</span>: <span class="built_in">linear-gradient</span>(#fb3 50%, #58a 50%);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>使用background-size 规定大小，在默认情况下是重复填充的(repeat)</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="selector-class">.linear2</span> &#123;</div><div class="line">  <span class="attribute">width</span>: <span class="number">200px</span>;</div><div class="line">  <span class="attribute">height</span>: <span class="number">150px</span>;</div><div class="line"></div><div class="line">  <span class="comment">/* 其中第二个写为0代表从前一个色标结束处开始*/</span></div><div class="line">  <span class="attribute">background</span>: <span class="built_in">linear-gradient</span>(#fb3 50%, #58a 0);</div><div class="line">  <span class="attribute">background-size</span>: <span class="number">100%</span> <span class="number">50px</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>我们也可以使用三色重复</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="selector-class">.linear3</span> &#123;</div><div class="line">  <span class="attribute">width</span>: <span class="number">200px</span>;</div><div class="line">  <span class="attribute">height</span>: <span class="number">150px</span>;</div><div class="line"></div><div class="line">  <span class="attribute">background</span>: <span class="built_in">linear-gradient</span>(#fb2 33.3%, #58a 0, #58a 66.6%, yellowgreen 0);</div><div class="line">  <span class="attribute">background-size</span>: <span class="number">100%</span> <span class="number">50%</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+</li>
+<li><p>垂直条纹<br>使用角度改变平铺的角度</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="selector-class">.linear4</span> &#123;</div><div class="line">  <span class="attribute">width</span>: <span class="number">200px</span>;</div><div class="line">  <span class="attribute">height</span>: <span class="number">150px</span>;</div><div class="line"></div><div class="line">  <span class="attribute">background</span>: <span class="built_in">linear-gradient</span>(90deg, #fb3 50%, #58a 0);</div><div class="line">  <span class="attribute">background-size</span>: <span class="number">50px</span> <span class="number">100%</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+</li>
+<li><p>斜向条纹<br>斜向条纹的第一次尝试：我们规定角度和<code>background-size</code> 是不是可以得到斜向条纹了呢？</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="selector-class">.linear5</span> &#123;</div><div class="line">  <span class="attribute">width</span>: <span class="number">200px</span>;</div><div class="line">  <span class="attribute">height</span>: <span class="number">150px</span>;</div><div class="line"></div><div class="line">  <span class="attribute">background</span>: <span class="built_in">linear-gradient</span>(45deg, #fb3 50%, #58a 0);</div><div class="line">  <span class="attribute">background-size</span>: <span class="number">50px</span> <span class="number">50px</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>我们使用4条条纹做一个贴片，而上例中我们只使用了2条条纹。<br><figure class="highlight css"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="selector-class">.linear6</span> &#123;</div><div class="line">  <span class="attribute">position</span>: relative;</div><div class="line"></div><div class="line">  <span class="attribute">width</span>: <span class="number">200px</span>;</div><div class="line">  <span class="attribute">height</span>: <span class="number">150px</span>;</div><div class="line"></div><div class="line">  <span class="attribute">background</span>: <span class="built_in">linear-gradient</span>(45deg, #fb3 25%,#58a 0, #58a 50%, #fb3 0, #fb3 75%, #58a 0);</div><div class="line">  <span class="attribute">background-size</span>: <span class="built_in">calc</span>(50px * 1.4)  <span class="built_in">calc</span>(50px * 1.4); <span class="comment">/* 我们偏移了45度 */</span></div></pre></td></tr></table></figure></p>
+<ul>
+<li>更好的斜向条纹<br>我们使用<code>linear-gradient()</code> 的循环式增强版本 <code>repeating-linear-gradient()</code> 工作原理跟上面相似，只不过是循环重复的.<br>我们先看看<code>repeating-linear-gradient</code> 的用法。<figure class="highlight css"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="selector-class">.linear7</span> &#123;</div><div class="line">  <span class="attribute">width</span>: <span class="number">200px</span>;</div><div class="line">  <span class="attribute">height</span>: <span class="number">150px</span>;</div><div class="line"></div><div class="line">  <span class="attribute">background</span>: <span class="built_in">repeating-linear-gradient</span>(45deg, #58a, #fb3 50px);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>完美的60度条纹！<br><figure class="highlight css"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="selector-class">.linear8</span> &#123;</div><div class="line">  <span class="attribute">width</span>: <span class="number">200px</span>;</div><div class="line">  <span class="attribute">height</span>: <span class="number">150px</span>;</div><div class="line">  </div><div class="line"> <span class="comment">/* 注意这里第一个色标代表循环的起始位置相当于动画中的 0% */</span></div><div class="line">  <span class="attribute">background</span>:  <span class="built_in">repeating-linear-gradient</span>(60deg, #58a, #58a 25px, #fb3 0, #fb3 50px);</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<ul>
+<li>灵活的同色系条纹<br>下面的方法可以制造同色系的条纹，这样的好处是我们修改一个地方就可以改变颜色了,另外我们也给低版本的浏览器提供了回退方案。 通过叠加的手法，具有透明区域的多个渐变团可以构造出非常复杂的图案。<figure class="highlight css"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line"><span class="selector-class">.linear9</span> &#123;</div><div class="line">  <span class="attribute">width</span>: <span class="number">200px</span>;</div><div class="line">  <span class="attribute">height</span>: <span class="number">150px</span>;</div><div class="line"></div><div class="line">  <span class="attribute">background-color</span>: <span class="number">#58a</span>;</div><div class="line">  <span class="attribute">background-image</span>: <span class="built_in">repeating-linear-gradient</span>(60deg, hsla(0, 0%, 100%, 0.1), <span class="built_in">hsla</span>(0, 0%, 100%, 0.1) <span class="number">25px</span>, transparent <span class="number">0</span>, transparent <span class="number">50px</span>);</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="selector-class">.linear10</span> &#123;</div><div class="line">  <span class="attribute">width</span>: <span class="number">200px</span>;</div><div class="line">  <span class="attribute">height</span>: <span class="number">150px</span>;</div><div class="line"></div><div class="line">  <span class="attribute">background-color</span>: <span class="number">#58a</span>;</div><div class="line">  <span class="attribute">background-image</span>: <span class="built_in">repeating-linear-gradient</span>(60deg, hsla(0, 100%, 0%, 0.1), <span class="built_in">hsla</span>(0, 100%, 0%, 0.1) <span class="number">25px</span>, transparent <span class="number">0</span>, transparent <span class="number">50px</span>);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<p><a href="http://js.jirengu.com/pihororunu/1/edit" target="_blank" rel="external">尝试一下吧！</a></p>
+<h4 id="复杂的背景图案"><a href="#复杂的背景图案" class="headerlink" title="复杂的背景图案"></a>复杂的背景图案</h4><ul>
+<li><p>网格<br>桌布方格纹 我们是由2个方向的<code>linear-gradient</code>叠加而成</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="selector-class">.grid</span> &#123;</div><div class="line">  <span class="attribute">background-color</span>: white;</div><div class="line">  <span class="attribute">background-image</span>: <span class="built_in">linear-gradient</span>(90deg, rgba(200, 0, 0, 0.5), <span class="built_in">rgba</span>(200, 0, 0, 0.5)<span class="built_in">50</span>%, transparent <span class="number">0</span>),</div><div class="line">                    <span class="built_in">linear-gradient</span>(rgba(200, 0, 0, 0.5), <span class="built_in">rgba</span>(200, 0, 0, 0.5) <span class="number">50%</span>, transparent <span class="number">0</span>);</div><div class="line">  <span class="attribute">background-size</span>: <span class="number">30px</span>, <span class="number">30px</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>使用固定线宽代替百分比描绘网格</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="selector-class">.grid1</span> &#123;</div><div class="line">  <span class="attribute">background-color</span>: <span class="number">#58a</span>;</div><div class="line">  <span class="attribute">background-image</span>: <span class="built_in">linear-gradient</span>(90deg, #fff 1px, transparent 0),</div><div class="line">                    <span class="built_in">linear-gradient</span>(#fff 1px, transparent 0);</div><div class="line">  <span class="attribute">background-size</span>: <span class="number">30px</span>, <span class="number">30px</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>一个更加复杂的网格，由不同颜色不同线宽的网格叠加而成</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="selector-class">.grid2</span> &#123;</div><div class="line">  <span class="attribute">background-color</span>: <span class="number">#58a</span>;</div><div class="line">  <span class="attribute">background-image</span>: <span class="built_in">linear-gradient</span>(90deg, hsla(0, 0%, 100%, .2) <span class="number">1px</span>, transparent <span class="number">0</span>),</div><div class="line">                    <span class="built_in">linear-gradient</span>(hsla(0, 0%, 100%, .2) <span class="number">1px</span>, transparent <span class="number">0</span>),</div><div class="line">                    <span class="built_in">linear-gradient</span>(90deg, #fff 2px, transparent 0),</div><div class="line">                    <span class="built_in">linear-gradient</span>(#fff 2px, transparent 0);</div><div class="line">  <span class="attribute">background-size</span>: <span class="number">30px</span>, <span class="number">30px</span>, <span class="number">90px</span>, <span class="number">90px</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+</li>
+<li><p>波点<br>使用<code>radial-gradient</code>圆点图案</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="selector-class">.dot1</span> &#123;</div><div class="line"></div><div class="line">  <span class="attribute">background-color</span>: <span class="number">#655</span>;</div><div class="line">  <span class="attribute">background-image</span>: <span class="built_in">radial-gradient</span>(tan 30%, transparent 0);</div><div class="line"></div><div class="line">  <span class="attribute">background-repeat</span>: space;</div><div class="line">  <span class="attribute">background-size</span>: <span class="number">30px</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>我们使用两层圆点图案，并把北京错位开，这样就可以获得真正的波点图案了</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="selector-class">.dot2</span> &#123;</div><div class="line">  <span class="attribute">background-color</span>: <span class="number">#655</span>;</div><div class="line">  <span class="attribute">background-image</span>: <span class="built_in">radial-gradient</span>(tan 30%, transparent 0),</div><div class="line">                    <span class="built_in">radial-gradient</span>(tan 30%, transparent 0);</div><div class="line">  <span class="attribute">background-size</span>: <span class="number">30px</span> <span class="number">30px</span>;</div><div class="line">  <span class="attribute">background-position</span>: <span class="number">0</span> <span class="number">0</span>, <span class="number">15px</span> <span class="number">15px</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+</li>
+<li><p>棋盘<br>这里的窍门在于使用两个直角三角形拼出一个正方形<br>下三角形</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="selector-class">.chess</span> &#123;</div><div class="line">  <span class="attribute">background-color</span>: <span class="number">#eee</span>;</div><div class="line">  <span class="attribute">background-image</span>: <span class="built_in">linear-gradient</span>(45deg, #bbb 25%, transparent 0);</div><div class="line">  <span class="attribute">background-size</span>: <span class="number">30px</span> <span class="number">30px</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>上三角形</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="selector-class">.chess1</span> &#123;</div><div class="line">  <span class="attribute">background-color</span>: <span class="number">#eee</span>;</div><div class="line">  <span class="attribute">background-image</span>: <span class="built_in">linear-gradient</span>(45deg, transparent 75%, #bbb 0);</div><div class="line">  <span class="attribute">background-size</span>: <span class="number">30px</span> <span class="number">30px</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>两个图案重叠在一起</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="selector-class">.chess2</span> &#123;</div><div class="line">  <span class="attribute">background-color</span>: <span class="number">#eee</span>;</div><div class="line">  <span class="attribute">background-image</span>: <span class="built_in">linear-gradient</span>(45deg, #bbb 25%, transparent 0),</div><div class="line">                    <span class="built_in">linear-gradient</span>(45deg, transparent 75%, #9e9e9e 0);</div><div class="line">  <span class="attribute">background-size</span>: <span class="number">30px</span> <span class="number">30px</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>第二层进行偏移，为了掩饰效果 我们使用不同颜色</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="selector-class">.chess3</span> &#123;</div><div class="line">  <span class="attribute">background-color</span>: <span class="number">#eee</span>;</div><div class="line">  <span class="attribute">background-image</span>: <span class="built_in">linear-gradient</span>(45deg, #bbb 25%, transparent 0),</div><div class="line">                    <span class="built_in">linear-gradient</span>(45deg, transparent 75%, #9e9e9e 0);</div><div class="line">  <span class="attribute">background-position</span>: <span class="number">0</span> <span class="number">0</span>, <span class="number">15px</span> <span class="number">15px</span>;</div><div class="line">  <span class="attribute">background-size</span>: <span class="number">30px</span> <span class="number">30px</span>, <span class="number">30px</span> <span class="number">30px</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>但上面只实现了棋盘的一半，我们需要像波点图时复制一层进行偏移</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="selector-class">.chess4</span> &#123;</div><div class="line">  <span class="attribute">background-color</span>: <span class="number">#eee</span>;</div><div class="line">  <span class="attribute">background-image</span>: <span class="built_in">linear-gradient</span>(45deg, #bbb 25%, transparent 0),</div><div class="line">                    <span class="built_in">linear-gradient</span>(45deg, transparent 75%, #bbb 0),</div><div class="line">                    <span class="built_in">linear-gradient</span>(45deg, #bbb 25%, transparent 0),</div><div class="line">                    <span class="built_in">linear-gradient</span>(45deg, transparent 75%, #bbb 0);</div><div class="line">  <span class="attribute">background-position</span>: <span class="number">0</span> <span class="number">0</span>, <span class="number">15px</span> <span class="number">15px</span>, <span class="number">15px</span> <span class="number">15px</span>, <span class="number">30px</span> <span class="number">30px</span>;</div><div class="line">  <span class="attribute">background-size</span>: <span class="number">30px</span> <span class="number">30px</span>;</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>现在我们使用两层实现效果，具体的原理，我没太看出来。。（为了效果明显第一层我们使用了#3f51b5来代替灰色)</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="selector-class">.chess5</span> &#123;</div><div class="line">  <span class="attribute">background-color</span>: <span class="number">#eee</span>;</div><div class="line">  <span class="attribute">background-image</span>: <span class="built_in">linear-gradient</span>(45deg, #3f51b5 25%, transparent 0, transparent 75%, #3f51b5 0),</div><div class="line">                    <span class="built_in">linear-gradient</span>(45deg, #bbb 25%, transparent 0, transparent 75%, #bbb 0);</div><div class="line">  <span class="attribute">background-size</span>: <span class="number">30px</span> <span class="number">30px</span>;</div><div class="line">  <span class="attribute">background-position</span>: <span class="number">0</span> <span class="number">0</span>, <span class="number">15px</span> <span class="number">15px</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<p><a href="http://js.jirengu.com/sevufawago/1/edit" target="_blank" rel="external">尝试一下吧！</a></p>
+<h4 id="伪随机背景"><a href="#伪随机背景" class="headerlink" title="伪随机背景"></a>伪随机背景</h4><p>重复平铺的几何图案很美观，但看起来可能有一些呆板。但是css本身没有提供任何随机功能。当我们想要做一个随机的背景条纹，并且不能让人看出贴片平铺时的接缝。我们的第一个想法是创建一个具有四种颜色的条纹图案<br><figure class="highlight css"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="selector-class">.bg1</span> &#123;</div><div class="line">  <span class="attribute">background</span>: <span class="built_in">linear-gradient</span>(90deg, #fb3 15%, #655 0, #655 40%, #ab4 0, #ab4 65%, hsl(20, 40%, 90%) <span class="number">0</span>);</div><div class="line">  <span class="attribute">background-size</span>: <span class="number">80px</span> <span class="number">100%</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>为了更真实的模拟条纹的随机性，我们接下来可能会想到，把这组条纹从一个平面拆分成多个平面，一种颜色作为底色，其他颜色作为条纹，然后用<code>background-size</code> 控制条纹的间距<br>因为最顶层的颜色重复规律最容易被察觉（因为它没有任何东西提供遮挡 所以他的宽度是不变的）所以我们把他的宽度设置为最大（图中最顶层是橙色)<br><figure class="highlight css"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="selector-class">.bg2</span> &#123;</div><div class="line">  <span class="attribute">background-color</span>: <span class="built_in">hsl</span>(20, 40%, 90%);</div><div class="line">  <span class="attribute">background-image</span>: <span class="built_in">linear-gradient</span>(90deg, #fb3 10px, transparent 0),</div><div class="line">                    <span class="built_in">linear-gradient</span>(90deg, #655 20px, transparent 0),</div><div class="line">                    <span class="built_in">linear-gradient</span>(90deg, #ab4 20px, transparent 0);</div><div class="line">  <span class="attribute">background-size</span>: <span class="number">80px</span> <span class="number">100%</span>, <span class="number">60px</span> <span class="number">100%</span>, <span class="number">30px</span> <span class="number">100%</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>我们发现一个规律 就是各层背景图像以不同间距重复数次后再回到统一对齐的点，这个点就是三个图层宽度的最小公倍数。<br>所以为了增加随机性，我们制定质数为图层的宽度<br><figure class="highlight css"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="selector-class">.bg3</span> &#123;</div><div class="line">  <span class="attribute">background-color</span>: <span class="built_in">hsl</span>(20, 40%, 90%);</div><div class="line">  <span class="attribute">background-image</span>: <span class="built_in">linear-gradient</span>(90deg, #fb3 10px, transparent 0),</div><div class="line">                    <span class="built_in">linear-gradient</span>(90deg, #655 20px, transparent 0),</div><div class="line">                    <span class="built_in">linear-gradient</span>(90deg, #ab4 20px, transparent 0);</div><div class="line">  <span class="attribute">background-size</span>: <span class="number">83px</span> <span class="number">100%</span>, <span class="number">61px</span> <span class="number">100%</span>, <span class="number">31px</span> <span class="number">100%</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>这个技巧Alex Walker定名为<strong>“禅原则”</strong> ,他最先提出了通过质数来增加随机真实性的想法，这个定律不仅适用于背景，还可以用于其他涉及到没有规律重复的情况。<br>在照片图库中，为每幅图片应用细微的伪随机旋转效果时 可以使用多个：<code>nth-child(an)</code> 选择符 且让a是质数（感觉使用js的Math.random * size 也可以实现这种效果）<br>如果要生成一个动画，而且想让他不是按照魔钟明显的规律在循环时，我们可以使用多个时常为质数的动画<br>作者，请收下我的膝盖吧！<br><a href="http://dabblet.com/gist/ea53f3bee9a7f1439aa7" target="_blank" rel="external">请看书中范例</a><br><a href="http://js.jirengu.com/casewolami/1/edit" target="_blank" rel="external">尝试一下吧！</a></p>
+<h4 id="连续的图像边框"><a href="#连续的图像边框" class="headerlink" title="连续的图像边框"></a>连续的图像边框</h4><figure class="highlight css"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="selector-class">.ct</span> &#123;</div><div class="line">  <span class="attribute">padding</span>: <span class="number">1em</span>;</div><div class="line"></div><div class="line">  <span class="attribute">background</span>: <span class="built_in">url</span>(http://ob53pbgjl.bkt.clouddn.com/house.png);</div><div class="line">  <span class="attribute">background-size</span>: cover;</div><div class="line">&#125;</div><div class="line"><span class="selector-class">.ct</span> &gt; <span class="selector-tag">div</span> &#123;</div><div class="line">  <span class="attribute">background</span>: <span class="number">#fff</span>;</div><div class="line"></div><div class="line">  <span class="attribute">padding</span>: <span class="number">1em</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>只使用一个元素，利用background-image来实现 在背景图片之上，再叠加一层纯白的实色背景。为了下层的图片背景透过边框区域显示出来，我们只能在多重背景的最顶层来使用linear-gradient 模拟纯白背景（background-color在background-image的下面）。另外<code>background-origin</code>的默认值是<code>padding-box</code>我们要改成<code>border-box</code>否则图片会变得很奇怪。<br><figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">.ct1 &#123;</div><div class="line">  border: 1em solid transparent;</div><div class="line">  padding: 1em;</div><div class="line"></div><div class="line">  background: linear-gradient(#fff, #fff),</div><div class="line">              url(http://ob53pbgjl.bkt.clouddn.com/house.png);</div><div class="line">  background-size: cover;</div><div class="line">  background-clip: padding-box, border-box;</div><div class="line">  background-origin: border-box;  //</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>这些新属性是可以合并到<code>background</code>里面<br><figure class="highlight css"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="selector-class">.ct2</span> &#123;</div><div class="line">        <span class="attribute">border</span>: <span class="number">1em</span> solid transparent;</div><div class="line">        <span class="attribute">padding</span>: <span class="number">1em</span>;</div><div class="line"></div><div class="line">        <span class="attribute">background</span>: <span class="built_in">linear-gradient</span>(#fff, #fff) padding-box,</div><div class="line">                    <span class="built_in">url</span>(http://ob53pbgjl.bkt.clouddn.com/house.png) border-box <span class="number">0</span> <span class="number">0</span>/cover;</div><div class="line"></div><div class="line">      &#125;</div></pre></td></tr></table></figure></p>
+<p>这个技巧也可以用在渐变图案上，举个例子，下面的这段代码可以生成一个老式的边框，你可以调整<code>background-size</code>改变宽度，调整<code>border-width</code> 改变厚度.<br><figure class="highlight css"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="selector-class">.letter</span> &#123;</div><div class="line">  <span class="attribute">border</span>: <span class="number">1em</span> solid transparent;</div><div class="line">  <span class="attribute">padding</span>: <span class="number">1em</span>;</div><div class="line"></div><div class="line">  <span class="attribute">background</span>: <span class="built_in">linear-gradient</span>(#fff, #fff) padding-box,</div><div class="line">              <span class="built_in">repeating-linear-gradient</span>(-45deg, red 0, red 12.5%,</div><div class="line">                                        transparent 0, transparent 25% ,</div><div class="line">                                        #58a 0, #58a 37.5%,</div><div class="line">                                        transparent 0, transparent 50%) border-box <span class="number">0</span> /<span class="number">5em</span> <span class="number">5em</span>;</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>另外我们也可以使用<code>border-image</code> 来实现， 不过方法存在一些问题</p>
+<ul>
+<li>每当我们改变 <code>border-image-slice</code> 时，都需要同时修改 <code>border-width</code> 来匹配。</li>
+<li>由于我们 <code>border-image-slice</code> 只能使用百分比和像素（像素是没有单位的）,所以我们把 <code>border-width</code> 改为像素单位表示。（<code>border-image</code>知识可以看底部参考文档）</li>
+<li>条纹的宽度需要在色标中写好，因此我们在改变宽度时，需要修改四处.</li>
+</ul>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="selector-class">.letter1</span> &#123;</div><div class="line">  <span class="attribute">border</span>: <span class="number">16px</span> solid transparent;</div><div class="line">  <span class="attribute">padding</span>: <span class="number">1em</span>;</div><div class="line"></div><div class="line">  <span class="attribute">border-image</span>:<span class="number">20</span> <span class="built_in">repeating-linear-gradient</span>(-45deg, red 0, red 1em,</div><div class="line">                                          transparent 0, transparent 2em,</div><div class="line">                                          #58a 0, #58a 3em,</div><div class="line">                                          transparent 0, transparent 4em);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>使用<code>background</code>制作边框效果的另一个用武之地就是生成好玩的蚂蚁行军边框！<br>我们将边框的宽度减小到 <code>1px</code> （斜线就变成虚线了！）然后再把<code>background-size</code>改为某个合适的值（可以控制虚线的间距）。最后把<code>background-position</code>以动画的方式改成100%<br><figure class="highlight css"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="selector-class">.ant</span> &#123;</div><div class="line">  <span class="attribute">border</span>: <span class="number">1px</span> solid transparent;</div><div class="line"></div><div class="line">  <span class="attribute">background</span>:</div><div class="line">              <span class="built_in">linear-gradient</span>(white, white) padding-box,</div><div class="line">              <span class="built_in">repeating-linear-gradient</span>(-45deg, black 0, black 25%,</div><div class="line">                                          white 0, white 50%) border-box <span class="number">0</span> /.<span class="number">6em</span> .<span class="number">6em</span> ;</div><div class="line">  <span class="attribute">animation</span>: ants <span class="number">12s</span> linear infinite;</div><div class="line">&#125;</div><div class="line">@<span class="keyword">keyframes</span> ants &#123;</div><div class="line"> 100%  &#123;<span class="attribute">background-position</span>: <span class="number">100%</span>;&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p><code>border-image</code> 也有强大的地方，尤其是在搭配渐变图案时更是威力倍增，假设我们需要一个顶部边框被剪裁的效果，就像一般的脚注那样，我们所需要的就是<code>border-image</code>属性再加上一条由渐变生成的垂直条纹，并把要裁切的长度在渐变中写好。边框线的粗细交给 <code>border-width</code>处理<br><figure class="highlight css"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="selector-class">.footnote</span> &#123;</div><div class="line">  <span class="attribute">border-top</span>: .<span class="number">2em</span> solid transparent;</div><div class="line">  <span class="attribute">padding</span>: <span class="number">1em</span>;</div><div class="line"></div><div class="line">  <span class="attribute">border-image</span>: <span class="number">100%</span> <span class="number">0</span> <span class="number">0</span> <span class="built_in">linear-gradient</span>(90deg, black 4em, transparent 0);</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p><a href="http://js.jirengu.com/hadokubafa/1/edit" target="_blank" rel="external">尝试一下吧！</a></p>
+<hr>
+<p>参考文档：<br><a href="http://www.w3cplus.com/content/css3-border-image" target="_blank" rel="external">w3c-plus:border-image</a><br>《css揭秘》</p>
+  
+	</div>
+		<footer class="article-footer clearfix">
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/css/">css</a>
+  </div>
+
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/css揭秘读书笔记/">css揭秘读书笔记</a>
+</div>
+
+
+<div class="article-share" id="share">
+
+  <div data-url="http://www.xiaohan80s.com/2016/08/24/css揭秘笔记/2016-8-24-part2/" data-title="第二章 背景与边框 | xiaohan80s.com" data-tsina="null" class="share clearfix">
+  </div>
+
+</div>
+</footer>
+   	       
+	</article>
+	
+<nav class="article-nav clearfix">
+ 
+ <div class="prev" >
+ <a href="/2016/08/24/css揭秘笔记/2016-8-24-part1/" title="第一章 前言">
+  <strong>PREVIOUS:</strong><br/>
+  <span>
+  第一章 前言</span>
+</a>
+</div>
+
+
+<div class="next">
+<a href="/2016/08/15/js设计模式笔记/2016-08-15-part19/"  title="适配器模式">
+ <strong>NEXT:</strong><br/> 
+ <span>适配器模式
+</span>
+</a>
+</div>
+
+</nav>
+
+	
+<section class="comment">
+	<div class="ds-thread"></div>
+</section>
+
+</div>  
+      <div class="openaside"><a class="navbutton" href="#" title="显示侧边栏"></a></div>
+
+  <div id="toc" class="toc-aside">
+  <strong class="toc-title">文章目录</strong>
+  <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#第二章-背景与边框"><span class="toc-number">1.</span> <span class="toc-text">第二章 背景与边框</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#半透明边框"><span class="toc-number">1.0.1.</span> <span class="toc-text">半透明边框</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#多重边框"><span class="toc-number">1.0.2.</span> <span class="toc-text">多重边框</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#灵活的背景定位"><span class="toc-number">1.0.3.</span> <span class="toc-text">灵活的背景定位</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#边框内圆角"><span class="toc-number">1.0.4.</span> <span class="toc-text">边框内圆角</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#条纹背景"><span class="toc-number">1.0.5.</span> <span class="toc-text">条纹背景</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#复杂的背景图案"><span class="toc-number">1.0.6.</span> <span class="toc-text">复杂的背景图案</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#伪随机背景"><span class="toc-number">1.0.7.</span> <span class="toc-text">伪随机背景</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#连续的图像边框"><span class="toc-number">1.0.8.</span> <span class="toc-text">连续的图像边框</span></a></li></ol></li></ol></li></ol>
+  <div class="comment_bar"><a href="#ds-reset" target="" title="评论区">文章评论</a></div>
+  </div>
+
+<div id="asidepart">
+<div class="closeaside"><a class="closebutton" href="#" title="隐藏侧边栏"></a></div>
+<aside class="clearfix">
+
+  
+<div class="categorieslist">
+	<p class="asidetitle">分类</p>
+		<ul>
+		
+			<li><a href="/categories/css揭秘读书笔记/" title="css揭秘读书笔记">css揭秘读书笔记<sup>2</sup></a></li>
+		
+			<li><a href="/categories/js设计模式笔记/" title="js设计模式笔记">js设计模式笔记<sup>19</sup></a></li>
+		
+			<li><a href="/categories/工具/" title="工具">工具<sup>1</sup></a></li>
+		
+		</ul>
+</div>
+
+
+  
+<div class="tagslist">
+	<p class="asidetitle">标签</p>
+		<ul class="clearfix">
+		
+			<li><a href="/tags/css/" title="css">css<sup>2</sup></a></li>
+		
+			<li><a href="/tags/js/" title="js">js<sup>19</sup></a></li>
+		
+			<li><a href="/tags/js设计模式/" title="js设计模式">js设计模式<sup>14</sup></a></li>
+		
+			<li><a href="/tags/工具/" title="工具">工具<sup>1</sup></a></li>
+		
+			<li><a href="/tags/搭建博客/" title="搭建博客">搭建博客<sup>1</sup></a></li>
+		
+		</ul>
+</div>
+
+
+  
+  <div class="archiveslist">
+    <p class="asidetitle"><a href="/archives">归档</a></p>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/08/">2016 年 08 月</a><span class="archive-list-count">18</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/07/">2016 年 07 月</a><span class="archive-list-count">4</span></li></ul>
+  </div>
+
+
+
+  
+
+<script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"1","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"16"},"slide":{"type":"slide","bdImg":"4","bdPos":"right","bdTop":"160"}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];</script>
+
+
+</aside>
+</div>
+
+    </div>
+    <footer><div id="footer" >
+	
+	<div class="line">
+		<span></span>
+		<div class="author"></div>
+	</div>
+	
+	
+	<div class="social-font clearfix">
+		
+		
+		
+		
+		
+	</div>
+		<p class="copyright">Powered by <a href="http://hexo.io" target="_blank" title="hexo">hexo</a> and Theme by <a href="https://github.com/A-limon/pacman" target="_blank" title="Pacman">Pacman</a> © 2016
+		
+		<a href="http://www.xiaohan80s.com" target="_blank" title="xiao han 80s">xiao han 80s</a>
+		
+		</p>
+</div>
+</footer>
+    <script src="/js/jquery-2.1.0.min.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){
+  $('.navbar').click(function(){
+    $('header nav').toggleClass('shownav');
+  });
+  var myWidth = 0;
+  function getSize(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+  };
+  var m = $('#main'),
+      a = $('#asidepart'),
+      c = $('.closeaside'),
+      o = $('.openaside');
+
+  $(window).resize(function(){
+    getSize();
+    if (myWidth >= 1024) {
+      $('header nav').removeClass('shownav');
+    }else
+    {
+      m.removeClass('moveMain');
+      a.css('display', 'block').removeClass('fadeOut');
+      o.css('display', 'none');
+      
+      $('#toc.toc-aside').css('display', 'none');
+      
+    }
+  });
+  c.click(function(){
+    a.addClass('fadeOut').css('display', 'none');
+    o.css('display', 'block').addClass('fadeIn');
+    m.addClass('moveMain');
+  });
+  o.click(function(){
+    o.css('display', 'none').removeClass('beforeFadeIn');
+    a.css('display', 'block').removeClass('fadeOut').addClass('fadeIn');
+    m.removeClass('moveMain');
+  });
+  $(window).scroll(function(){
+    o.css("top",Math.max(80,260-$(this).scrollTop()));
+  });
+});
+</script>
+
+<script type="text/javascript">
+$(document).ready(function(){
+  var ai = $('.article-content>iframe'),
+      ae = $('.article-content>embed'),
+      t  = $('#toc'),
+      h  = $('article h2')
+      ah = $('article h2'),
+      ta = $('#toc.toc-aside'),
+      o  = $('.openaside'),
+      c  = $('.closeaside');
+  if(ai.length>0){
+    ai.wrap('<div class="video-container" />');
+  };
+  if(ae.length>0){
+   ae.wrap('<div class="video-container" />');
+  };
+  if(ah.length==0){
+    t.css('display','none');
+  }else{
+    c.click(function(){
+      ta.css('display', 'block').addClass('fadeIn');
+    });
+    o.click(function(){
+      ta.css('display', 'none');
+    });
+    $(window).scroll(function(){
+      ta.css("top",Math.max(140,320-$(this).scrollTop()));
+    });
+  };
+  $('.closeaside').triggerHandler('click');
+});
+</script>
+
+
+<script type="text/javascript">
+$(document).ready(function(){
+  var $this = $('.share'),
+      url = $this.attr('data-url'),
+      encodedUrl = encodeURIComponent(url),
+      title = $this.attr('data-title'),
+      tsina = $this.attr('data-tsina');
+  var html = [
+  // '<a href="#" class="overlay" id="qrcode"></a>',
+  // '<div class="qrcode clearfix"><span>扫描二维码分享到微信朋友圈</span><a class="qrclose" href="#share"></a><strong>Loading...Please wait</strong><img id="qrcode-pic" data-src="http://s.jiathis.com/qrcode.php?url=' + encodedUrl + '"/></div>',
+  '<a href="#textlogo" class="article-back-to-top" title="Top"></a>',
+  // '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+  // '<a href="#qrcode" class="article-share-qrcode" title="QRcode"></a>',
+  // '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+  // '<a href="http://service.weibo.com/share/share.php?title='+title+'&url='+encodedUrl +'&ralateUid='+ tsina +'&searchPic=true&style=number' +'" class="article-share-weibo" target="_blank" title="Weibo"></a>',
+  // '<span title="Share to"></span>'
+  ].join('');
+  $this.append(html);
+  $('.article-share-qrcode').click(function(){
+    var imgSrc = $('#qrcode-pic').attr('data-src');
+    $('#qrcode-pic').attr('src', imgSrc);
+    $('#qrcode-pic').load(function(){
+        $('.qrcode strong').text(' ');
+    });
+  });
+});
+</script>
+
+
+<script type="text/javascript">
+  var duoshuoQuery = {short_name:"xiaohan80s"};
+  (function() {
+    var ds = document.createElement('script');
+    ds.type = 'text/javascript';ds.async = true;
+    ds.src = '//static.duoshuo.com/embed.js';
+    ds.charset = 'UTF-8';
+    (document.getElementsByTagName('head')[0]
+    || document.getElementsByTagName('body')[0]).appendChild(ds);
+  })();
+</script>
+
+
+
+
+
+  </body>
+</html>

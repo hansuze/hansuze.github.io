@@ -80,7 +80,7 @@
     </p>
   <p class="article-time">
     <time datetime="2016-08-03T16:00:00.000Z" itemprop="datePublished">2016-08-04</time>
-    更新日期:<time datetime="2016-08-05T07:29:10.436Z" itemprop="dateModified">2016-08-05</time>
+    更新日期:<time datetime="2016-08-22T15:14:57.592Z" itemprop="dateModified">2016-08-22</time>
     
   </p>
 </header>
@@ -89,7 +89,7 @@
 		
 		<div id="toc" class="toc-article">
 			<strong class="toc-title">文章目录</strong>
-		<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#本章主要讲解闭包的的形成和应用"><span class="toc-number">1.</span> <span class="toc-text">本章主要讲解闭包的的形成和应用</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#闭包的形成"><span class="toc-number">1.1.</span> <span class="toc-text">闭包的形成</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#闭包的应用"><span class="toc-number">1.2.</span> <span class="toc-text">闭包的应用</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#拓展：用闭包实现命令模式"><span class="toc-number">1.3.</span> <span class="toc-text">拓展：用闭包实现命令模式</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#一个闭包的面试题"><span class="toc-number">1.4.</span> <span class="toc-text">一个闭包的面试题</span></a></li></ol></li></ol>
+		<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#本章主要讲解闭包的的形成和应用"><span class="toc-number">1.</span> <span class="toc-text">本章主要讲解闭包的的形成和应用</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#闭包的形成"><span class="toc-number">1.1.</span> <span class="toc-text">闭包的形成</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#闭包的应用"><span class="toc-number">1.2.</span> <span class="toc-text">闭包的应用</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#拓展：用闭包实现命令模式"><span class="toc-number">1.3.</span> <span class="toc-text">拓展：用闭包实现命令模式</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#陷阱思考"><span class="toc-number">1.4.</span> <span class="toc-text">陷阱思考</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#一个闭包的面试题"><span class="toc-number">1.5.</span> <span class="toc-text">一个闭包的面试题</span></a></li></ol></li></ol>
 		</div>
 		
 		<h2 id="本章主要讲解闭包的的形成和应用"><a href="#本章主要讲解闭包的的形成和应用" class="headerlink" title="本章主要讲解闭包的的形成和应用"></a>本章主要讲解闭包的的形成和应用</h2><h3 id="闭包的形成"><a href="#闭包的形成" class="headerlink" title="闭包的形成"></a>闭包的形成</h3><p>闭包的形成与变量的作用域和变量的生存周期密切相关，首先我们先了解这两个概念</p>
@@ -107,6 +107,9 @@
 <li><p>函数2<br>尝试返回一个函数<br>函数2成功了！<br>在incBuilder中定义内部函数innerFn，同时将innerFn返回，innerFn所包含的作用域链将会一起返回，所以在执行inc函数时，实现了对内部变量inner的操作。</p>
 <figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">incBuilder</span>(<span class="params"></span>)</span>&#123;</div><div class="line">  <span class="keyword">var</span> inner=<span class="number">0</span>;</div><div class="line">  <span class="function"><span class="keyword">function</span> <span class="title">innerFn</span>(<span class="params"></span>)</span>&#123;</div><div class="line">    inner++;</div><div class="line">    <span class="built_in">console</span>.log(inner);</div><div class="line">  &#125;</div><div class="line">  <span class="keyword">return</span> innerFn;</div><div class="line">&#125;</div><div class="line"><span class="keyword">var</span> inc=incBuilder();</div><div class="line">inc();    <span class="comment">//1</span></div><div class="line">inc();    <span class="comment">//2</span></div><div class="line"><span class="built_in">console</span>.log(inner); <span class="comment">//undefined</span></div></pre></td></tr></table></figure>
 </li>
+<li><p>函数3<br>尝试返回一个对象<br>函数2成功了！<br>返回对象的add方法的作用域链是add定义的位置，其实跟上面的使用函数返回inner是一样的。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> incBuilder = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</div><div class="line">  <span class="keyword">var</span> inner = <span class="number">0</span>;</div><div class="line">  <span class="keyword">return</span> &#123;</div><div class="line">    add: <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</div><div class="line">      inner++;</div><div class="line">      <span class="built_in">console</span>.log(inner);</div><div class="line">    &#125;</div><div class="line">  &#125;;</div><div class="line"></div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="keyword">var</span> inc = incBuilder();</div><div class="line"></div><div class="line">inc.add();  <span class="comment">// 1</span></div><div class="line">inc.add();  <span class="comment">// 2</span></div><div class="line"><span class="built_in">console</span>.log(inner);  <span class="comment">// undefined</span></div></pre></td></tr></table></figure>
+</li>
 </ul>
 <h3 id="闭包的应用"><a href="#闭包的应用" class="headerlink" title="闭包的应用"></a>闭包的应用</h3><ul>
 <li><p>封装变量<br>下面的代码利用了cache变量将计算结果缓存，并且cache不能够被外部修改</p>
@@ -123,6 +126,19 @@
 </li>
 <li><p>闭包方式展现</p>
 <figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">button</span> <span class="attr">id</span>=<span class="string">"execute"</span>&gt;</span>点我打开电视<span class="tag">&lt;/<span class="name">button</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">button</span> <span class="attr">id</span>=<span class="string">"undo"</span>&gt;</span>点我关闭电视<span class="tag">&lt;/<span class="name">button</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">type</span>=<span class="string">"text/javascript"</span>&gt;</span><span class="javascript"></span></div><div class="line">  <span class="keyword">var</span> tv=&#123;</div><div class="line">    open:<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line">      <span class="built_in">console</span>.log(<span class="string">"打开电视"</span>);</div><div class="line">    &#125;,</div><div class="line">    close:<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line">      <span class="built_in">console</span>.log(<span class="string">"关闭电视"</span>);</div><div class="line">    &#125;</div><div class="line">  &#125;</div><div class="line">  <span class="keyword">var</span> creatCommand=<span class="function"><span class="keyword">function</span>(<span class="params">receiver</span>)</span>&#123;</div><div class="line">    <span class="function"><span class="keyword">function</span> <span class="title">execute</span>(<span class="params"></span>)</span>&#123;</div><div class="line">      receiver.open();</div><div class="line">    &#125;</div><div class="line">    <span class="function"><span class="keyword">function</span> <span class="title">undo</span>(<span class="params"></span>)</span>&#123;</div><div class="line">      receiver.close();</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">return</span>&#123;</div><div class="line">      execute:execute,</div><div class="line">      undo:undo</div><div class="line">    &#125;</div><div class="line">  &#125;</div><div class="line">  <span class="keyword">var</span> setCommand=<span class="function"><span class="keyword">function</span>(<span class="params">command</span>)</span>&#123;</div><div class="line">    <span class="built_in">document</span>.querySelector(<span class="string">"#execute"</span>).onclick=<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line">      command.execute();</div><div class="line">    &#125;</div><div class="line">    <span class="built_in">document</span>.querySelector(<span class="string">"#undo"</span>).onclick=<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line">      command.undo();</div><div class="line">    &#125;</div><div class="line">  &#125;</div><div class="line">  setCommand(creatCommand(tv));</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<h3 id="陷阱思考"><a href="#陷阱思考" class="headerlink" title="陷阱思考"></a>陷阱思考</h3><ul>
+<li>陷阱<br>思考一下会输出什么？<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> commandQueue = (<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</div><div class="line">  <span class="keyword">var</span> cache = [];</div><div class="line">  <span class="keyword">for</span>(<span class="keyword">var</span> i = <span class="number">0</span>; i &lt;<span class="number">5</span>; i++) &#123;</div><div class="line">    cache.push(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</div><div class="line">      <span class="built_in">console</span>.log(i);</div><div class="line">    &#125;);</div><div class="line">  &#125;</div><div class="line">  <span class="keyword">return</span> cache;</div><div class="line">&#125;)();</div><div class="line"></div><div class="line"><span class="keyword">for</span>(<span class="keyword">var</span> i = <span class="number">0</span>,fn; fn = commandQueue[i]; i++) &#123;</div><div class="line">  fn();</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>答案是全部是5<br>我们在使用暂存函数到命令队列中，等到合适的时候调用,函数执行的时候会找他原来的执行环境，原来的执行环境i的值已经变为了5,所以上面的值都是5</p>
+<ul>
+<li><p>正确写法</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> commandQueue = (<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</div><div class="line">  <span class="keyword">var</span> cache = [];</div><div class="line">  <span class="keyword">for</span>(<span class="keyword">var</span> i = <span class="number">0</span>; i &lt;<span class="number">5</span>; i++) &#123;</div><div class="line">    <span class="keyword">var</span> clusor = (<span class="function"><span class="keyword">function</span>(<span class="params">i</span>) </span>&#123;</div><div class="line">      <span class="keyword">return</span> <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</div><div class="line">        <span class="built_in">console</span>.log(i);</div><div class="line">      &#125;</div><div class="line">    &#125;)(i)</div><div class="line">    cache.push(clusor);</div><div class="line">  &#125;</div><div class="line">  <span class="keyword">return</span> cache;</div><div class="line">&#125;)();</div><div class="line"></div><div class="line"><span class="keyword">for</span>(<span class="keyword">var</span> i = <span class="number">0</span>,fn; fn = commandQueue[i]; i++) &#123;</div><div class="line">  fn();</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+</li>
+<li><p>或者</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> commandQueue = (<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</div><div class="line">  <span class="keyword">var</span> cache = [];</div><div class="line">  <span class="keyword">for</span>(<span class="keyword">var</span> i = <span class="number">0</span>; i &lt;<span class="number">5</span>; i++) &#123;</div><div class="line">    (<span class="function"><span class="keyword">function</span>(<span class="params">i</span>)</span>&#123;</div><div class="line">      cache.push(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line">        <span class="built_in">console</span>.log(i);</div><div class="line">      &#125;)</div><div class="line">    &#125;)(i)</div><div class="line">  &#125;</div><div class="line">  <span class="keyword">return</span> cache;</div><div class="line">&#125;)();</div><div class="line"></div><div class="line"><span class="keyword">for</span>(<span class="keyword">var</span> i = <span class="number">0</span>,fn; fn = commandQueue[i]; i++) &#123;</div><div class="line">  fn();</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 </li>
 </ul>
 <h3 id="一个闭包的面试题"><a href="#一个闭包的面试题" class="headerlink" title="一个闭包的面试题"></a>一个闭包的面试题</h3><p>实现 add(1)(2)(3)   //输出6<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> add=(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line">  <span class="keyword">var</span> sum=<span class="number">0</span>;</div><div class="line">  <span class="function"><span class="keyword">function</span> <span class="title">fn</span>(<span class="params">num</span>)</span>&#123;</div><div class="line">    sum+=num;</div><div class="line">    <span class="keyword">return</span> fn;   <span class="comment">//循环调用</span></div><div class="line">  &#125;</div><div class="line">  <span class="comment">//当函数执行到（3）后走toString 方法</span></div><div class="line">  fn.toString=<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line">    <span class="keyword">var</span> ret=sum;</div><div class="line">    sum=<span class="number">0</span>;       <span class="comment">//初始化sum，以便下次使用</span></div><div class="line">    <span class="keyword">return</span> sum;</div><div class="line">  &#125;</div><div class="line">  <span class="keyword">return</span> fn;</div><div class="line">&#125;)()</div></pre></td></tr></table></figure></p>
@@ -157,18 +173,18 @@
 <nav class="article-nav clearfix">
  
  <div class="prev" >
- <a href="/2016/08/04/js设计模式笔记/2016-08-05-part5/" title="高阶函数">
+ <a href="/2016/08/06/js设计模式笔记/2016-08-06-part7/" title="策略模式">
   <strong>PREVIOUS:</strong><br/>
   <span>
-  高阶函数</span>
+  策略模式</span>
 </a>
 </div>
 
 
 <div class="next">
-<a href="/2016/07/31/js设计模式笔记/2016-08-03-part2/"  title="this的用法">
+<a href="/2016/08/04/js设计模式笔记/2016-08-05-part5/"  title="高阶函数">
  <strong>NEXT:</strong><br/> 
- <span>this的用法
+ <span>高阶函数
 </span>
 </a>
 </div>
@@ -185,7 +201,7 @@
 
   <div id="toc" class="toc-aside">
   <strong class="toc-title">文章目录</strong>
-  <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#本章主要讲解闭包的的形成和应用"><span class="toc-number">1.</span> <span class="toc-text">本章主要讲解闭包的的形成和应用</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#闭包的形成"><span class="toc-number">1.1.</span> <span class="toc-text">闭包的形成</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#闭包的应用"><span class="toc-number">1.2.</span> <span class="toc-text">闭包的应用</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#拓展：用闭包实现命令模式"><span class="toc-number">1.3.</span> <span class="toc-text">拓展：用闭包实现命令模式</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#一个闭包的面试题"><span class="toc-number">1.4.</span> <span class="toc-text">一个闭包的面试题</span></a></li></ol></li></ol>
+  <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#本章主要讲解闭包的的形成和应用"><span class="toc-number">1.</span> <span class="toc-text">本章主要讲解闭包的的形成和应用</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#闭包的形成"><span class="toc-number">1.1.</span> <span class="toc-text">闭包的形成</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#闭包的应用"><span class="toc-number">1.2.</span> <span class="toc-text">闭包的应用</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#拓展：用闭包实现命令模式"><span class="toc-number">1.3.</span> <span class="toc-text">拓展：用闭包实现命令模式</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#陷阱思考"><span class="toc-number">1.4.</span> <span class="toc-text">陷阱思考</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#一个闭包的面试题"><span class="toc-number">1.5.</span> <span class="toc-text">一个闭包的面试题</span></a></li></ol></li></ol>
   <div class="comment_bar"><a href="#ds-reset" target="" title="评论区">文章评论</a></div>
   </div>
 
@@ -197,6 +213,8 @@
 <div class="categorieslist">
 	<p class="asidetitle">分类</p>
 		<ul>
+		
+			<li><a href="/categories/css揭秘读书笔记/" title="css揭秘读书笔记">css揭秘读书笔记<sup>2</sup></a></li>
 		
 			<li><a href="/categories/js设计模式笔记/" title="js设计模式笔记">js设计模式笔记<sup>19</sup></a></li>
 		
@@ -210,6 +228,8 @@
 <div class="tagslist">
 	<p class="asidetitle">标签</p>
 		<ul class="clearfix">
+		
+			<li><a href="/tags/css/" title="css">css<sup>2</sup></a></li>
 		
 			<li><a href="/tags/js/" title="js">js<sup>19</sup></a></li>
 		
@@ -226,7 +246,7 @@
   
   <div class="archiveslist">
     <p class="asidetitle"><a href="/archives">归档</a></p>
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/08/">2016 年 08 月</a><span class="archive-list-count">16</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/07/">2016 年 07 月</a><span class="archive-list-count">4</span></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/08/">2016 年 08 月</a><span class="archive-list-count">18</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/07/">2016 年 07 月</a><span class="archive-list-count">4</span></li></ul>
   </div>
 
 
