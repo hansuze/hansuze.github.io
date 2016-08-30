@@ -80,7 +80,7 @@
     </p>
   <p class="article-time">
     <time datetime="2016-08-03T16:00:00.000Z" itemprop="datePublished">2016-08-04</time>
-    更新日期:<time datetime="2016-08-22T15:14:57.592Z" itemprop="dateModified">2016-08-22</time>
+    更新日期:<time datetime="2016-08-29T01:38:48.961Z" itemprop="dateModified">2016-08-29</time>
     
   </p>
 </header>
@@ -135,7 +135,7 @@
 <p>答案是全部是5<br>我们在使用暂存函数到命令队列中，等到合适的时候调用,函数执行的时候会找他原来的执行环境，原来的执行环境i的值已经变为了5,所以上面的值都是5</p>
 <ul>
 <li><p>正确写法</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> commandQueue = (<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</div><div class="line">  <span class="keyword">var</span> cache = [];</div><div class="line">  <span class="keyword">for</span>(<span class="keyword">var</span> i = <span class="number">0</span>; i &lt;<span class="number">5</span>; i++) &#123;</div><div class="line">    <span class="keyword">var</span> clusor = (<span class="function"><span class="keyword">function</span>(<span class="params">i</span>) </span>&#123;</div><div class="line">      <span class="keyword">return</span> <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</div><div class="line">        <span class="built_in">console</span>.log(i);</div><div class="line">      &#125;</div><div class="line">    &#125;)(i)</div><div class="line">    cache.push(clusor);</div><div class="line">  &#125;</div><div class="line">  <span class="keyword">return</span> cache;</div><div class="line">&#125;)();</div><div class="line"></div><div class="line"><span class="keyword">for</span>(<span class="keyword">var</span> i = <span class="number">0</span>,fn; fn = commandQueue[i]; i++) &#123;</div><div class="line">  fn();</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> commandQueue = (<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</div><div class="line">  <span class="keyword">var</span> cache = [];</div><div class="line">  <span class="keyword">for</span>(<span class="keyword">var</span> i = <span class="number">0</span>; i &lt;<span class="number">5</span>; i++) &#123;</div><div class="line">    <span class="keyword">var</span> closure = (<span class="function"><span class="keyword">function</span>(<span class="params">i</span>) </span>&#123;</div><div class="line">      <span class="keyword">return</span> <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</div><div class="line">        <span class="built_in">console</span>.log(i);</div><div class="line">      &#125;</div><div class="line">    &#125;)(i)</div><div class="line">    cache.push(closure);</div><div class="line">  &#125;</div><div class="line">  <span class="keyword">return</span> cache;</div><div class="line">&#125;)();</div><div class="line"></div><div class="line"><span class="keyword">for</span>(<span class="keyword">var</span> i = <span class="number">0</span>,fn; fn = commandQueue[i]; i++) &#123;</div><div class="line">  fn();</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 </li>
 <li><p>或者</p>
 <figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> commandQueue = (<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</div><div class="line">  <span class="keyword">var</span> cache = [];</div><div class="line">  <span class="keyword">for</span>(<span class="keyword">var</span> i = <span class="number">0</span>; i &lt;<span class="number">5</span>; i++) &#123;</div><div class="line">    (<span class="function"><span class="keyword">function</span>(<span class="params">i</span>)</span>&#123;</div><div class="line">      cache.push(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line">        <span class="built_in">console</span>.log(i);</div><div class="line">      &#125;)</div><div class="line">    &#125;)(i)</div><div class="line">  &#125;</div><div class="line">  <span class="keyword">return</span> cache;</div><div class="line">&#125;)();</div><div class="line"></div><div class="line"><span class="keyword">for</span>(<span class="keyword">var</span> i = <span class="number">0</span>,fn; fn = commandQueue[i]; i++) &#123;</div><div class="line">  fn();</div><div class="line">&#125;</div></pre></td></tr></table></figure>
@@ -173,10 +173,10 @@
 <nav class="article-nav clearfix">
  
  <div class="prev" >
- <a href="/2016/08/06/js设计模式笔记/2016-08-06-part7/" title="策略模式">
+ <a href="/2016/08/06/js设计模式笔记/2016-08-06-part6/" title="单例设计模式">
   <strong>PREVIOUS:</strong><br/>
   <span>
-  策略模式</span>
+  单例设计模式</span>
 </a>
 </div>
 
@@ -214,7 +214,7 @@
 	<p class="asidetitle">分类</p>
 		<ul>
 		
-			<li><a href="/categories/css揭秘读书笔记/" title="css揭秘读书笔记">css揭秘读书笔记<sup>2</sup></a></li>
+			<li><a href="/categories/css揭秘读书笔记/" title="css揭秘读书笔记">css揭秘读书笔记<sup>3</sup></a></li>
 		
 			<li><a href="/categories/js设计模式笔记/" title="js设计模式笔记">js设计模式笔记<sup>19</sup></a></li>
 		
@@ -229,7 +229,7 @@
 	<p class="asidetitle">标签</p>
 		<ul class="clearfix">
 		
-			<li><a href="/tags/css/" title="css">css<sup>2</sup></a></li>
+			<li><a href="/tags/css/" title="css">css<sup>3</sup></a></li>
 		
 			<li><a href="/tags/js/" title="js">js<sup>19</sup></a></li>
 		
@@ -246,7 +246,7 @@
   
   <div class="archiveslist">
     <p class="asidetitle"><a href="/archives">归档</a></p>
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/08/">2016 年 08 月</a><span class="archive-list-count">18</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/07/">2016 年 07 月</a><span class="archive-list-count">4</span></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/08/">2016 年 08 月</a><span class="archive-list-count">19</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/07/">2016 年 07 月</a><span class="archive-list-count">4</span></li></ul>
   </div>
 
 
