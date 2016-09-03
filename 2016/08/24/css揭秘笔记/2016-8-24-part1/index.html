@@ -79,7 +79,7 @@ css 编码技巧尽量减少代码重复在软件开发中，保持代码的DRY�
     </p>
   <p class="article-time">
     <time datetime="2016-08-23T16:00:00.000Z" itemprop="datePublished">2016-08-24</time>
-    更新日期:<time datetime="2016-08-24T08:48:32.701Z" itemprop="dateModified">2016-08-24</time>
+    更新日期:<time datetime="2016-09-03T08:19:43.157Z" itemprop="dateModified">2016-09-03</time>
     
   </p>
 </header>
@@ -126,7 +126,7 @@ css 编码技巧尽量减少代码重复在软件开发中，保持代码的DRY�
 <h4 id="相信你的眼睛，而不是数字"><a href="#相信你的眼睛，而不是数字" class="headerlink" title="相信你的眼睛，而不是数字"></a>相信你的眼睛，而不是数字</h4><p>我们在看到一个垂直居中的物体时，感觉他并不居中，实际上我们应该把这个物体从几何学的中心再稍微向上挪一点，才能取得理想的视觉效果。<br>一个常见的例子是给一个文本容器四边指定相同的内边距。实际上看起来效果并不相等，因此我们希望寺内的内边距看起来是基本一致的，就需要较少顶部和底部的内边距。</p>
 <h4 id="合理使用简写"><a href="#合理使用简写" class="headerlink" title="合理使用简写"></a>合理使用简写</h4><p>你可能知道 一下两行css代码并不是等价的<br><figure class="highlight css"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="selector-tag">background</span>: <span class="selector-tag">purple</span>;</div><div class="line"><span class="selector-tag">background-color</span>: <span class="selector-tag">purple</span>;</div></pre></td></tr></table></figure></p>
 <p>前面是简写，它可以确保你得到 purple纯色背景，但如果你使用展开式的单个属性(background-color)有可能会便是为一个渐变图案、一张图片。因为还有一条background-image在其作用。所以合理使用简写可以减少一些干扰因素。<br>另外将展开式和简写属性的配合使用也是非常有用的。可以让代码更加DRY。<br><figure class="highlight css"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line"><span class="selector-tag">div</span><span class="selector-class">.background</span> &#123;</div><div class="line">  <span class="attribute">height</span>: <span class="number">100px</span>;</div><div class="line">  <span class="attribute">width</span>: <span class="number">100px</span>;</div><div class="line">  <span class="attribute">background</span>: <span class="built_in">url</span>(http://ob53pbgjl.bkt.clouddn.com/1.gif)  top right no-repeat /<span class="number">2em</span> <span class="number">2em</span>,</div><div class="line">              <span class="built_in">url</span>(http://ob53pbgjl.bkt.clouddn.com/2.gif)  bottom right no-repeat  /<span class="number">2em</span> <span class="number">2em</span>,</div><div class="line">              <span class="built_in">url</span>(http://ob53pbgjl.bkt.clouddn.com/3.gif) bottom left no-repeat /<span class="number">2em</span> <span class="number">2em</span>;</div><div class="line">&#125;</div><div class="line"><span class="selector-tag">div</span><span class="selector-class">.background1</span> &#123;</div><div class="line">  <span class="attribute">height</span>: <span class="number">100px</span>;</div><div class="line">  <span class="attribute">width</span>: <span class="number">100px</span>;</div><div class="line">  <span class="attribute">background</span>: <span class="built_in">url</span>(http://ob53pbgjl.bkt.clouddn.com/1.gif)  top right ,</div><div class="line">              <span class="built_in">url</span>(http://ob53pbgjl.bkt.clouddn.com/1.gif)  bottom right,</div><div class="line">              <span class="built_in">url</span>(http://ob53pbgjl.bkt.clouddn.com/1.gif) bottom left;</div><div class="line">   <span class="attribute">background-repeat</span>: no-repeat;</div><div class="line">   <span class="attribute">background-size</span>: <span class="number">2em</span> <span class="number">2em</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<p>上面的第一段代码 <code>no-repeat /2em 2em</code> 重复了3遍，这里我们可以单独拿出来。<br>另外值得一提的是再第一段代码的位置 我们使用了（/）斜杠是为了消除歧义，因为<code>background-position</code> 除了使用left top center、50% 等，也可以是绝对长度 1em 10px等单位。<br><a href="http://js.jirengu.com/wotuqodina/1/edit" target="_blank" rel="external">尝试一下吧！</a></p>
+<p>上面的第一段代码 <code>no-repeat /2em 2em</code> 重复了3遍，这里我们可以单独拿出来。<br>另外值得一提的是再第一段代码的位置 我们使用了（/）斜杠是为了消除歧义，因为<code>background-position</code> 除了使用left top center、50% 等，也可以是绝对长度 1em 10px等单位。<br><a href="http://js.jirengu.com/wotuqodina/1/" target="_blank" rel="external">尝试一下吧！</a></p>
 <hr>
 <p>参考文档：<br>《css揭秘》</p>
 <p>编码规范<br><a href="http://alloyteam.github.io/CodeGuide/#css" target="_blank" rel="external">编码规范</a><br><a href="http://alloyteam.github.io/CodeGuide/#css-declaration-order" target="_blank" rel="external">css属性顺序</a></p>
@@ -200,7 +200,7 @@ css 编码技巧尽量减少代码重复在软件开发中，保持代码的DRY�
 	<p class="asidetitle">分类</p>
 		<ul>
 		
-			<li><a href="/categories/css揭秘读书笔记/" title="css揭秘读书笔记">css揭秘读书笔记<sup>4</sup></a></li>
+			<li><a href="/categories/css揭秘读书笔记/" title="css揭秘读书笔记">css揭秘读书笔记<sup>6</sup></a></li>
 		
 			<li><a href="/categories/js设计模式笔记/" title="js设计模式笔记">js设计模式笔记<sup>19</sup></a></li>
 		
@@ -215,7 +215,7 @@ css 编码技巧尽量减少代码重复在软件开发中，保持代码的DRY�
 	<p class="asidetitle">标签</p>
 		<ul class="clearfix">
 		
-			<li><a href="/tags/css/" title="css">css<sup>4</sup></a></li>
+			<li><a href="/tags/css/" title="css">css<sup>6</sup></a></li>
 		
 			<li><a href="/tags/js/" title="js">js<sup>19</sup></a></li>
 		
@@ -232,7 +232,7 @@ css 编码技巧尽量减少代码重复在软件开发中，保持代码的DRY�
   
   <div class="archiveslist">
     <p class="asidetitle"><a href="/archives">归档</a></p>
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/08/">2016 年 08 月</a><span class="archive-list-count">20</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/07/">2016 年 07 月</a><span class="archive-list-count">4</span></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/09/">2016 年 09 月</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/08/">2016 年 08 月</a><span class="archive-list-count">21</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/07/">2016 年 07 月</a><span class="archive-list-count">4</span></li></ul>
   </div>
 
 

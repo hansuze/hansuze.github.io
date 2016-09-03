@@ -66,13 +66,44 @@
 
   <section class="post" itemscope itemprop="blogPost">
   
-    <a href="/2016/08/11/js设计模式笔记/2016-08-11-part14/" title="享元模式" itemprop="url">
+    <a href="/2016/08/11/js设计模式笔记/2016-08-12-part16/" title="中介者模式" itemprop="url">
   
-    <h1 itemprop="name">享元模式</h1>
+    <h1 itemprop="name">中介者模式</h1>
     
      
-           <p itemprop="description" >享元模式是一种用于性能优化的模式，”fly”在这里是苍蝇的意思，意为蝇量级。享元模式的核心是运用共享技术来有效支持大量细粒度的对象。
-初识享元模式假设有个内衣工厂，目前有50种男士内衣和50种女士内衣，为了推销产品，工厂决定生产一些模特来穿上他们的内衣来拍照。需要50个男模特和5</p>
+           <p itemprop="description" >在我们生活的世界中，每个人每个物体之间都会产生一些错综复杂的联系。在应用程序里也是一样，程序由大大小小的单一对象组成，所有这些对象都按照某种关系和规则来通信面向对象设计鼓励将行为分布到各个对象中，把对象划分成更小的粒度，有助于增强对象的可复用性，但由于这些粒度对象之间的联系激增，</p>
+        
+    
+    <time datetime="2016-08-10T16:00:00.000Z" itemprop="datePublished">2016-08-11</time>
+  </a>
+</section>
+
+  <section class="post" itemscope itemprop="blogPost">
+  
+    <a href="/2016/08/11/js设计模式笔记/2016-08-11-part13/" title="模板方法模式" itemprop="url">
+  
+    <h1 itemprop="name">模板方法模式</h1>
+    
+     
+           <p itemprop="description" >模板方法模式的定义和组成模板方法模式是一种只需要使用继承就可以实现的非常简单的模式，第一部分是抽象类，第二部分是具体实现的子类。在父类中封装子类的公共方法和方法的执行顺序，子类负责变化方法的具体实现。
+另外我们使用高阶函数也可以实现模板方法模式，我们会在本章的最后提出。
+第一个例</p>
+        
+    
+    <time datetime="2016-08-10T16:00:00.000Z" itemprop="datePublished">2016-08-11</time>
+  </a>
+</section>
+
+  <section class="post" itemscope itemprop="blogPost">
+  
+    <a href="/2016/08/11/js设计模式笔记/2016-08-11-part15/" title="职责链模式" itemprop="url">
+  
+    <h1 itemprop="name">职责链模式</h1>
+    
+     
+           <p itemprop="description" >职责链模式的定义是：使多个对象都有机会处理请求，从而避免请求的发送者和接收者之间的耦合关系，将这些对象连成一条链，并沿着这条链传递改请求，知道有一个对象处理它为止。
+现实中的职责链模式
+早高峰挤公交车的时候，因为公交车上的人太多了，经常不知道售票员在哪，所以只能把两块钱往前面递，</p>
         
     
     <time datetime="2016-08-10T16:00:00.000Z" itemprop="datePublished">2016-08-11</time>
@@ -110,6 +141,22 @@
 
   <section class="post" itemscope itemprop="blogPost">
   
+    <a href="/2016/08/08/js设计模式笔记/2016-08-07-part8/" title="代理模式" itemprop="url">
+  
+    <h1 itemprop="name">代理模式</h1>
+    
+     
+           <p itemprop="description" >代理模式是为了一个对象提供一个待用品或者占位符，以便控制对他的访问。代理模式的关键是，当客户不方便直接访问一个对象或者不满足需要的时候，提供一个替身客户来控制对这个对象的访问，客户实际访问的是替身对象。替身对象对客户的请求做出处理之后，再把请求转交给本体对象。
+代理模式
+保护代理</p>
+        
+    
+    <time datetime="2016-08-07T16:00:00.000Z" itemprop="datePublished">2016-08-08</time>
+  </a>
+</section>
+
+  <section class="post" itemscope itemprop="blogPost">
+  
     <a href="/2016/08/08/js设计模式笔记/2016-08-08-part9/" title="迭代器模式" itemprop="url">
   
     <h1 itemprop="name">迭代器模式</h1>
@@ -132,22 +179,6 @@
      
            <p itemprop="description" >发布-订阅者模式又叫观察者模式，它定义对象间的一种一对多的依赖关系，当一个对象的状态发生改变时，所有依赖于它的对象都将得到通知。在JavaScript开发中，我们一般用事件模型来替代传统的发布-订阅者模式。
 DOM 事件只要我们曾经在DOM节点上绑定过事件函数，就使用过发布-订阅</p>
-        
-    
-    <time datetime="2016-08-07T16:00:00.000Z" itemprop="datePublished">2016-08-08</time>
-  </a>
-</section>
-
-  <section class="post" itemscope itemprop="blogPost">
-  
-    <a href="/2016/08/08/js设计模式笔记/2016-08-07-part8/" title="代理模式" itemprop="url">
-  
-    <h1 itemprop="name">代理模式</h1>
-    
-     
-           <p itemprop="description" >代理模式是为了一个对象提供一个待用品或者占位符，以便控制对他的访问。代理模式的关键是，当客户不方便直接访问一个对象或者不满足需要的时候，提供一个替身客户来控制对这个对象的访问，客户实际访问的是替身对象。替身对象对客户的请求做出处理之后，再把请求转交给本体对象。
-代理模式
-保护代理</p>
         
     
     <time datetime="2016-08-07T16:00:00.000Z" itemprop="datePublished">2016-08-08</time>
@@ -188,45 +219,6 @@ DOM 事件只要我们曾经在DOM节点上绑定过事件函数，就使用过�
   </a>
 </section>
 
-  <section class="post" itemscope itemprop="blogPost">
-  
-    <a href="/2016/08/04/js设计模式笔记/2016-08-05-part5/" title="高阶函数" itemprop="url">
-  
-    <h1 itemprop="name">高阶函数</h1>
-    
-     
-           <p itemprop="description" >本章主要是列举一些高阶函数的应用场景高阶函数是指至少满足下列条件之一的函数
-
-函数作为参数被传递
-函数作为返回值输出下面我们就列举一下高阶函数的应用场景大部分例子都是照搬书上的…
-
-函数作为参数传递1.回调函数
-
-ajax 函数
-123456789101112$.ajax(&amp;#1</p>
-        
-    
-    <time datetime="2016-08-03T16:00:00.000Z" itemprop="datePublished">2016-08-04</time>
-  </a>
-</section>
-
-  <section class="post" itemscope itemprop="blogPost">
-  
-    <a href="/2016/08/04/js设计模式笔记/2016-08-04-part4/" title="初探 闭包" itemprop="url">
-  
-    <h1 itemprop="name">初探 闭包</h1>
-    
-     
-           <p itemprop="description" >本章主要讲解闭包的的形成和应用闭包的形成闭包的形成与变量的作用域和变量的生存周期密切相关，首先我们先了解这两个概念
-
-变量的作用域变量分为全局变量和局部变量，全局变量全局都有效，局部变量在一般情况下只在函数内部有效
-变量的生存周期全局变量的生存周期是永久的，局部变量的生存周期一般</p>
-        
-    
-    <time datetime="2016-08-03T16:00:00.000Z" itemprop="datePublished">2016-08-04</time>
-  </a>
-</section>
-
 
   <nav id="page-nav" class="clearfix">
     <a class="extend prev" rel="prev" href="/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><a class="extend next" rel="next" href="/page/3/">Next &raquo;</a>
@@ -244,7 +236,7 @@ ajax 函数
 	<p class="asidetitle">分类</p>
 		<ul>
 		
-			<li><a href="/categories/css揭秘读书笔记/" title="css揭秘读书笔记">css揭秘读书笔记<sup>4</sup></a></li>
+			<li><a href="/categories/css揭秘读书笔记/" title="css揭秘读书笔记">css揭秘读书笔记<sup>6</sup></a></li>
 		
 			<li><a href="/categories/js设计模式笔记/" title="js设计模式笔记">js设计模式笔记<sup>19</sup></a></li>
 		
@@ -259,7 +251,7 @@ ajax 函数
 	<p class="asidetitle">标签</p>
 		<ul class="clearfix">
 		
-			<li><a href="/tags/css/" title="css">css<sup>4</sup></a></li>
+			<li><a href="/tags/css/" title="css">css<sup>6</sup></a></li>
 		
 			<li><a href="/tags/js/" title="js">js<sup>19</sup></a></li>
 		
@@ -276,7 +268,7 @@ ajax 函数
   
   <div class="archiveslist">
     <p class="asidetitle"><a href="/archives">归档</a></p>
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/08/">2016 年 08 月</a><span class="archive-list-count">20</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/07/">2016 年 07 月</a><span class="archive-list-count">4</span></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/09/">2016 年 09 月</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/08/">2016 年 08 月</a><span class="archive-list-count">21</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/07/">2016 年 07 月</a><span class="archive-list-count">4</span></li></ul>
   </div>
 
 

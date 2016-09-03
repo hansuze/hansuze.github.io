@@ -1,0 +1,392 @@
+
+ <!DOCTYPE HTML>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  
+    <title>第六章 用户体验 | xiaohan80s.com</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=3, minimum-scale=1">
+    
+    <meta name="author" content="xiao han 80s">
+    
+    <meta name="description" content="第六章 用户体验知识点：选用合适的鼠标光标 扩大可点击区域 自定义复选框 通过阴影来弱化背景 通过模糊来弱化背景 滚动提示 交互式的图片对比控件
+选用合适的鼠标光标1.提示禁用状态如果要提示某个空间因为某些原因而变得无法交互，用这个光标再合适不过了123[disable=&quot;true&quot;] &amp;#123;">
+    
+    
+    
+    
+    
+    <link rel="icon" href="/img/favicon.ico">
+    
+    
+    <link rel="apple-touch-icon" href="/img/pacman.jpg">
+    <link rel="apple-touch-icon-precomposed" href="/img/pacman.jpg">
+    
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+
+  <body>
+    <header>
+      <div>
+		
+			<div id="imglogo">
+				<a href="/"><img src="/img/logo.svg" alt="xiaohan80s.com" title="xiaohan80s.com"/></a>
+			</div>
+			
+			<div id="textlogo">
+				<h1 class="site-name"><a href="/" title="xiaohan80s.com">xiaohan80s.com</a></h1>
+				<h2 class="blog-motto">年轻 没有什么不可以!</h2>
+			</div>
+			<div class="navbar"><a class="navbutton navmobile" href="#" title="菜单">
+			</a></div>
+			<nav class="animated">
+				<ul>
+					
+						<li><a href="/">Home</a></li>
+					
+						<li><a href="/archives">Archives</a></li>
+					
+						<li><a href="/categories">Categories</a></li>
+					
+						<li><a href="/about">About</a></li>
+					
+					<li>
+					
+					<!-- <form class="search" action="//baidu.com" method="get" accept-charset="utf-8">
+						<label>Search</label>
+						<input type="text" id="search" name="q" autocomplete="off" maxlength="20" placeholder="搜索" />
+						<input type="hidden" name="q" value="site:www.xiaohan80s.com">
+					</form> -->
+					
+					</li>
+				</ul>
+			</nav>
+</div>
+
+    </header>
+    <div id="container">
+      <div id="main" class="post" itemscope itemprop="blogPost">
+	<article itemprop="articleBody"> 
+		<header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2016/09/02/css揭秘笔记/2016-9-02-part6/" title="第六章 用户体验" itemprop="url">第六章 用户体验</a>
+  </h1>
+  <p class="article-author">By
+    
+      <a href="http://www.xiaohan80s.com" title="xiao han 80s">xiao han 80s</a>
+    </p>
+  <p class="article-time">
+    <time datetime="2016-09-01T16:00:00.000Z" itemprop="datePublished">2016-09-02</time>
+    更新日期:<time datetime="2016-09-03T16:48:55.325Z" itemprop="dateModified">2016-09-04</time>
+    
+  </p>
+</header>
+	<div class="article-content">
+		
+		
+		<div id="toc" class="toc-article">
+			<strong class="toc-title">文章目录</strong>
+		<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#第六章-用户体验"><span class="toc-number">1.</span> <span class="toc-text">第六章 用户体验</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#选用合适的鼠标光标"><span class="toc-number">1.1.</span> <span class="toc-text">选用合适的鼠标光标</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#扩大可点击区域"><span class="toc-number">1.2.</span> <span class="toc-text">扩大可点击区域</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#自定义复选框"><span class="toc-number">1.3.</span> <span class="toc-text">自定义复选框</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#自定义复选框-1"><span class="toc-number">1.3.1.</span> <span class="toc-text">自定义复选框</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#开关按钮"><span class="toc-number">1.3.2.</span> <span class="toc-text">开关按钮</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#通过阴影来弱化背景"><span class="toc-number">1.4.</span> <span class="toc-text">通过阴影来弱化背景</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#通过模糊来弱化背景"><span class="toc-number">1.5.</span> <span class="toc-text">通过模糊来弱化背景</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#滚动提示"><span class="toc-number">1.6.</span> <span class="toc-text">滚动提示</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#交互式的图片对比控件"><span class="toc-number">1.7.</span> <span class="toc-text">交互式的图片对比控件</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#CSS-resize-方案"><span class="toc-number">1.7.1.</span> <span class="toc-text">CSS resize 方案</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#范围输入控件方案"><span class="toc-number">1.7.2.</span> <span class="toc-text">范围输入控件方案</span></a></li></ol></li></ol></li></ol>
+		</div>
+		
+		<h2 id="第六章-用户体验"><a href="#第六章-用户体验" class="headerlink" title="第六章 用户体验"></a>第六章 用户体验</h2><p>知识点：选用合适的鼠标光标 扩大可点击区域 自定义复选框 通过阴影来弱化背景 通过模糊来弱化背景 滚动提示 交互式的图片对比控件</p>
+<h3 id="选用合适的鼠标光标"><a href="#选用合适的鼠标光标" class="headerlink" title="选用合适的鼠标光标"></a>选用合适的鼠标光标</h3><p>1.提示禁用状态<br>如果要提示某个空间因为某些原因而变得无法交互，用这个光标再合适不过了<br><figure class="highlight css"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="selector-attr">[disable="true"]</span> &#123;</div><div class="line">  <span class="attribute">cursor</span>: not-allowed;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>2.隐藏鼠标光标<br>在css2中 我们使用一个1*1的透明图片来隐藏光标<br><figure class="highlight css"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="selector-tag">video</span> &#123;</div><div class="line">  <span class="attribute">cursor</span>: <span class="built_in">url</span>(transparent.png);</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>在css3中 我们可以使用 cursor: none; 来实现 如果需要一个回退方案,我们可以这样写<br><figure class="highlight css"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="selector-tag">video</span> &#123;</div><div class="line">  <span class="attribute">cursor</span>: <span class="built_in">url</span>(transparent.png);</div><div class="line">  <span class="attribute">cursor</span>: none;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p><a href="http://js.jirengu.com/rugefisanu/1/" target="_blank" rel="external">尝试一下吧！</a></p>
+<h3 id="扩大可点击区域"><a href="#扩大可点击区域" class="headerlink" title="扩大可点击区域"></a>扩大可点击区域</h3><p>1.使用透明边框实现<br><figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">""</span> <span class="attr">class</span>=<span class="string">"hit-area1"</span>&gt;</span>+<span class="tag">&lt;/<span class="name">a</span>&gt;</span></div><div class="line"></div><div class="line">.hit-area1 &#123;</div><div class="line">  display: inline-block;</div><div class="line"></div><div class="line">  border: 10px solid transparent;</div><div class="line">  border-radius: 50%;</div><div class="line">  padding: .3em .6em;</div><div class="line"></div><div class="line">  color: white;</div><div class="line">  font-size: 150%;</div><div class="line">  text-decoration: none;</div><div class="line"></div><div class="line">  background: #58a;</div><div class="line">  background-clip: padding-box;</div><div class="line"></div><div class="line">  box-shadow: 0 0 0 1px rgba(0, 0, 0, .3) inset;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>2.我们可能想给这个按钮加上移到真实的模糊化投影，来营造一种”浮出表面”的效果<br><figure class="highlight css"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="selector-class">.hit-area2</span> &#123;</div><div class="line">  <span class="attribute">box-shadow</span>: <span class="number">0</span> <span class="number">0</span> <span class="number">0</span> <span class="number">1px</span> <span class="built_in">rgba</span>(0, 0, 0, .3) inset,</div><div class="line">              .<span class="number">1em</span> .<span class="number">1em</span> .<span class="number">3em</span> -.<span class="number">05em</span> <span class="built_in">rgba</span>(0, 0, 0, 0.5);</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>3.上述方案在其他方面也不够完美，边框会影响布局，而且在某些场景下我们无法利用边框，下面我们使用伪元素实现<br>  伪元素同样可以代表其宿主元素来响应鼠标交互.<br><figure class="highlight css"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"><span class="selector-class">.hit-area3</span> &#123;</div><div class="line">  <span class="attribute">position</span>: relative;</div><div class="line">&#125;</div><div class="line"><span class="selector-class">.hit-area3</span><span class="selector-pseudo">::before</span> &#123;</div><div class="line">  <span class="attribute">content</span>: <span class="string">''</span>;</div><div class="line"></div><div class="line">  <span class="attribute">display</span>: block;</div><div class="line"></div><div class="line">  <span class="attribute">position</span>: absolute;</div><div class="line">  <span class="attribute">top</span>: -<span class="number">10px</span>;</div><div class="line">  <span class="attribute">left</span>: -<span class="number">10px</span>;</div><div class="line">  <span class="attribute">bottom</span>: -<span class="number">10px</span>;</div><div class="line">  <span class="attribute">right</span>: -<span class="number">10px</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p><a href="http://js.jirengu.com/hiyeqagacu/1/" target="_blank" rel="external">尝试一下吧！</a></p>
+<h3 id="自定义复选框"><a href="#自定义复选框" class="headerlink" title="自定义复选框"></a>自定义复选框</h3><h4 id="自定义复选框-1"><a href="#自定义复选框-1" class="headerlink" title="自定义复选框"></a>自定义复选框</h4><p>解决方案：<br>当label 元素与复选框关联之后，也可以起到触发开关的作用。我们可以为label 添加伪元素，并基于复选框的状态来设置样式。<br>1.首先我们需要生成一个伪元素，作为美化版的复选框。<br><figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"checkbox"</span> <span class="attr">id</span>=<span class="string">"checkbox1"</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">label</span> <span class="attr">for</span>=<span class="string">"checkbox1"</span>&gt;</span>Awesome<span class="tag">&lt;/<span class="name">label</span>&gt;</span></div><div class="line"></div><div class="line">input[type="checkbox"] + label::before&#123;</div><div class="line">  content: "\a0"; /* 不换行空格 */</div><div class="line"></div><div class="line">  display: inline-block;</div><div class="line">  margin-right: .4em;</div><div class="line">  border-radius: .2em;</div><div class="line"></div><div class="line">  width: .8em;</div><div class="line">  height: .8em;</div><div class="line"></div><div class="line">  vertical-align: .1em;</div><div class="line">  text-indent: .15em;</div><div class="line">  line-height: .65;</div><div class="line"></div><div class="line">  background: silver;</div><div class="line">&#125;</div><div class="line">input[type="checkbox"]:checked + label::before &#123;</div><div class="line">  content: "\2713";</div><div class="line"></div><div class="line">  background: yellowgreen;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>2.使用<code>clip:rect(0,0,0,0)</code>将checkbox隐藏起来。<br><figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"checkbox"</span> <span class="attr">class</span>=<span class="string">"hide"</span> <span class="attr">id</span>=<span class="string">"checkbox2"</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">label</span> <span class="attr">for</span>=<span class="string">"checkbox2"</span>&gt;</span>hide-Checkbox<span class="tag">&lt;/<span class="name">label</span>&gt;</span></div><div class="line"></div><div class="line"> input.hide &#123;</div><div class="line">  position: absolute;</div><div class="line">  clip: rect(0, 0, 0, 0);</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>3.我们还可以进入优化，比如在聚焦或者禁用时改变它的样式<br><figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"checkbox"</span> <span class="attr">class</span>=<span class="string">"hide focus"</span> <span class="attr">id</span>=<span class="string">"checkbox3"</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">label</span> <span class="attr">for</span>=<span class="string">"checkbox3"</span>&gt;</span>hide-Checkbox<span class="tag">&lt;/<span class="name">label</span>&gt;</span></div><div class="line"></div><div class="line">input.focus:focus + label::before &#123;</div><div class="line">  box-shadow: 0 0 .1em .1em #58a;</div><div class="line">&#125;</div><div class="line">input.focus:disabled + label::before &#123;</div><div class="line">  color: #555;</div><div class="line"></div><div class="line">  background: gray;</div><div class="line"></div><div class="line">  box-shadow: none;</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<h4 id="开关按钮"><a href="#开关按钮" class="headerlink" title="开关按钮"></a>开关按钮</h4><p>使用同样的思想做一个 开关按钮:使用 <code>label</code>设置为按钮的样式即可,不需要伪元素<br><figure class="highlight css"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div></pre></td><td class="code"><pre><div class="line"><span class="selector-tag">input</span><span class="selector-class">.troggle-buttons</span> + <span class="selector-tag">label</span> &#123;</div><div class="line">  <span class="attribute">display</span>: inline-block;</div><div class="line"></div><div class="line">  <span class="attribute">border</span>: <span class="number">1px</span> solid <span class="number">#ccc</span>;</div><div class="line">  <span class="attribute">border-radius</span>: .<span class="number">3em</span>;</div><div class="line">  <span class="attribute">padding</span>: .<span class="number">6em</span> .<span class="number">8em</span>;</div><div class="line"></div><div class="line">  <span class="attribute">background</span>: <span class="number">#ccc</span>;</div><div class="line">  <span class="attribute">background-image</span>: <span class="built_in">linear-gradient</span>(#ddd, #bbb );</div><div class="line"></div><div class="line">  <span class="attribute">text-shadow</span>: <span class="number">0</span> <span class="number">1px</span> <span class="number">1px</span> white;</div><div class="line">  <span class="attribute">text-align</span>: center;</div><div class="line">  <span class="attribute">box-shadow</span>: <span class="number">0</span> <span class="number">1px</span>  white inset;</div><div class="line"></div><div class="line">&#125;</div><div class="line"><span class="selector-tag">input</span><span class="selector-class">.troggle-buttons</span> &#123;</div><div class="line">  <span class="attribute">position</span>: absolute;</div><div class="line">  <span class="attribute">clip</span>: <span class="built_in">rect</span>(0, 0, 0, 0);</div><div class="line">&#125;</div><div class="line"><span class="selector-tag">input</span><span class="selector-class">.troggle-buttons</span><span class="selector-pseudo">:checked</span> + <span class="selector-tag">label</span>,</div><div class="line"><span class="selector-tag">input</span><span class="selector-class">.troggle-buttons</span><span class="selector-pseudo">:active</span> + <span class="selector-tag">label</span> &#123;</div><div class="line">  <span class="attribute">border-color</span>: <span class="built_in">rgba</span>(0, 0, 0, 0.3);</div><div class="line"></div><div class="line">  <span class="attribute">background</span>: <span class="number">#bbb</span>;</div><div class="line"></div><div class="line">  <span class="attribute">box-shadow</span>: .<span class="number">05em</span> .<span class="number">1em</span> .<span class="number">2em</span> <span class="built_in">rgba</span>(0, 0, 0, 0.6) inset;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p><a href="http://js.jirengu.com/rifuruhumo/1/" target="_blank" rel="external">尝试一下吧！</a></p>
+<h3 id="通过阴影来弱化背景"><a href="#通过阴影来弱化背景" class="headerlink" title="通过阴影来弱化背景"></a>通过阴影来弱化背景</h3><p>1.我们使用一个HTML元素，在元素上加入遮挡背景<br><a href="http://js.jirengu.com/wetonarutu/1/" target="_blank" rel="external">尝试一下吧！</a><br>2.使用伪元素来消除额外的HTML元素，比如：在body上或者元素自己身上。但是这种方法无法绑定独立的JavaScript事件处理函数。<br>在body上加入伪元素，我们还需要加入一个类来控制<br><figure class="highlight css"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="selector-tag">body</span><span class="selector-class">.diammed</span><span class="selector-pseudo">::before</span> &#123;</div><div class="line">  <span class="attribute">content</span>: <span class="string">""</span>;</div><div class="line">  <span class="attribute">position</span>: fixed;</div><div class="line">  <span class="attribute">left</span>: <span class="number">0</span>;</div><div class="line">  <span class="attribute">top</span>: <span class="number">0</span>;</div><div class="line">  <span class="attribute">right</span>: <span class="number">0</span>;</div><div class="line">  <span class="attribute">bottom</span>: <span class="number">0</span>;</div><div class="line"></div><div class="line">  <span class="attribute">background</span>: <span class="built_in">rgba</span>(0, 0, 0, 0.8);</div><div class="line">  <span class="attribute">z-index</span>: -<span class="number">1</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p><a href="http://js.jirengu.com/xafukutoja/1/" target="_blank" rel="external">尝试一下吧！</a><br>在自己身上加入伪元素，但是需要设置 <code>z-index:-1</code><br><figure class="highlight css"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="selector-class">.dialog</span><span class="selector-pseudo">::before</span>&#123;</div><div class="line">  <span class="attribute">content</span>: <span class="string">''</span>;</div><div class="line">  <span class="attribute">position</span>: fixed;</div><div class="line">  <span class="attribute">left</span>: <span class="number">0</span>;</div><div class="line">  <span class="attribute">top</span>: <span class="number">0</span>;</div><div class="line">  <span class="attribute">right</span>: <span class="number">0</span>;</div><div class="line">  <span class="attribute">bottom</span>: <span class="number">0</span>;</div><div class="line">  <span class="attribute">z-index</span>: -<span class="number">1</span>;</div><div class="line"></div><div class="line">  <span class="attribute">background</span>:<span class="built_in">rgba</span>(0, 0, 0, 0.8);</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p><a href="http://js.jirengu.com/xujepeweja/1/" target="_blank" rel="external">尝试一下吧！</a><br>3.box-shadow 方案:我们使用<code>box-shadow</code>来生成一个巨大的投影，不偏移也不模糊。另外1box-shadow1的扩张距离可以使用视口单位 <code>vmax</code>(1max相当于1vw和1vh两者中的较大值)如果元素是居中 我们只需要50vmax就可以了.<br><figure class="highlight css"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="selector-class">.dialog</span>&#123;</div><div class="line">  <span class="attribute">box-shadow</span>: <span class="number">0</span> <span class="number">0</span> <span class="number">0</span> <span class="number">100vmax</span> <span class="built_in">rgba</span>(0, 0, 0, 0.8);</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p><a href="http://js.jirengu.com/juriluxaba/1/" target="_blank" rel="external">尝试一下吧！</a><br>4.back-drop 方案：使用一个模态的<code>dialog</code>元素。<code>dialog</code>元素可以由他的<code>showModal()</code>方法显示出来，根据溜啦你的默认样式，他会自带一个遮罩层。借助<code>::backdrop</code> 伪元素，这个原生的遮罩层也是可以设置样式的。<br><figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">button</span> <span class="attr">onclick</span>=<span class="string">"document.querySelector('#modal').showModal()"</span>&gt;</span>Click me<span class="tag">&lt;/<span class="name">button</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">dialog</span> <span class="attr">id</span>=<span class="string">"modal"</span>&gt;</span></div><div class="line">hello!</div><div class="line"><span class="tag">&lt;<span class="name">button</span> <span class="attr">onclick</span>=<span class="string">"this.parentNode.close()"</span>&gt;</span>Close<span class="tag">&lt;/<span class="name">button</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">dialog</span>&gt;</span></div><div class="line"></div><div class="line">  dialog::backdrop &#123;</div><div class="line">    background: rgba(0, 0, 0, 0.8);</div><div class="line">  &#125;</div></pre></td></tr></table></figure></p>
+<p><a href="http://js.jirengu.com/ferimafezo/1/edit" target="_blank" rel="external">尝试一下吧！</a></p>
+<h3 id="通过模糊来弱化背景"><a href="#通过模糊来弱化背景" class="headerlink" title="通过模糊来弱化背景"></a>通过模糊来弱化背景</h3><p>使用滤镜来实现，但是如果把滤镜效果应用到body元素上，页面中的所有元素都会被模糊处理，我们想要的凸显出来的那个关键元素也不例外。所以我们需要一个额外的HTML元素来实现这个效果，把页面上除了关键元素外的一切都包裹起来，这样就可以只对这个容器的元素进行模糊处理了。</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="selector-tag">main</span> &#123;</div><div class="line">  <span class="attribute">transition</span>: .<span class="number">6s</span> filter, -webkit-filter;</div><div class="line">&#125;</div><div class="line"><span class="selector-tag">main</span><span class="selector-class">.modal</span> &#123;</div><div class="line">  <span class="attribute">-webkit-filter</span>: <span class="built_in">blur</span>(5px) <span class="built_in">contrast</span>(.8) <span class="built_in">brightness</span>(.8);</div><div class="line">  <span class="attribute">filter</span>: <span class="built_in">blur</span>(5px) <span class="built_in">contrast</span>(.8) <span class="built_in">brightness</span>(.8);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p><a href="http://js.jirengu.com/moyunuzocu/1/" target="_blank" rel="external">尝试一下吧！</a><br>另外：使用滤镜方案产生阴影效果，意味着一旦不支持，我们将没有任何回退方案，因此阴影效果不妨用其他方案来实现。例如上面提到的 <code>box-shadow</code>方案</p>
+<h3 id="滚动提示"><a href="#滚动提示" class="headerlink" title="滚动提示"></a>滚动提示</h3><p>1.首先我们列出一段简单的无序列表<br><figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line"> <span class="tag">&lt;<span class="name">ul</span> <span class="attr">class</span>=<span class="string">"scroll1"</span>&gt;</span></div><div class="line">   <span class="tag">&lt;<span class="name">li</span>&gt;</span>aa<span class="tag">&lt;/<span class="name">li</span>&gt;</span></div><div class="line">   <span class="tag">&lt;<span class="name">li</span>&gt;</span>bb<span class="tag">&lt;/<span class="name">li</span>&gt;</span></div><div class="line">   <span class="tag">&lt;<span class="name">li</span>&gt;</span>ccc<span class="tag">&lt;/<span class="name">li</span>&gt;</span></div><div class="line">   <span class="tag">&lt;<span class="name">li</span>&gt;</span>ddd<span class="tag">&lt;/<span class="name">li</span>&gt;</span></div><div class="line">   <span class="tag">&lt;<span class="name">li</span>&gt;</span>eee<span class="tag">&lt;/<span class="name">li</span>&gt;</span></div><div class="line">   <span class="tag">&lt;<span class="name">li</span>&gt;</span>fff<span class="tag">&lt;/<span class="name">li</span>&gt;</span></div><div class="line">   <span class="tag">&lt;<span class="name">li</span>&gt;</span>ggg<span class="tag">&lt;/<span class="name">li</span>&gt;</span></div><div class="line">   <span class="tag">&lt;<span class="name">li</span>&gt;</span>hhhh<span class="tag">&lt;/<span class="name">li</span>&gt;</span></div><div class="line">   <span class="tag">&lt;<span class="name">li</span>&gt;</span>ii<span class="tag">&lt;/<span class="name">li</span>&gt;</span></div><div class="line">   <span class="tag">&lt;<span class="name">li</span>&gt;</span>jj<span class="tag">&lt;/<span class="name">li</span>&gt;</span></div><div class="line">   <span class="tag">&lt;<span class="name">li</span>&gt;</span>kk<span class="tag">&lt;/<span class="name">li</span>&gt;</span></div><div class="line">   <span class="tag">&lt;<span class="name">li</span>&gt;</span>lll<span class="tag">&lt;/<span class="name">li</span>&gt;</span></div><div class="line"> <span class="tag">&lt;/<span class="name">ul</span>&gt;</span></div><div class="line"> </div><div class="line">ul &#123;</div><div class="line">  overflow: auto;</div><div class="line">  width: 10em;</div><div class="line">  height: 8em;</div><div class="line">  padding .3em .5em;</div><div class="line">  border: 1px solid #ccc;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>2.接下来，我们用一个径向渐变在顶部添加一条阴影,并使用 <code>background-attachment:local</code><br><figure class="highlight css"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="selector-tag">ul</span><span class="selector-class">.scroll1</span> &#123;</div><div class="line">  <span class="attribute">background</span>: <span class="built_in">radial-gradient</span>(at top, rgba(0, 0, 0, .2), transparent <span class="number">70%</span>) no-repeat;</div><div class="line">  <span class="attribute">background-size</span>: <span class="number">100%</span> <span class="number">15px</span>;</div><div class="line">  <span class="attribute">background-attachment</span>: local;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>3.<code>background-attachment:local</code>并不能立竿见影的解决我们眼前的这个需求，如果应用到这条阴影上，他会给我们带来相反的效果。<br>正确的答案是：使用2层背景：1层来生成阴影(scroll 位置不变)，另一层就是一个震荡阴影的白色矩形(local 随着元素变动)<br><figure class="highlight css"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="selector-tag">ul</span><span class="selector-class">.scroll2</span> &#123;</div><div class="line">  <span class="attribute">background</span>: <span class="built_in">linear-gradient</span>(white,white),</div><div class="line">              <span class="built_in">radial-gradient</span>(at top, rgba(0, 0, 0, .2), transparent <span class="number">70%</span>);</div><div class="line">  <span class="attribute">background-repeat</span>: no-repeat;</div><div class="line">  <span class="attribute">background-size</span>: <span class="number">100%</span> <span class="number">15px</span>;</div><div class="line">  <span class="attribute">background-attachment</span>: local, scroll;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>4.白色的遮罩层使用渐变，避免阴影露出的方式非常突兀<br><figure class="highlight css"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="selector-tag">ul</span><span class="selector-class">.scroll3</span> &#123;</div><div class="line">  <span class="attribute">background</span>: <span class="built_in">linear-gradient</span>(white, hsla(0, 0%, 100%, 0.2)),</div><div class="line">              <span class="built_in">radial-gradient</span>(at top, rgba(0, 0, 0, 0.2), transparent <span class="number">70%</span>);</div><div class="line">  <span class="attribute">background-repeat</span>: no-repeat;</div><div class="line">  <span class="attribute">background-size</span>: <span class="number">100%</span> <span class="number">15px</span>;</div><div class="line">  <span class="attribute">background-attachment</span>: local, scroll;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>5.我们在顶部和底部各加一次<br><figure class="highlight css"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="selector-tag">ul</span><span class="selector-class">.scroll4</span> &#123;</div><div class="line">  <span class="attribute">background</span>: <span class="built_in">linear-gradient</span>(white, hsla(0, 0%, 100%, 0.2)),</div><div class="line">              <span class="built_in">radial-gradient</span>(at top, rgba(0, 0, 0, 0.2), transparent <span class="number">70%</span>),</div><div class="line">              <span class="built_in">linear-gradient</span>(to top, white, hsla(0, 0%, 100%, 0.2)) <span class="number">0</span> <span class="number">100%</span>,</div><div class="line">              <span class="built_in">radial-gradient</span>(at bottom, rgba(0, 0, 0, .2), transparent <span class="number">70%</span>) <span class="number">0</span> <span class="number">100%</span>;</div><div class="line">  <span class="attribute">background-repeat</span>: no-repeat;</div><div class="line">  <span class="attribute">background-size</span>: <span class="number">100%</span> <span class="number">15px</span>;</div><div class="line">  <span class="attribute">background-attachment</span>: local, scroll, local, scroll;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p><a href="http://js.jirengu.com/qaxavehagi/1/" target="_blank" rel="external">尝试一下吧！</a></p>
+<h3 id="交互式的图片对比控件"><a href="#交互式的图片对比控件" class="headerlink" title="交互式的图片对比控件"></a>交互式的图片对比控件</h3><h4 id="CSS-resize-方案"><a href="#CSS-resize-方案" class="headerlink" title="CSS resize 方案"></a>CSS resize 方案</h4><p>1.列出两个img元素,一个元素使用div包裹起来，并在上面加入<code>resize:horizontal</code>属性(可以水平拉伸，我们并没在image上加入这个属性，因为图片会变形)<br><figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"image-slider"</span>&gt;</span></div><div class="line">  <span class="tag">&lt;<span class="name">div</span>&gt;</span><span class="tag">&lt;<span class="name">img</span> <span class="attr">src</span>=<span class="string">"http://csssecrets.io/images/adamcatlace-before.jpg"</span> <span class="attr">alt</span>=<span class="string">"Before"</span> /&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></div><div class="line">  <span class="tag">&lt;<span class="name">img</span> <span class="attr">src</span>=<span class="string">"http://csssecrets.io/images/adamcatlace.jpg"</span> /&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></div><div class="line"></div><div class="line">.image-slider &#123;</div><div class="line">  display: inline-block;</div><div class="line"></div><div class="line">  position: relative;</div><div class="line">&#125;</div><div class="line">.image-slider &gt; div&#123;</div><div class="line">  position: absolute;</div><div class="line"></div><div class="line">  left: 0;</div><div class="line">  top: 0;</div><div class="line">  bottom: 0;</div><div class="line">  width: 50%;</div><div class="line">  max-width: 100%;</div><div class="line">  overflow: hidden;</div><div class="line"></div><div class="line">  resize: horizontal;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>2.resize 按钮不太显眼 这里我们使用伪元素覆盖<br><figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"image-slider slider-bar1"</span>&gt;</span></div><div class="line">  <span class="tag">&lt;<span class="name">div</span>&gt;</span><span class="tag">&lt;<span class="name">img</span> <span class="attr">src</span>=<span class="string">"http://csssecrets.io/images/adamcatlace-before.jpg"</span> <span class="attr">alt</span>=<span class="string">"Before"</span> /&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></div><div class="line">  <span class="tag">&lt;<span class="name">img</span> <span class="attr">src</span>=<span class="string">"http://csssecrets.io/images/adamcatlace.jpg"</span> /&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></div><div class="line"></div><div class="line"> .slider-bar1&gt; div::before &#123;</div><div class="line">  content: "";</div><div class="line"></div><div class="line">  position: absolute;</div><div class="line"></div><div class="line">  right: 0;</div><div class="line">  bottom: 0;</div><div class="line"></div><div class="line">  width: 12px;</div><div class="line">  height: 12px;</div><div class="line"></div><div class="line">  background: white;</div><div class="line"></div><div class="line">  cursor: ew-resize;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>3.我们对伪元素进行优化，另外为了避免用户没有点中调节按钮时误点击到图片，我们可以对这两张图片添加属性 <code>user-select: none</code>。<br><figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div></pre></td><td class="code"><pre><div class="line">      <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"image-slider slider-bar2"</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">div</span>&gt;</span><span class="tag">&lt;<span class="name">img</span> <span class="attr">src</span>=<span class="string">"http://csssecrets.io/images/adamcatlace-before.jpg"</span> <span class="attr">alt</span>=<span class="string">"Before"</span> /&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">img</span> <span class="attr">src</span>=<span class="string">"http://csssecrets.io/images/adamcatlace.jpg"</span> /&gt;</span></div><div class="line">      <span class="tag">&lt;/<span class="name">div</span>&gt;</span></div><div class="line"></div><div class="line">      .slider-bar2 &gt; div::before&#123;</div><div class="line">        content: "";</div><div class="line"></div><div class="line">        position: absolute;</div><div class="line">        right: 0;</div><div class="line">        bottom: 0;</div><div class="line"></div><div class="line">        padding: 5px;</div><div class="line">        width: 12px;</div><div class="line">        height: 12px;</div><div class="line"></div><div class="line">        background: linear-gradient(to bottom right, transparent 50%, white 0);</div><div class="line">        background-clip: content-box;</div><div class="line"></div><div class="line">        cursor: ew-resize;</div><div class="line">      &#125;</div><div class="line"></div><div class="line">      .slider-bar2 img &#123;</div><div class="line">        user-select: none;</div><div class="line">      &#125;</div><div class="line">`</div></pre></td></tr></table></figure></p>
+<p><a href="http://js.jirengu.com/kuzokineho/2/" target="_blank" rel="external">尝试一下吧！</a></p>
+<h4 id="范围输入控件方案"><a href="#范围输入控件方案" class="headerlink" title="范围输入控件方案"></a>范围输入控件方案</h4><p>Css resize的方案表现很好，而且只需要极少的代码，不过，他还是有一些不足之处：<br>1.对键盘来说是不可访问的。<br>2.调整上层的唯一方法是拖动，但是对于较大的图片，这样很累，不支持点击某个点就可以调整完成<br>3.用户只能在上层图片的右下角操作，用户很容易忽略它。<br>解决方案<br>1.我们使用一点脚本，就可以将一个原生的滑块空间覆盖在图片上，用它来控制上层图片的伸缩<br>html部分<br><figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"image-slider"</span>&gt;</span></div><div class="line">  <span class="tag">&lt;<span class="name">img</span> <span class="attr">src</span>=<span class="string">"http://csssecrets.io/images/adamcatlace-before.jpg"</span> <span class="attr">alt</span>=<span class="string">"Before"</span> /&gt;</span></div><div class="line">  <span class="tag">&lt;<span class="name">img</span> <span class="attr">src</span>=<span class="string">"http://csssecrets.io/images/adamcatlace.jpg"</span> /&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></div></pre></td></tr></table></figure></p>
+<p>JS部分: 使用脚本初始化控件内容，并为滑块绑定事件<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">document</span>.querySelectorAll(<span class="string">'.image-slider'</span>).forEach(<span class="function"><span class="keyword">function</span>(<span class="params">slider</span>) </span>&#123;</div><div class="line">  <span class="keyword">var</span> img = slider.querySelector(<span class="string">'img'</span>),</div><div class="line">      div = <span class="built_in">document</span>.createElement(<span class="string">'div'</span>),</div><div class="line">      scroll = <span class="built_in">document</span>.createElement(<span class="string">'input'</span>);</div><div class="line"></div><div class="line">  slider.insertBefore(div, img);</div><div class="line">  div.appendChild(img);</div><div class="line"></div><div class="line">  <span class="comment">// 创建滑块</span></div><div class="line">  scroll.type = <span class="string">'range'</span>;</div><div class="line">  scroll.oninput = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</div><div class="line">    div.style.width = <span class="keyword">this</span>.value + <span class="string">'%'</span>;</div><div class="line">  &#125;;</div><div class="line">  slider.appendChild(scroll);</div><div class="line">&#125;);</div></pre></td></tr></table></figure></p>
+<p>css部分<br><figure class="highlight css"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div></pre></td><td class="code"><pre><div class="line"><span class="selector-class">.image-slider</span> &#123;</div><div class="line">  <span class="attribute">display</span>: inline-block;</div><div class="line"></div><div class="line">  <span class="attribute">position</span>: relative;</div><div class="line">&#125;</div><div class="line"><span class="selector-class">.image-slider</span> &gt; <span class="selector-tag">div</span>&#123;</div><div class="line">  <span class="attribute">overflow</span>: hidden;</div><div class="line"></div><div class="line">  <span class="attribute">position</span>: absolute;</div><div class="line">  <span class="attribute">left</span>: <span class="number">0</span>;</div><div class="line">  <span class="attribute">top</span>: <span class="number">0</span>;</div><div class="line">  <span class="attribute">bottom</span>: <span class="number">0</span>;</div><div class="line">  <span class="attribute">width</span>: <span class="number">50%</span>;</div><div class="line">&#125;</div><div class="line"><span class="selector-class">.image-slider</span> <span class="selector-tag">img</span> &#123;</div><div class="line">  <span class="attribute">display</span>: block;</div><div class="line">  <span class="attribute">user-selector</span>: none;</div><div class="line">&#125;</div><div class="line"><span class="selector-class">.image-slider</span> <span class="selector-tag">input</span><span class="selector-attr">[type="range"]</span> &#123;</div><div class="line">  <span class="attribute">position</span>: absolute;</div><div class="line">  <span class="attribute">left</span>: <span class="number">0</span>;</div><div class="line">  <span class="attribute">bottom</span>: <span class="number">0</span>;</div><div class="line">  <span class="attribute">z-index</span>: <span class="number">1</span>;</div><div class="line"></div><div class="line">  <span class="attribute">margin</span>: <span class="number">0</span>; <span class="comment">/* input 是有margin的 如果不去掉width:100% 很难看*/</span></div><div class="line">  <span class="attribute">width</span>: <span class="number">100%</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>2.为了让这个范围输入控件在视觉上与整体更加统一，可以使用混合模式或滤镜来实现<br><figure class="highlight css"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="selector-class">.image-slider</span> <span class="selector-tag">input</span><span class="selector-attr">[type="range"]</span> &#123;</div><div class="line">  <span class="attribute">-webkit-filter</span>: <span class="built_in">contrast</span>(.5);</div><div class="line">  <span class="attribute">filter</span>: <span class="built_in">contrast</span>(.5);</div><div class="line">  <span class="attribute">mix-blend-mode</span>: luminosity;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>3.可以通过scale函数来增加用户的可操作区域<br><figure class="highlight css"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="selector-class">.image-slider</span> <span class="selector-tag">input</span><span class="selector-attr">[type="range"]</span> &#123;</div><div class="line">  <span class="attribute">width</span>: <span class="number">50%</span>;</div><div class="line">  <span class="attribute">transform</span>: <span class="built_in">scale</span>(2);</div><div class="line">  <span class="attribute">transform-origin</span>: left bottom;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p><a href="http://js.jirengu.com/gutaliposa/1/" target="_blank" rel="external">尝试一下吧！</a></p>
+<hr>
+<p>参考文档：<br><a href="https://developer.mozilla.org/zh-CN/docs/Web/CSS/filter" target="_blank" rel="external">mdn-filter</a><br><a href="https://developer.mozilla.org/en-US/docs/Web/CSS/resize" target="_blank" rel="external">mdn-resize</a><br><a href="https://developer.mozilla.org/zh-CN/docs/Web/CSS/background-attachment" target="_blank" rel="external">mdn-background-attachment</a><br>《css揭秘》</p>
+  
+	</div>
+		<footer class="article-footer clearfix">
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/css/">css</a>
+  </div>
+
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/css揭秘读书笔记/">css揭秘读书笔记</a>
+</div>
+
+
+<div class="article-share" id="share">
+
+  <div data-url="http://www.xiaohan80s.com/2016/09/02/css揭秘笔记/2016-9-02-part6/" data-title="第六章 用户体验 | xiaohan80s.com" data-tsina="null" class="share clearfix">
+  </div>
+
+</div>
+</footer>
+   	       
+	</article>
+	
+<nav class="article-nav clearfix">
+ 
+
+<div class="next">
+<a href="/2016/08/30/css揭秘笔记/2016-9-01-part5/"  title="第五章 字体排印">
+ <strong>NEXT:</strong><br/> 
+ <span>第五章 字体排印
+</span>
+</a>
+</div>
+
+</nav>
+
+	
+<section class="comment">
+	<div class="ds-thread"></div>
+</section>
+
+</div>  
+      <div class="openaside"><a class="navbutton" href="#" title="显示侧边栏"></a></div>
+
+  <div id="toc" class="toc-aside">
+  <strong class="toc-title">文章目录</strong>
+  <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#第六章-用户体验"><span class="toc-number">1.</span> <span class="toc-text">第六章 用户体验</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#选用合适的鼠标光标"><span class="toc-number">1.1.</span> <span class="toc-text">选用合适的鼠标光标</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#扩大可点击区域"><span class="toc-number">1.2.</span> <span class="toc-text">扩大可点击区域</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#自定义复选框"><span class="toc-number">1.3.</span> <span class="toc-text">自定义复选框</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#自定义复选框-1"><span class="toc-number">1.3.1.</span> <span class="toc-text">自定义复选框</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#开关按钮"><span class="toc-number">1.3.2.</span> <span class="toc-text">开关按钮</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#通过阴影来弱化背景"><span class="toc-number">1.4.</span> <span class="toc-text">通过阴影来弱化背景</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#通过模糊来弱化背景"><span class="toc-number">1.5.</span> <span class="toc-text">通过模糊来弱化背景</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#滚动提示"><span class="toc-number">1.6.</span> <span class="toc-text">滚动提示</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#交互式的图片对比控件"><span class="toc-number">1.7.</span> <span class="toc-text">交互式的图片对比控件</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#CSS-resize-方案"><span class="toc-number">1.7.1.</span> <span class="toc-text">CSS resize 方案</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#范围输入控件方案"><span class="toc-number">1.7.2.</span> <span class="toc-text">范围输入控件方案</span></a></li></ol></li></ol></li></ol>
+  <div class="comment_bar"><a href="#ds-reset" target="" title="评论区">文章评论</a></div>
+  </div>
+
+<div id="asidepart">
+<div class="closeaside"><a class="closebutton" href="#" title="隐藏侧边栏"></a></div>
+<aside class="clearfix">
+
+  
+<div class="categorieslist">
+	<p class="asidetitle">分类</p>
+		<ul>
+		
+			<li><a href="/categories/css揭秘读书笔记/" title="css揭秘读书笔记">css揭秘读书笔记<sup>6</sup></a></li>
+		
+			<li><a href="/categories/js设计模式笔记/" title="js设计模式笔记">js设计模式笔记<sup>19</sup></a></li>
+		
+			<li><a href="/categories/工具/" title="工具">工具<sup>1</sup></a></li>
+		
+		</ul>
+</div>
+
+
+  
+<div class="tagslist">
+	<p class="asidetitle">标签</p>
+		<ul class="clearfix">
+		
+			<li><a href="/tags/css/" title="css">css<sup>6</sup></a></li>
+		
+			<li><a href="/tags/js/" title="js">js<sup>19</sup></a></li>
+		
+			<li><a href="/tags/js设计模式/" title="js设计模式">js设计模式<sup>14</sup></a></li>
+		
+			<li><a href="/tags/工具/" title="工具">工具<sup>1</sup></a></li>
+		
+			<li><a href="/tags/搭建博客/" title="搭建博客">搭建博客<sup>1</sup></a></li>
+		
+		</ul>
+</div>
+
+
+  
+  <div class="archiveslist">
+    <p class="asidetitle"><a href="/archives">归档</a></p>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/09/">2016 年 09 月</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/08/">2016 年 08 月</a><span class="archive-list-count">21</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/07/">2016 年 07 月</a><span class="archive-list-count">4</span></li></ul>
+  </div>
+
+
+
+  
+
+<script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"1","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"16"},"slide":{"type":"slide","bdImg":"4","bdPos":"right","bdTop":"160"}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];</script>
+
+
+</aside>
+</div>
+
+    </div>
+    <footer><div id="footer" >
+	
+	<div class="line">
+		<span></span>
+		<div class="author"></div>
+	</div>
+	
+	
+	<div class="social-font clearfix">
+		
+		
+		
+		
+		
+	</div>
+		<p class="copyright">Powered by <a href="http://hexo.io" target="_blank" title="hexo">hexo</a> and Theme by <a href="https://github.com/A-limon/pacman" target="_blank" title="Pacman">Pacman</a> © 2016
+		
+		<a href="http://www.xiaohan80s.com" target="_blank" title="xiao han 80s">xiao han 80s</a>
+		
+		</p>
+</div>
+</footer>
+    <script src="/js/jquery-2.1.0.min.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){
+  $('.navbar').click(function(){
+    $('header nav').toggleClass('shownav');
+  });
+  var myWidth = 0;
+  function getSize(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+  };
+  var m = $('#main'),
+      a = $('#asidepart'),
+      c = $('.closeaside'),
+      o = $('.openaside');
+
+  $(window).resize(function(){
+    getSize();
+    if (myWidth >= 1024) {
+      $('header nav').removeClass('shownav');
+    }else
+    {
+      m.removeClass('moveMain');
+      a.css('display', 'block').removeClass('fadeOut');
+      o.css('display', 'none');
+      
+      $('#toc.toc-aside').css('display', 'none');
+      
+    }
+  });
+  c.click(function(){
+    a.addClass('fadeOut').css('display', 'none');
+    o.css('display', 'block').addClass('fadeIn');
+    m.addClass('moveMain');
+  });
+  o.click(function(){
+    o.css('display', 'none').removeClass('beforeFadeIn');
+    a.css('display', 'block').removeClass('fadeOut').addClass('fadeIn');
+    m.removeClass('moveMain');
+  });
+  $(window).scroll(function(){
+    o.css("top",Math.max(80,260-$(this).scrollTop()));
+  });
+});
+</script>
+
+<script type="text/javascript">
+$(document).ready(function(){
+  var ai = $('.article-content>iframe'),
+      ae = $('.article-content>embed'),
+      t  = $('#toc'),
+      h  = $('article h2')
+      ah = $('article h2'),
+      ta = $('#toc.toc-aside'),
+      o  = $('.openaside'),
+      c  = $('.closeaside');
+  if(ai.length>0){
+    ai.wrap('<div class="video-container" />');
+  };
+  if(ae.length>0){
+   ae.wrap('<div class="video-container" />');
+  };
+  if(ah.length==0){
+    t.css('display','none');
+  }else{
+    c.click(function(){
+      ta.css('display', 'block').addClass('fadeIn');
+    });
+    o.click(function(){
+      ta.css('display', 'none');
+    });
+    $(window).scroll(function(){
+      ta.css("top",Math.max(140,320-$(this).scrollTop()));
+    });
+  };
+  $('.closeaside').triggerHandler('click');
+});
+</script>
+
+
+<script type="text/javascript">
+$(document).ready(function(){
+  var $this = $('.share'),
+      url = $this.attr('data-url'),
+      encodedUrl = encodeURIComponent(url),
+      title = $this.attr('data-title'),
+      tsina = $this.attr('data-tsina');
+  var html = [
+  // '<a href="#" class="overlay" id="qrcode"></a>',
+  // '<div class="qrcode clearfix"><span>扫描二维码分享到微信朋友圈</span><a class="qrclose" href="#share"></a><strong>Loading...Please wait</strong><img id="qrcode-pic" data-src="http://s.jiathis.com/qrcode.php?url=' + encodedUrl + '"/></div>',
+  '<a href="#textlogo" class="article-back-to-top" title="Top"></a>',
+  // '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+  // '<a href="#qrcode" class="article-share-qrcode" title="QRcode"></a>',
+  // '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+  // '<a href="http://service.weibo.com/share/share.php?title='+title+'&url='+encodedUrl +'&ralateUid='+ tsina +'&searchPic=true&style=number' +'" class="article-share-weibo" target="_blank" title="Weibo"></a>',
+  // '<span title="Share to"></span>'
+  ].join('');
+  $this.append(html);
+  $('.article-share-qrcode').click(function(){
+    var imgSrc = $('#qrcode-pic').attr('data-src');
+    $('#qrcode-pic').attr('src', imgSrc);
+    $('#qrcode-pic').load(function(){
+        $('.qrcode strong').text(' ');
+    });
+  });
+});
+</script>
+
+
+<script type="text/javascript">
+  var duoshuoQuery = {short_name:"xiaohan80s"};
+  (function() {
+    var ds = document.createElement('script');
+    ds.type = 'text/javascript';ds.async = true;
+    ds.src = '//static.duoshuo.com/embed.js';
+    ds.charset = 'UTF-8';
+    (document.getElementsByTagName('head')[0]
+    || document.getElementsByTagName('body')[0]).appendChild(ds);
+  })();
+</script>
+
+
+
+
+
+  </body>
+</html>
