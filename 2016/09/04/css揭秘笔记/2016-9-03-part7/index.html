@@ -1,0 +1,392 @@
+
+ <!DOCTYPE HTML>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  
+    <title>第七章 结构与布局 | xiaohan80s.com</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=3, minimum-scale=1">
+    
+    <meta name="author" content="xiao han 80s">
+    
+    <meta name="description" content="第七章 结构与布局知识点：自适应内部元素 精确控制表格列宽 根据兄弟元素的数量来设置样式 满幅的背景，定宽的内容 垂直居中 紧贴底部的页脚
+自适应内部元素难题：众所周知，如果不给元素指定一个具体的height，它就会自动适应期内容的宽度，加入我们希望width 也具有类似的行为，该怎么做呢？解决办法">
+    
+    
+    
+    
+    
+    <link rel="icon" href="/img/favicon.ico">
+    
+    
+    <link rel="apple-touch-icon" href="/img/pacman.jpg">
+    <link rel="apple-touch-icon-precomposed" href="/img/pacman.jpg">
+    
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+
+  <body>
+    <header>
+      <div>
+		
+			<div id="imglogo">
+				<a href="/"><img src="/img/logo.svg" alt="xiaohan80s.com" title="xiaohan80s.com"/></a>
+			</div>
+			
+			<div id="textlogo">
+				<h1 class="site-name"><a href="/" title="xiaohan80s.com">xiaohan80s.com</a></h1>
+				<h2 class="blog-motto">年轻 没有什么不可以!</h2>
+			</div>
+			<div class="navbar"><a class="navbutton navmobile" href="#" title="菜单">
+			</a></div>
+			<nav class="animated">
+				<ul>
+					
+						<li><a href="/">Home</a></li>
+					
+						<li><a href="/archives">Archives</a></li>
+					
+						<li><a href="/categories">Categories</a></li>
+					
+						<li><a href="/about">About</a></li>
+					
+					<li>
+					
+					<!-- <form class="search" action="//baidu.com" method="get" accept-charset="utf-8">
+						<label>Search</label>
+						<input type="text" id="search" name="q" autocomplete="off" maxlength="20" placeholder="搜索" />
+						<input type="hidden" name="q" value="site:www.xiaohan80s.com">
+					</form> -->
+					
+					</li>
+				</ul>
+			</nav>
+</div>
+
+    </header>
+    <div id="container">
+      <div id="main" class="post" itemscope itemprop="blogPost">
+	<article itemprop="articleBody"> 
+		<header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2016/09/04/css揭秘笔记/2016-9-03-part7/" title="第七章 结构与布局" itemprop="url">第七章 结构与布局</a>
+  </h1>
+  <p class="article-author">By
+    
+      <a href="http://www.xiaohan80s.com" title="xiao han 80s">xiao han 80s</a>
+    </p>
+  <p class="article-time">
+    <time datetime="2016-09-03T16:00:00.000Z" itemprop="datePublished">2016-09-04</time>
+    更新日期:<time datetime="2016-09-04T14:03:53.591Z" itemprop="dateModified">2016-09-04</time>
+    
+  </p>
+</header>
+	<div class="article-content">
+		
+		
+		<div id="toc" class="toc-article">
+			<strong class="toc-title">文章目录</strong>
+		<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#第七章-结构与布局"><span class="toc-number">1.</span> <span class="toc-text">第七章 结构与布局</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#自适应内部元素"><span class="toc-number">1.1.</span> <span class="toc-text">自适应内部元素</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#精确控制表格列宽"><span class="toc-number">1.2.</span> <span class="toc-text">精确控制表格列宽</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#根据兄弟元素的数量来设置样式"><span class="toc-number">1.3.</span> <span class="toc-text">根据兄弟元素的数量来设置样式</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#解决方案"><span class="toc-number">1.3.1.</span> <span class="toc-text">解决方案</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#根据兄弟元素的数量范围来匹配元素"><span class="toc-number">1.3.2.</span> <span class="toc-text">根据兄弟元素的数量范围来匹配元素</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#满幅的背景，定宽的内容"><span class="toc-number">1.4.</span> <span class="toc-text">满幅的背景，定宽的内容</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#难题"><span class="toc-number">1.4.1.</span> <span class="toc-text">难题</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#解决方案-1"><span class="toc-number">1.4.2.</span> <span class="toc-text">解决方案</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#垂直居中"><span class="toc-number">1.5.</span> <span class="toc-text">垂直居中</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#紧贴底部的页脚"><span class="toc-number">1.6.</span> <span class="toc-text">紧贴底部的页脚</span></a></li></ol></li></ol>
+		</div>
+		
+		<h2 id="第七章-结构与布局"><a href="#第七章-结构与布局" class="headerlink" title="第七章 结构与布局"></a>第七章 结构与布局</h2><p>知识点：自适应内部元素 精确控制表格列宽 根据兄弟元素的数量来设置样式 满幅的背景，定宽的内容 垂直居中 紧贴底部的页脚</p>
+<h3 id="自适应内部元素"><a href="#自适应内部元素" class="headerlink" title="自适应内部元素"></a>自适应内部元素</h3><p>难题：<br>众所周知，如果不给元素指定一个具体的height，它就会自动适应期内容的宽度，加入我们希望width 也具有类似的行为，该怎么做呢？<br>解决办法：<br>这时候我们使用<code>max-width: min-content;</code>来实现:<br><code>min-content</code> 这个关键字将解析为合格容器内部最大的不可断行元素的宽度(即最宽的单体，图片或具有固定宽度的盒元素).<br>另外我们再提供一个回退样式 在 max-width: min-content; 前加上 max-width: 300px;<br><figure class="highlight css"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="selector-tag">figure</span> &#123;</div><div class="line">  <span class="attribute">border</span>: <span class="number">1px</span> solid <span class="number">#ccc</span>;</div><div class="line">  <span class="attribute">margin</span>: auto;</div><div class="line">  <span class="attribute">max-width</span>: <span class="number">300px</span>;</div><div class="line">  <span class="attribute">max-width</span>: min-content;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="selector-tag">figure</span> &gt; <span class="selector-tag">img</span> &#123;</div><div class="line">  <span class="attribute">max-width</span>: inherit;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p><a href="http://js.jirengu.com/xisavucale/1/" target="_blank" rel="external">尝试一下吧!</a></p>
+<h3 id="精确控制表格列宽"><a href="#精确控制表格列宽" class="headerlink" title="精确控制表格列宽"></a>精确控制表格列宽</h3><p>难题：<br>我们在使用表格统计数据、电子邮件、拥有大量元数据的列表等表格性数据。如果内容不固定，他们的布局其实是很难预测的，这是因为列宽会根据其内容进行调整，即使我们显式的指定了width，也只能起到类似提示的作用。<br>解决办法：<br>解决方案来自于CSS2 中一个鲜为人知的属性，叫做 table-layout. 他的默认值是auto，其行为模式被称为自动表格布局算法,就是我们熟悉的表格布局行为.它还有另外一个值：fixed，这样我们的设置的（宽度）样式会直接起作用.<br>在使用时我们只需要对 table 元素或其他 display:table 的元素加上<code>table-layout: fixed</code>，请注意，为了确保有效，需要为这些表格指定一个宽度（例如width: 100%)</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="selector-tag">table</span> &#123;</div><div class="line">        <span class="attribute">table-layout</span>: fixed;</div><div class="line">        <span class="attribute">width</span>: <span class="number">100%</span>;</div><div class="line">      &#125;</div></pre></td></tr></table></figure>
+<p><a href="http://js.jirengu.com/wofotuxera/1/" target="_blank" rel="external">尝试一下吧!</a></p>
+<h3 id="根据兄弟元素的数量来设置样式"><a href="#根据兄弟元素的数量来设置样式" class="headerlink" title="根据兄弟元素的数量来设置样式"></a>根据兄弟元素的数量来设置样式</h3><p>####难题：<br>在某些场景下，我们需要根据兄弟元素的总数来为他们设置样式，最常见的场景就是，当一个列表不断延长时，通过隐藏控件或者压缩空间等方式来节省屏幕空间，以此提升用户体验，下面列出了一些典型的案例<br>1.电子邮件列表或包含文本内容的类似列表。如果列表中只有少列列表项，我们可以为第一项展示出多行预览文字；当列表项不断增加是，需要逐渐较少每一想的预览行数；当列表的总长度超出整个视口的高度时，可能会把预览文字完全隐藏，并把按钮变小，以此避免用户对页面的滚动<br>2.代办事项应用程序。当列表中的事项较小时，我们可以用一个较大的字号来实现所有的事项；随着事项的数量不断增加，我们会不断较少字号来显示每个事项<br>3.调色板应用程序，每个色块上都显示处配套的空间，当色块的数量不断增加时，他们所占据的空间也会相应增加，此时我们可能希望色块的空间变得紧凑一些<br>4.包含多个<code>&lt;textarea&gt;</code>元素的应用程序，每当我们添加一个新的<code>&lt;textarea&gt;</code>元素，所有元素都会同步缩小</p>
+<h4 id="解决方案"><a href="#解决方案" class="headerlink" title="解决方案"></a>解决方案</h4><p>假设仅当列表项总数为4时才对这些列表项设置样式。<br>1.对于只有一个列表项的特殊场景来说，解决方案显然就是: <code>only-child</code><br><figure class="highlight css"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="selector-tag">li</span><span class="selector-pseudo">:only-child</span> &#123;</div><div class="line"> <span class="comment">/* 代码*/</span></div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>2.<code>only-child</code>其实等同与<code>first-child + nth-last-child(1)</code>，那我们使用<code>first-child + nth-last-child(4)</code>就可以得到我们想要的效果。具体意思是 一个正好有四个列表项中的第一个列表项，接下来我们再用兄弟选择器命中他的每一项<br><figure class="highlight css"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="selector-tag">li</span><span class="selector-pseudo">:first-child</span><span class="selector-pseudo">:nth-last-child(4)</span>,</div><div class="line"><span class="selector-tag">li</span><span class="selector-pseudo">:first-child</span><span class="selector-pseudo">:nth-last-child(4)</span> ~ <span class="selector-tag">li</span> &#123;</div><div class="line">  <span class="comment">/* 代码*/</span></div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<h4 id="根据兄弟元素的数量范围来匹配元素"><a href="#根据兄弟元素的数量范围来匹配元素" class="headerlink" title="根据兄弟元素的数量范围来匹配元素"></a>根据兄弟元素的数量范围来匹配元素</h4><p>在实际的应用场景中，我们期望匹配元素的条件往往不是裂帛奥想的具体数量，而是一个数量范围<br>1.<code>nth-child(4)</code>可以命中第4项的项目，加上兄弟选择器，我们可以命中第4项以后的所有项目。<br><figure class="highlight css"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="selector-tag">li</span><span class="selector-pseudo">:nth-child(4)</span>,</div><div class="line"><span class="selector-tag">li</span><span class="selector-pseudo">:nth-child(4)</span> ~ <span class="selector-tag">li</span> &#123;</div><div class="line"> <span class="comment">/* 代码*/</span></div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>2.利用这个技巧，我们可以在列表项的总数是4或者更多时选中所有列表项。在这种情况下，我们可以把<code>n+4</code>传给<code>nth-last-child()</code>。<br><figure class="highlight css"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="selector-tag">li</span><span class="selector-pseudo">:first-child</span><span class="selector-pseudo">:nth-last-child(n+4)</span>,</div><div class="line"><span class="selector-tag">li</span><span class="selector-pseudo">:first-child</span><span class="selector-pseudo">:nth-last-child(n+4)</span> ~ <span class="selector-tag">li</span> &#123;</div><div class="line"> <span class="comment">/* 代码*/</span></div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>3.同理<code>-n+b</code>这种形式的表达式可以选中开头的b个元素。因此，仅当列表中有4个或更好的列表项时，要选中所有列表项可以这样写<br><figure class="highlight css"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="selector-tag">li</span><span class="selector-pseudo">:first-child</span><span class="selector-pseudo">:nth-last-child(-n+4)</span>,</div><div class="line"><span class="selector-tag">li</span><span class="selector-pseudo">:first-child</span><span class="selector-pseudo">:nth-last-child(-n+4)</span> ~ <span class="selector-tag">li</span> &#123;</div><div class="line"> <span class="comment">/* 代码*/</span></div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>4.当然，我们还可以把这两种技巧联合起来使用，不过代码也会变得更加复杂，假设我们希望在列表包含2~6个列表项时命中所有的列表项。<br><figure class="highlight css"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="selector-tag">li</span><span class="selector-pseudo">:first-child</span><span class="selector-pseudo">:nth-last-child(n+4)</span><span class="selector-pseudo">:nth-last-child(-n+6)</span>,</div><div class="line"><span class="selector-tag">li</span><span class="selector-pseudo">:first-child</span><span class="selector-pseudo">:nth-last-child(n+4)</span><span class="selector-pseudo">:nth-last-child(-n+6)</span> ~ <span class="selector-tag">li</span> &#123;</div><div class="line"> <span class="comment">/* 代码*/</span></div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p><a href="http://js.jirengu.com/nirojafize/1/" target="_blank" rel="external">尝试一下吧！</a><br><a href="http://dabblet.com/gist/70c434a6e802b062f494" target="_blank" rel="external">原书代码</a></p>
+<h3 id="满幅的背景，定宽的内容"><a href="#满幅的背景，定宽的内容" class="headerlink" title="满幅的背景，定宽的内容"></a>满幅的背景，定宽的内容</h3><h4 id="难题"><a href="#难题" class="headerlink" title="难题"></a>难题</h4><p>有一种网页设计手法逐渐流行起来，我将它称作背景宽度满幅，内容宽度固定。这个设计的一些特征如下：<br>1.页面中包含多个大区块，每个区块都占据了整个视口的宽度，区块的背景也各不相同<br>2.内容是定宽的，即使在不同分辨率下的宽度不一样，那也只是因为媒体查询改变了这个固定的宽度值而已。</p>
+<h4 id="解决方案-1"><a href="#解决方案-1" class="headerlink" title="解决方案"></a>解决方案</h4><p>1.使用两个元素:外层用来实现满幅背景，内层用来实现定宽的内容，后者通过<code>margin: 0 auto</code>实现水平居中<br><figure class="highlight css"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="selector-tag">footer</span> &#123;</div><div class="line">  <span class="attribute">background</span>: <span class="number">#333</span>;</div><div class="line">&#125;</div><div class="line"><span class="selector-class">.wrapper</span> &#123;</div><div class="line">  <span class="attribute">margin</span>: <span class="number">0</span> auto;</div><div class="line">  <span class="attribute">max-width</span>: <span class="number">900px</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>2.新加的内层元素主要是设置<code>margin:0 auto</code>, 我们也可以使用 <code>margin: 0 calc(50% - 450px)</code> 来实现.<br><figure class="highlight css"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="selector-class">.wrapper</span> &#123;</div><div class="line">   <span class="attribute">margin</span>: <span class="number">0</span> <span class="built_in">calc</span>(50% - 450px);</div><div class="line">   <span class="attribute">max-width</span>: <span class="number">900px</span>;</div><div class="line"> &#125;</div></pre></td></tr></table></figure></p>
+<p>3.由于我们使用了新方法实现了水平居中，接下来我们可以去掉内层元素，将外部元素上加上<code>padding(50% - 450px);</code><br><figure class="highlight css"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="selector-tag">footer</span> &#123;</div><div class="line">  <span class="attribute">padding</span>: <span class="number">0</span> <span class="built_in">calc</span>(50% - 450px);</div><div class="line">  <span class="attribute">max-width</span>: <span class="number">900px</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p><a href="http://js.jirengu.com/kalavacebu/1/" target="_blank" rel="external">尝试一下吧！</a></p>
+<h3 id="垂直居中"><a href="#垂直居中" class="headerlink" title="垂直居中"></a>垂直居中</h3><p>1.基于绝对定位的解决方案<br>第一种方法的缺点是需要固定<code>&lt;main&gt;</code>的大小<br><figure class="highlight css"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="selector-tag">main</span><span class="selector-class">.pos1</span> &#123;</div><div class="line">  <span class="attribute">position</span>: absolute;</div><div class="line">  <span class="attribute">left</span>: <span class="number">50%</span>;</div><div class="line">  <span class="attribute">top</span>: <span class="number">50%</span>;</div><div class="line"></div><div class="line">  <span class="attribute">margin-left</span>: -<span class="number">10em</span>;</div><div class="line">  <span class="attribute">margin-top</span>: -<span class="number">3em</span>;</div><div class="line">  <span class="attribute">padding</span>: <span class="number">1em</span>;</div><div class="line">  <span class="attribute">width</span>: <span class="number">20em</span>;</div><div class="line">  <span class="attribute">height</span>: <span class="number">6em</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>第二种方案我们使用<code>tranform: translate(-50%, -50%)</code>代替负margin<br><figure class="highlight css"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="selector-tag">main</span><span class="selector-class">.pos2</span> &#123;</div><div class="line">  <span class="attribute">position</span>: absolute;</div><div class="line">  <span class="attribute">left</span>: <span class="number">50%</span>;</div><div class="line">  <span class="attribute">top</span>: <span class="number">50%</span>;</div><div class="line"></div><div class="line">  <span class="attribute">padding</span>: <span class="number">1em</span>;</div><div class="line"></div><div class="line"> <span class="attribute">transform</span>: <span class="built_in">translate</span>(-50%, -50%);</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>使用绝对定位的时候，元素不能超过视口的高度，否则超出的部分救护剪切掉。<br>2.基于视口单位的解决方案<br>使用 <code>margin:50vh auto 0;</code>来实现居中(100vh 是视口的高度)<br><figure class="highlight css"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="selector-tag">main</span><span class="selector-class">.view-height</span> &#123;</div><div class="line">  <span class="attribute">margin</span>: <span class="number">50vh</span> auto <span class="number">0</span>;</div><div class="line">  <span class="attribute">padding</span>: <span class="number">1em</span>;</div><div class="line">  <span class="attribute">width</span>: <span class="number">20em</span>;</div><div class="line"></div><div class="line">  <span class="attribute">color</span>: <span class="number">#aaa</span>;</div><div class="line">  <span class="attribute">background</span>: <span class="number">#666</span>;</div><div class="line"></div><div class="line">  <span class="attribute">transform</span>: <span class="built_in">translateY</span>(-50%);</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>基于视口单位的解决方案,效果堪称完美， 但是只适用视口居中的场景。<br>3.基于Flexbox的解决方案<br>外层容器display: flex; 内层容器 margin: auto, 在使用Flexbox时，margin：auto 不仅在水平方向上将元素居中，垂直方向上也是如此。<br><figure class="highlight css"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="selector-class">.flex-box</span> &#123;</div><div class="line">  <span class="attribute">display</span>: flex;</div><div class="line">  <span class="attribute">min-height</span>: <span class="number">200px</span>;</div><div class="line"></div><div class="line">  <span class="attribute">background</span>: yellowgreen;</div><div class="line">&#125;</div><div class="line"><span class="selector-tag">div</span><span class="selector-class">.flex-box</span> <span class="selector-tag">main</span> &#123;</div><div class="line">  <span class="attribute">margin</span>: auto;</div><div class="line">  <span class="attribute">padding</span>: <span class="number">1em</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>flexbox的另一个好处在于，我们还可以将内部没有被标签包裹的文本垂直居中。<br><figure class="highlight css"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="selector-tag">div</span><span class="selector-class">.flex-box1</span> <span class="selector-tag">main</span> &#123;</div><div class="line">  <span class="attribute">display</span>: flex;</div><div class="line"></div><div class="line">  <span class="attribute">margin</span>: auto;</div><div class="line">  <span class="attribute">padding</span>: <span class="number">1em</span>;</div><div class="line">  <span class="attribute">width</span>: <span class="number">20em</span>;</div><div class="line">  <span class="attribute">height</span>: <span class="number">5em</span>;</div><div class="line">  <span class="attribute">align-items</span>: center;</div><div class="line">  <span class="attribute">justify-content</span>: center;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>具体做法是：先给main元素制定一个固定的尺寸，然后借助Flexbox规范引入align-items: center 和justify-content: center。<br><a href="http://js.jirengu.com/razinerome/1/" target="_blank" rel="external">尝试一下吧！</a><br><a href="http://js.jirengu.com/madazidoca/1/" target="_blank" rel="external">尝试一下吧！视口单位的例子</a></p>
+<h3 id="紧贴底部的页脚"><a href="#紧贴底部的页脚" class="headerlink" title="紧贴底部的页脚"></a>紧贴底部的页脚</h3><p>1.固定宽度的解决方案<br><figure class="highlight css"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="selector-tag">main</span> &#123;</div><div class="line">  <span class="attribute">font-size</span>: <span class="number">18px</span>;</div><div class="line">  <span class="attribute">line-height</span>: <span class="number">1.5</span>;</div><div class="line">  <span class="attribute">min-height</span>: <span class="built_in">calc</span>(100vh - 220px);</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p><a href="http://js.jirengu.com/howowigomi/1/" target="_blank" rel="external">尝试一下吧！</a><br>2.更灵活的Flexbox解决方案<br>我们对body元素设置为 <code>display: flex</code> ,并且把 flex-flow 设置为<code>column</code>(默认是row 横向排列的);<br>接下来我们需要把body的<code>min-height</code>属性指定<code>100vh</code> 这样就至少会占据整个视口的高度<br><figure class="highlight css"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="selector-tag">body</span> &#123;</div><div class="line">  <span class="attribute">display</span>: flex;</div><div class="line">  <span class="attribute">flex-flow</span>: column;</div><div class="line">  <span class="attribute">min-height</span>: <span class="number">100vh</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>最后将main元素的flex 属性指定一个大于1的值（比如1即可)<br><figure class="highlight css"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="selector-tag">main</span> &#123;</div><div class="line">  <span class="attribute">flex</span>: <span class="number">1</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p><a href="http://js.jirengu.com/qewixejodu/1/" target="_blank" rel="external">尝试一下吧！</a></p>
+<hr>
+<p>参考文档：<br><a href="http://kejian.jirengu.com/web-fe3" target="_blank" rel="external">饥人谷课件-flexbox</a></p>
+<p>《css揭秘》</p>
+  
+	</div>
+		<footer class="article-footer clearfix">
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/css/">css</a>
+  </div>
+
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/css揭秘读书笔记/">css揭秘读书笔记</a>
+</div>
+
+
+<div class="article-share" id="share">
+
+  <div data-url="http://www.xiaohan80s.com/2016/09/04/css揭秘笔记/2016-9-03-part7/" data-title="第七章 结构与布局 | xiaohan80s.com" data-tsina="null" class="share clearfix">
+  </div>
+
+</div>
+</footer>
+   	       
+	</article>
+	
+<nav class="article-nav clearfix">
+ 
+ <div class="prev" >
+ <a href="/2016/09/04/css揭秘笔记/2016-9-04-part8/" title=" 第八章 过渡与动画">
+  <strong>PREVIOUS:</strong><br/>
+  <span>
+   第八章 过渡与动画</span>
+</a>
+</div>
+
+
+<div class="next">
+<a href="/2016/09/02/css揭秘笔记/2016-9-02-part6/"  title="第六章 用户体验">
+ <strong>NEXT:</strong><br/> 
+ <span>第六章 用户体验
+</span>
+</a>
+</div>
+
+</nav>
+
+	
+<section class="comment">
+	<div class="ds-thread"></div>
+</section>
+
+</div>  
+      <div class="openaside"><a class="navbutton" href="#" title="显示侧边栏"></a></div>
+
+  <div id="toc" class="toc-aside">
+  <strong class="toc-title">文章目录</strong>
+  <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#第七章-结构与布局"><span class="toc-number">1.</span> <span class="toc-text">第七章 结构与布局</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#自适应内部元素"><span class="toc-number">1.1.</span> <span class="toc-text">自适应内部元素</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#精确控制表格列宽"><span class="toc-number">1.2.</span> <span class="toc-text">精确控制表格列宽</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#根据兄弟元素的数量来设置样式"><span class="toc-number">1.3.</span> <span class="toc-text">根据兄弟元素的数量来设置样式</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#解决方案"><span class="toc-number">1.3.1.</span> <span class="toc-text">解决方案</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#根据兄弟元素的数量范围来匹配元素"><span class="toc-number">1.3.2.</span> <span class="toc-text">根据兄弟元素的数量范围来匹配元素</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#满幅的背景，定宽的内容"><span class="toc-number">1.4.</span> <span class="toc-text">满幅的背景，定宽的内容</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#难题"><span class="toc-number">1.4.1.</span> <span class="toc-text">难题</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#解决方案-1"><span class="toc-number">1.4.2.</span> <span class="toc-text">解决方案</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#垂直居中"><span class="toc-number">1.5.</span> <span class="toc-text">垂直居中</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#紧贴底部的页脚"><span class="toc-number">1.6.</span> <span class="toc-text">紧贴底部的页脚</span></a></li></ol></li></ol>
+  <div class="comment_bar"><a href="#ds-reset" target="" title="评论区">文章评论</a></div>
+  </div>
+
+<div id="asidepart">
+<div class="closeaside"><a class="closebutton" href="#" title="隐藏侧边栏"></a></div>
+<aside class="clearfix">
+
+  
+<div class="categorieslist">
+	<p class="asidetitle">分类</p>
+		<ul>
+		
+			<li><a href="/categories/css揭秘读书笔记/" title="css揭秘读书笔记">css揭秘读书笔记<sup>8</sup></a></li>
+		
+			<li><a href="/categories/js设计模式笔记/" title="js设计模式笔记">js设计模式笔记<sup>19</sup></a></li>
+		
+			<li><a href="/categories/工具/" title="工具">工具<sup>1</sup></a></li>
+		
+		</ul>
+</div>
+
+
+  
+<div class="tagslist">
+	<p class="asidetitle">标签</p>
+		<ul class="clearfix">
+		
+			<li><a href="/tags/css/" title="css">css<sup>8</sup></a></li>
+		
+			<li><a href="/tags/js/" title="js">js<sup>19</sup></a></li>
+		
+			<li><a href="/tags/js设计模式/" title="js设计模式">js设计模式<sup>14</sup></a></li>
+		
+			<li><a href="/tags/工具/" title="工具">工具<sup>1</sup></a></li>
+		
+			<li><a href="/tags/搭建博客/" title="搭建博客">搭建博客<sup>1</sup></a></li>
+		
+		</ul>
+</div>
+
+
+  
+  <div class="archiveslist">
+    <p class="asidetitle"><a href="/archives">归档</a></p>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/09/">2016 年 09 月</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/08/">2016 年 08 月</a><span class="archive-list-count">21</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/07/">2016 年 07 月</a><span class="archive-list-count">4</span></li></ul>
+  </div>
+
+
+
+  
+
+<script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"1","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"16"},"slide":{"type":"slide","bdImg":"4","bdPos":"right","bdTop":"160"}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];</script>
+
+
+</aside>
+</div>
+
+    </div>
+    <footer><div id="footer" >
+	
+	<div class="line">
+		<span></span>
+		<div class="author"></div>
+	</div>
+	
+	
+	<div class="social-font clearfix">
+		
+		
+		
+		
+		
+	</div>
+		<p class="copyright">Powered by <a href="http://hexo.io" target="_blank" title="hexo">hexo</a> and Theme by <a href="https://github.com/A-limon/pacman" target="_blank" title="Pacman">Pacman</a> © 2016
+		
+		<a href="http://www.xiaohan80s.com" target="_blank" title="xiao han 80s">xiao han 80s</a>
+		
+		</p>
+</div>
+</footer>
+    <script src="/js/jquery-2.1.0.min.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){
+  $('.navbar').click(function(){
+    $('header nav').toggleClass('shownav');
+  });
+  var myWidth = 0;
+  function getSize(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+  };
+  var m = $('#main'),
+      a = $('#asidepart'),
+      c = $('.closeaside'),
+      o = $('.openaside');
+
+  $(window).resize(function(){
+    getSize();
+    if (myWidth >= 1024) {
+      $('header nav').removeClass('shownav');
+    }else
+    {
+      m.removeClass('moveMain');
+      a.css('display', 'block').removeClass('fadeOut');
+      o.css('display', 'none');
+      
+      $('#toc.toc-aside').css('display', 'none');
+      
+    }
+  });
+  c.click(function(){
+    a.addClass('fadeOut').css('display', 'none');
+    o.css('display', 'block').addClass('fadeIn');
+    m.addClass('moveMain');
+  });
+  o.click(function(){
+    o.css('display', 'none').removeClass('beforeFadeIn');
+    a.css('display', 'block').removeClass('fadeOut').addClass('fadeIn');
+    m.removeClass('moveMain');
+  });
+  $(window).scroll(function(){
+    o.css("top",Math.max(80,260-$(this).scrollTop()));
+  });
+});
+</script>
+
+<script type="text/javascript">
+$(document).ready(function(){
+  var ai = $('.article-content>iframe'),
+      ae = $('.article-content>embed'),
+      t  = $('#toc'),
+      h  = $('article h2')
+      ah = $('article h2'),
+      ta = $('#toc.toc-aside'),
+      o  = $('.openaside'),
+      c  = $('.closeaside');
+  if(ai.length>0){
+    ai.wrap('<div class="video-container" />');
+  };
+  if(ae.length>0){
+   ae.wrap('<div class="video-container" />');
+  };
+  if(ah.length==0){
+    t.css('display','none');
+  }else{
+    c.click(function(){
+      ta.css('display', 'block').addClass('fadeIn');
+    });
+    o.click(function(){
+      ta.css('display', 'none');
+    });
+    $(window).scroll(function(){
+      ta.css("top",Math.max(140,320-$(this).scrollTop()));
+    });
+  };
+  $('.closeaside').triggerHandler('click');
+});
+</script>
+
+
+<script type="text/javascript">
+$(document).ready(function(){
+  var $this = $('.share'),
+      url = $this.attr('data-url'),
+      encodedUrl = encodeURIComponent(url),
+      title = $this.attr('data-title'),
+      tsina = $this.attr('data-tsina');
+  var html = [
+  // '<a href="#" class="overlay" id="qrcode"></a>',
+  // '<div class="qrcode clearfix"><span>扫描二维码分享到微信朋友圈</span><a class="qrclose" href="#share"></a><strong>Loading...Please wait</strong><img id="qrcode-pic" data-src="http://s.jiathis.com/qrcode.php?url=' + encodedUrl + '"/></div>',
+  '<a href="#textlogo" class="article-back-to-top" title="Top"></a>',
+  // '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+  // '<a href="#qrcode" class="article-share-qrcode" title="QRcode"></a>',
+  // '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+  // '<a href="http://service.weibo.com/share/share.php?title='+title+'&url='+encodedUrl +'&ralateUid='+ tsina +'&searchPic=true&style=number' +'" class="article-share-weibo" target="_blank" title="Weibo"></a>',
+  // '<span title="Share to"></span>'
+  ].join('');
+  $this.append(html);
+  $('.article-share-qrcode').click(function(){
+    var imgSrc = $('#qrcode-pic').attr('data-src');
+    $('#qrcode-pic').attr('src', imgSrc);
+    $('#qrcode-pic').load(function(){
+        $('.qrcode strong').text(' ');
+    });
+  });
+});
+</script>
+
+
+<script type="text/javascript">
+  var duoshuoQuery = {short_name:"xiaohan80s"};
+  (function() {
+    var ds = document.createElement('script');
+    ds.type = 'text/javascript';ds.async = true;
+    ds.src = '//static.duoshuo.com/embed.js';
+    ds.charset = 'UTF-8';
+    (document.getElementsByTagName('head')[0]
+    || document.getElementsByTagName('body')[0]).appendChild(ds);
+  })();
+</script>
+
+
+
+
+
+  </body>
+</html>

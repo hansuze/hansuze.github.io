@@ -1,0 +1,397 @@
+
+ <!DOCTYPE HTML>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  
+    <title> 第八章 过渡与动画 | xiaohan80s.com</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=3, minimum-scale=1">
+    
+    <meta name="author" content="xiao han 80s">
+    
+    <meta name="description" content="第八章 过渡与动画知识点：缓动效果 弹跳动画 弹性过渡 逐帧动画 闪烁效果 打字动画 状态平滑的动画 沿环形路径平移的动画
+缓动效果弹跳动画1.我们的第一感觉是使用CSS动画，并设置关键帧12345678.bounce1 &amp;#123;  animation: 3s bounce1;&amp;#125;@ke">
+    
+    
+    
+    
+    
+    <link rel="icon" href="/img/favicon.ico">
+    
+    
+    <link rel="apple-touch-icon" href="/img/pacman.jpg">
+    <link rel="apple-touch-icon-precomposed" href="/img/pacman.jpg">
+    
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+
+  <body>
+    <header>
+      <div>
+		
+			<div id="imglogo">
+				<a href="/"><img src="/img/logo.svg" alt="xiaohan80s.com" title="xiaohan80s.com"/></a>
+			</div>
+			
+			<div id="textlogo">
+				<h1 class="site-name"><a href="/" title="xiaohan80s.com">xiaohan80s.com</a></h1>
+				<h2 class="blog-motto">年轻 没有什么不可以!</h2>
+			</div>
+			<div class="navbar"><a class="navbutton navmobile" href="#" title="菜单">
+			</a></div>
+			<nav class="animated">
+				<ul>
+					
+						<li><a href="/">Home</a></li>
+					
+						<li><a href="/archives">Archives</a></li>
+					
+						<li><a href="/categories">Categories</a></li>
+					
+						<li><a href="/about">About</a></li>
+					
+					<li>
+					
+					<!-- <form class="search" action="//baidu.com" method="get" accept-charset="utf-8">
+						<label>Search</label>
+						<input type="text" id="search" name="q" autocomplete="off" maxlength="20" placeholder="搜索" />
+						<input type="hidden" name="q" value="site:www.xiaohan80s.com">
+					</form> -->
+					
+					</li>
+				</ul>
+			</nav>
+</div>
+
+    </header>
+    <div id="container">
+      <div id="main" class="post" itemscope itemprop="blogPost">
+	<article itemprop="articleBody"> 
+		<header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2016/09/04/css揭秘笔记/2016-9-04-part8/" title=" 第八章 过渡与动画" itemprop="url"> 第八章 过渡与动画</a>
+  </h1>
+  <p class="article-author">By
+    
+      <a href="http://www.xiaohan80s.com" title="xiao han 80s">xiao han 80s</a>
+    </p>
+  <p class="article-time">
+    <time datetime="2016-09-03T16:00:00.000Z" itemprop="datePublished">2016-09-04</time>
+    更新日期:<time datetime="2016-09-05T17:01:13.055Z" itemprop="dateModified">2016-09-06</time>
+    
+  </p>
+</header>
+	<div class="article-content">
+		
+		
+		<div id="toc" class="toc-article">
+			<strong class="toc-title">文章目录</strong>
+		<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#第八章-过渡与动画"><span class="toc-number">1.</span> <span class="toc-text">第八章 过渡与动画</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#缓动效果"><span class="toc-number">1.1.</span> <span class="toc-text">缓动效果</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#弹跳动画"><span class="toc-number">1.1.1.</span> <span class="toc-text">弹跳动画</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#弹性过渡"><span class="toc-number">1.1.2.</span> <span class="toc-text">弹性过渡</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#逐帧动画"><span class="toc-number">1.2.</span> <span class="toc-text">逐帧动画</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#难题"><span class="toc-number">1.2.1.</span> <span class="toc-text">难题</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#解决方案"><span class="toc-number">1.2.2.</span> <span class="toc-text">解决方案</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#闪烁效果"><span class="toc-number">1.3.</span> <span class="toc-text">闪烁效果</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#平滑的闪现"><span class="toc-number">1.3.1.</span> <span class="toc-text">平滑的闪现</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#普通的闪烁效果"><span class="toc-number">1.3.2.</span> <span class="toc-text">普通的闪烁效果</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#打字动画"><span class="toc-number">1.4.</span> <span class="toc-text">打字动画</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#状态平滑的动画"><span class="toc-number">1.5.</span> <span class="toc-text">状态平滑的动画</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#沿环形路径平移的动画"><span class="toc-number">1.6.</span> <span class="toc-text">沿环形路径平移的动画</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#需要两个元素的解决方案"><span class="toc-number">1.6.1.</span> <span class="toc-text">需要两个元素的解决方案</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#单个元素的解决方案"><span class="toc-number">1.6.2.</span> <span class="toc-text">单个元素的解决方案</span></a></li></ol></li></ol></li></ol>
+		</div>
+		
+		<h2 id="第八章-过渡与动画"><a href="#第八章-过渡与动画" class="headerlink" title="第八章 过渡与动画"></a>第八章 过渡与动画</h2><p>知识点：缓动效果 弹跳动画 弹性过渡 逐帧动画 闪烁效果 打字动画 状态平滑的动画 沿环形路径平移的动画</p>
+<h3 id="缓动效果"><a href="#缓动效果" class="headerlink" title="缓动效果"></a>缓动效果</h3><h4 id="弹跳动画"><a href="#弹跳动画" class="headerlink" title="弹跳动画"></a>弹跳动画</h4><p>1.我们的第一感觉是使用CSS动画，并设置关键帧<br><figure class="highlight css"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="selector-class">.bounce1</span> &#123;</div><div class="line">  <span class="attribute">animation</span>: <span class="number">3s</span> bounce1;</div><div class="line">&#125;</div><div class="line">@<span class="keyword">keyframes</span> bounce1 &#123;</div><div class="line">  60%, 80%, <span class="selector-tag">to</span> &#123;<span class="attribute">transform</span>: <span class="built_in">translateY</span>(400px);&#125;</div><div class="line">  70% &#123;<span class="attribute">transform</span>: <span class="built_in">translateY</span>(300px);&#125;</div><div class="line">  90% &#123;<span class="attribute">transforem</span>: <span class="built_in">translateY</span>(360px);&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>2.我们尝试上面的代码后发现他显得不真实，原因是每当这个小球改变运动方向时，他的移动过程都是加速的(默认调速函数是<code>ease</code>)。<br>CSS内置了几种调速函数:<br><strong>linear</strong>:<br>规定以相同速度开始至结束的过渡效果（等于 cubic-bezier(0,0,1,1)）<br><strong>ease</strong>:<br>规定慢速开始，然后变快，然后慢速结束的过渡效果（cubic-bezier(0.25,0.1,0.25,1)）。<br><strong>ease-out</strong>:<br>规定以慢速结束的过渡效果（等于 cubic-bezier(0,0,0.58,1)）。<br> 缓出效果:动画开始时比线性运动要快，然后在快结束时减速<br><strong>ease-in</strong>:<br>规定以慢速开始的过渡效果（等于 cubic-bezier(0.42,0,1,1)）。<br>缓入效果:与缓出效果相反，缓入开始慢，结束快<br><strong>ease-in-out</strong>:<br>规定以慢速开始和结束的过渡效果（等于 cubic-bezier(0.42,0,0.58,1)）。<br>回弹效果应该是一个减速的过程。我们希望下落方向的调速函数是加速的（<code>ease-out</code>)，而弹起方向上是减速的(<code>ease-in</code>)。<br><figure class="highlight css"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="selector-class">.bounce2</span> &#123;</div><div class="line">  <span class="attribute">animation</span>: <span class="number">3s</span> bounce2 ease-in;</div><div class="line">&#125;</div><div class="line">@<span class="keyword">keyframes</span> bounce2 &#123;</div><div class="line">  60%, 80%, <span class="selector-tag">to</span> &#123;</div><div class="line">    <span class="attribute">transform</span>: <span class="built_in">translateY</span>(400px);</div><div class="line">    <span class="attribute">animation-timing-function</span>: ease-out;</div><div class="line">  &#125;</div><div class="line">  70% &#123;<span class="attribute">transform</span>: <span class="built_in">translateY</span>(300px);&#125;</div><div class="line">  90% &#123;<span class="attribute">transform</span>: <span class="built_in">translateY</span>(360px);&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>3.如果这个回弹效果是模拟自由落体的，那么一个更高的加速度(类似ease所提供的效果)更加真实。<br>另外回弹的减速可以使用CSS提供的 cubic-bezier()来制定自定义的调速函数。<br>ease的贝塞尔曲线是：<code>cubic-bezier(0.25, 0.1, 0.25, 1)</code>，我们将横纵坐标反转就可以得到减速效果:<code>cubic-bezier(.1, .25, 1, .25)</code><br><figure class="highlight css"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="selector-class">.bounce3</span> &#123;</div><div class="line">  <span class="attribute">animation</span>:bounce3 <span class="number">3s</span>;</div><div class="line">  <span class="attribute">animation-timing-function</span>: <span class="built_in">cubic-bezier</span>(.1, .25, 1, .25);</div><div class="line">&#125;</div><div class="line">@<span class="keyword">keyframes</span> bounce3 &#123;</div><div class="line">  60%, 80%, <span class="selector-tag">to</span> &#123;</div><div class="line">    <span class="attribute">transform</span>: <span class="built_in">translateY</span>(400px);</div><div class="line">    <span class="attribute">animation-timing-function</span>: ease;</div><div class="line">  &#125;</div><div class="line">  70% &#123;<span class="attribute">transform</span>: <span class="built_in">translateY</span>(300px);&#125;</div><div class="line">  90% &#123;<span class="attribute">transform</span>: <span class="built_in">translateY</span>(360px);&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p><a href="http://js.jirengu.com/howexetaxa/1/" target="_blank" rel="external">尝试一下吧！</a></p>
+<h4 id="弹性过渡"><a href="#弹性过渡" class="headerlink" title="弹性过渡"></a>弹性过渡</h4><p>1.我们在input 聚焦时触发提示框 代码如下<br><figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">label</span>&gt;</span></div><div class="line">  姓名:<span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"text"</span> <span class="attr">id</span>=<span class="string">"username"</span>&gt;</span></div><div class="line">  <span class="tag">&lt;<span class="name">span</span> <span class="attr">class</span>=<span class="string">"callout callout1"</span>&gt;</span></div><div class="line">    只能录入字母数字和下划线和横线</div><div class="line">  <span class="tag">&lt;/<span class="name">span</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">label</span>&gt;</span></div><div class="line"></div><div class="line">input + .callout &#123;</div><div class="line">  transform-origin: 1.4em calc(-.4em - 1px);</div><div class="line">&#125;</div><div class="line"></div><div class="line">input:not(:focus) + .callout1 &#123;</div><div class="line">  transform: scale(0);</div><div class="line">&#125;</div><div class="line">input + .callout1 &#123;</div><div class="line">  transition: .5s transform;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>2.我们在过渡的结尾再夸张一下(先扩大到110% 再缩回100%)，我们把过渡改成一个动画。(但实际上没有出来书上要求效果…)<br><figure class="highlight css"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line"><span class="selector-tag">input</span> + <span class="selector-class">.callout2</span> &#123;</div><div class="line">  <span class="attribute">transition</span>: .<span class="number">5s</span> transform;</div><div class="line">&#125;</div><div class="line"><span class="selector-tag">input</span><span class="selector-pseudo">:not(</span><span class="selector-pseudo">:focus)</span> + <span class="selector-class">.callout2</span> &#123;</div><div class="line">  <span class="attribute">transform</span>: <span class="built_in">scale</span>(0);</div><div class="line">&#125;</div><div class="line"><span class="selector-tag">input</span><span class="selector-pseudo">:focus</span> + <span class="selector-class">.callout2</span> &#123;</div><div class="line">  <span class="attribute">animation</span>: .<span class="number">5s</span> grow ;</div><div class="line">&#125;</div><div class="line"></div><div class="line">@<span class="keyword">keyframes</span> grow &#123;</div><div class="line">  <span class="selector-tag">from</span> &#123;<span class="attribute">transfrom</span>: <span class="built_in">scale</span>(0);&#125;</div><div class="line">  70% &#123;</div><div class="line">    <span class="attribute">transform</span>: <span class="built_in">scale</span>(1.1);</div><div class="line">    <span class="attribute">transition-timing-function</span>: <span class="built_in">cubic-bezier</span>(.1, .25, 1, .25);</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>3.我们使用在 <code>transition</code> 上自定义调速函数 <code>cubic-bezier()</code>来实现相同的效果。<br>我们在垂直方向上突破 0~1 区间，从而在过度达到低于 0 或者高于 100% 的程度。<br><figure class="highlight css"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="selector-tag">input</span><span class="selector-pseudo">:not(</span><span class="selector-pseudo">:focus)</span> + <span class="selector-class">.callout3</span> &#123;</div><div class="line">  <span class="attribute">transform</span>: <span class="built_in">scale</span>(0);</div><div class="line">&#125;</div><div class="line"><span class="selector-tag">input</span> + <span class="selector-class">.callout3</span> &#123;</div><div class="line">  <span class="attribute">transition</span>: .<span class="number">5s</span> transform <span class="built_in">cubic-bezier</span>(.25, .1, .3, 1.5)</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>4.我们在提示框缩小的时候发现会跳动一下，原因是在缩小的时候也会达到 110%的变形程度，只不过在这里110% 的变形会解析成 <code>scale(-0.1)</code> 所以我们在缩小的时候指定为 <code>ease</code><br><figure class="highlight css"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="selector-tag">input</span><span class="selector-pseudo">:not(</span><span class="selector-pseudo">:focus)</span> + <span class="selector-class">.callout4</span> &#123;</div><div class="line">  <span class="attribute">transform</span>: <span class="built_in">scale</span>(0);</div><div class="line">  <span class="attribute">transition-timing-function</span>: ease;</div><div class="line">&#125;</div><div class="line"><span class="selector-tag">input</span> + <span class="selector-class">.callout4</span> &#123;</div><div class="line">  <span class="attribute">transition</span>: .<span class="number">5s</span> transform <span class="built_in">cubic-bezier</span>(.25, .1, .3, 1.5)</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>5.我们发现缩小的时候在50%的时候其实已经达到100% 了(50% 达到100% 70% 达到 110%)，所以我们把回弹的时间改为一半时间, transition 的默认调速函数是ease 可以省略.<br><figure class="highlight css"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="selector-tag">input</span><span class="selector-pseudo">:not(</span><span class="selector-pseudo">:focus)</span> + <span class="selector-class">.callout5</span> &#123;</div><div class="line">  <span class="attribute">transform</span>: <span class="built_in">scale</span>(0);</div><div class="line">  <span class="attribute">transition</span>: .<span class="number">25s</span>;</div><div class="line">&#125;</div><div class="line"><span class="selector-tag">input</span> + <span class="selector-class">.callout5</span> &#123;</div><div class="line">  <span class="attribute">transition</span>: .<span class="number">5s</span> transform <span class="built_in">cubic-bezier</span>(.25, .1, .3, 1.5)</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p><a href="http://js.jirengu.com/yutarelole/1/" target="_blank" rel="external">尝试一下吧！</a></p>
+<h3 id="逐帧动画"><a href="#逐帧动画" class="headerlink" title="逐帧动画"></a>逐帧动画</h3><h4 id="难题"><a href="#难题" class="headerlink" title="难题"></a>难题</h4><p>很多时候，我们需要一个很难(或者不可能)只通过某些CSS 属性的过度来实现的动画。比如一段卡通影片，或是一个复杂的进度提示框。在这种场景下，基于铜牌的逐帧动画才是完美的选择。<br>看到这里，你可能会产生这样一种疑问:”难道不能用GIF动画吗？” 在大多数情况下 GIF动画可以完美胜任。但是在某些场景下可能会大打折扣。<br>1.GIF所能使用的颜色数量被限制在256色<br>2.GIF不具有Alpha透明的特性<br>3.我们无法咋CSS层面修改动画的参数，比如动画的持续时间，循环次数，是否暂停等。只能通过图像处理软件重新生成。</p>
+<h4 id="解决方案"><a href="#解决方案" class="headerlink" title="解决方案"></a>解决方案</h4><p>1.我们将动画所有帧全部拼接到一张png图片中，然后用一个元素来容纳这个加载提示（别忘了里面写一些文字来确保可访问性），并把他的宽高设置为单帧的尺寸.我们通过设置<code>background-position</code>的值来移动图片<br><figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"loader1"</span>&gt;</span>loading...<span class="tag">&lt;/<span class="name">div</span>&gt;</span></div><div class="line"></div><div class="line">.loader1 &#123;</div><div class="line">  width: 100px;</div><div class="line">  height:100px;</div><div class="line"></div><div class="line">  /* 把文字隐藏起来 */</div><div class="line">  text-indent: 200%;</div><div class="line">  white-space: nowrap;</div><div class="line">  overflow: hidden;</div><div class="line"></div><div class="line">  background: url(http://ob53pbgjl.bkt.clouddn.com/loader.png) 0 0;</div><div class="line"></div><div class="line">  animation: 1s loader1 infinite linear;</div><div class="line">&#125;</div><div class="line">@keyframes loader1 &#123;</div><div class="line">  to &#123;background-position: -800px 0;&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>2.使用steps()函数会根据你指定的步进数量把整个动画分为多帧，而且整个动画会在帧和帧之间硬切。<br><figure class="highlight css"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line">      <span class="selector-class">.loader2</span> &#123;</div><div class="line">        <span class="attribute">width</span>: <span class="number">100px</span>;</div><div class="line">        <span class="attribute">height</span>: <span class="number">100px</span>;</div><div class="line"></div><div class="line">        <span class="attribute">background</span>: <span class="built_in">url</span>(http://ob53pbgjl.bkt.clouddn.com/loader.png) <span class="number">0</span> <span class="number">0</span>;</div><div class="line"></div><div class="line">        <span class="attribute">text-indent</span>: <span class="number">200%</span>;</div><div class="line">        <span class="attribute">white-space</span>: nowrap;</div><div class="line">        <span class="attribute">overflow</span>: hidden;</div><div class="line"></div><div class="line">        <span class="attribute">animation</span>: <span class="number">1s</span> loader2 infinite <span class="built_in">steps</span>(8);</div><div class="line">      &#125;</div><div class="line">      @<span class="keyword">keyframes</span> loader2 &#123;</div><div class="line">        <span class="selector-tag">to</span> &#123;<span class="attribute">background-position</span>: -<span class="number">800px</span> <span class="number">0</span>;&#125;</div><div class="line">      &#125;</div><div class="line">`</div></pre></td></tr></table></figure></p>
+<p>3.另外step还接受可选的第二个参数，其值可以是start或end（默认是end），这个参数用于指定动画在每个循环周期的什么位置发生帧的切换动作，但实际上用得并不多。如果我们需要一个单步切换的效果，还可以使用<code>step-start</code> 和<code>step-end</code>这样的简写属性，他们分别等同于 <code>steps(1, start)</code> 和<code>steps(1, end)</code><br><a href="http://js.jirengu.com/vosupusefa/1/" target="_blank" rel="external">尝试一下吧！</a></p>
+<h3 id="闪烁效果"><a href="#闪烁效果" class="headerlink" title="闪烁效果"></a>闪烁效果</h3><h4 id="平滑的闪现"><a href="#平滑的闪现" class="headerlink" title="平滑的闪现"></a>平滑的闪现</h4><p>1.要实现一个平滑的闪烁效果，我们的第一步可能是这样的<br><figure class="highlight css"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="selector-class">.blink-smooth1</span> &#123;</div><div class="line">  <span class="attribute">animation</span>: <span class="number">1s</span> blinkSmooth1 <span class="number">3</span>;</div><div class="line">&#125;</div><div class="line">@<span class="keyword">keyframes</span> blinkSmooth1 &#123;</div><div class="line">  <span class="selector-tag">to</span>&#123;<span class="attribute">color</span>: transparent;&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>这基本上成功了，这段文字可以平滑地从他原来的颜色变为透明色，但随后又生硬的跳回原来的颜色<br>2.修改关键帧，让状态的切换发生在每个循环的中间<br><figure class="highlight css"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="selector-class">.blink-smooth2</span> &#123;</div><div class="line">  <span class="attribute">animation</span>: <span class="number">1s</span> blinkSmooth2 <span class="number">3</span>;</div><div class="line">&#125;</div><div class="line">@<span class="keyword">keyframes</span> blinkSmooth2 &#123;</div><div class="line">  50% &#123;<span class="attribute">color</span>: transparent;&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>3.现在他似乎就是我们所期望的效果了。不过这里还有一个问题，虽然在这个特定的动画中表现的不是很明显，但我们心里一定要明白：这个动画一直是处在加速过程中的，不论在文字显现时还是隐去时。<br>在这种情况下我们可以使用<code>animation-direction</code>，他有4个值，这里我们使用<code>alternate</code>.<br>normal: 不反转<br>reverse: 反转每一个循环周期<br>alternate: 在第偶数个循环周期反转<br>alternate-reverse: 在第基数个循环周期反转<br><figure class="highlight css"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="selector-class">.blink-alternate</span> &#123;</div><div class="line">  <span class="attribute">animation</span>: .<span class="number">5s</span> blinkSmooth3 alternate <span class="number">6</span>;</div><div class="line">&#125;</div><div class="line">@<span class="keyword">keyframes</span> blinkSmooth3 &#123;</div><div class="line">  <span class="selector-tag">to</span> &#123;<span class="attribute">color</span>: transparent;&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<h4 id="普通的闪烁效果"><a href="#普通的闪烁效果" class="headerlink" title="普通的闪烁效果"></a>普通的闪烁效果</h4><p>如果我们想得到最普通的那种闪烁效果呢？<br>1.首先我们想到的可能是<br><figure class="highlight css"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="selector-class">.blink-step1</span> &#123;</div><div class="line">  <span class="attribute">animation</span>: <span class="number">1s</span> blinkStep1 <span class="built_in">steps</span>(1) <span class="number">3</span>;</div><div class="line">&#125;</div><div class="line">@<span class="keyword">keyframes</span> blinkStep1 &#123;</div><div class="line">  <span class="selector-tag">to</span> &#123;<span class="attribute">color</span>: transparent;&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>但是我们发现什么动静也没有。原因在用<code>steps(1)</code> 等同与 <code>steps(1, end)</code>颜色值的切换只在动画的末尾处切换。所以我们看到初始值贯穿于整个动画周期，而中止值(透明)只在动画结尾的无限短时间点内出现。<br>使用<code>steps(1, start)</code>得到的是动画全程透明<br>2.接下来我们使用<code>steps(2)</code>来碰碰运气<br><code>steps(2, start)</code>: 半透明变为透明<br><code>steps(2, end)</code>: 实色变为半透明<br>3.唯一的解决方案是调整动画的关键帧，让切换动作发生在50% 处<br><figure class="highlight css"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="selector-class">.blink-step5</span> &#123;</div><div class="line">  <span class="attribute">animation</span>: <span class="number">1s</span> blinkStep5 <span class="built_in">steps</span>(2, end) <span class="number">3</span>;</div><div class="line">&#125;</div><div class="line">@<span class="keyword">keyframes</span> blinkStep5 &#123;</div><div class="line">  50% &#123;<span class="attribute">color</span>: transparent;&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p><a href="http://js.jirengu.com/memeqofako/1/" target="_blank" rel="external">尝试一下吧！</a></p>
+<h3 id="打字动画"><a href="#打字动画" class="headerlink" title="打字动画"></a>打字动画</h3><p>难题：<br>有些时候，我们希望一段文本总的字符逐个出现，模拟出一种打字的效果：用等宽字体可以营造出一种终端命令行的感觉。<br>解决方案：<br>核心思路就是让容器的宽度成为动画的主体：把所有文本包裹在这个容器中，然后让的宽度从0开始以步进动画的方式、一个字一个字地扩张到应有的宽度.<br>这个方法是有局限的：他并不适用与多行文本。但在绝大多数情况下，我们都应用在类似标题的单行文本中。<br>1.我们添加一个 h1 在h1上加入动画，让他的宽度从0 变化到完整的宽度使用，使用<code>white-space: no-wrap;</code> + <code>overflow: hidden</code> 避免换行.<br><figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">h1</span> <span class="attr">class</span>=<span class="string">"typing1"</span>&gt;</span>CSS is awesome!<span class="tag">&lt;/<span class="name">h1</span>&gt;</span></div><div class="line"></div><div class="line">  h1.typing1 &#123;</div><div class="line">    overflow: hidden;</div><div class="line"></div><div class="line">    width: 7.7em;   /* 文本的宽度 */</div><div class="line"></div><div class="line">    white-space: nowrap;</div><div class="line"></div><div class="line">    animation: 8s typing ;</div><div class="line">  &#125;</div><div class="line">  @keyframes typing &#123;</div><div class="line">    from &#123;width: 0;&#125;</div><div class="line">  &#125;</div></pre></td></tr></table></figure></p>
+<p>2.我们在上面遇到两个问题：一个问题是动画是平滑连贯的，不是逐字出现的。另一个问题是我们指定的宽度是 7.7em 这个宽度是怎么算出来的？ 我们使用steps()来解决第一个问题，第二个问题我们使用一个CSS3中的新单位 <code>ch</code>,表示”0”字形的宽度。在等宽的字体中，<code>0</code>字形的宽度和其他所有字形的宽度是一样的。<br><figure class="highlight css"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="selector-tag">h1</span><span class="selector-class">.typing2</span> &#123;</div><div class="line">  <span class="attribute">overflow</span>: hidden;</div><div class="line"></div><div class="line">  <span class="attribute">width</span>: <span class="number">15ch</span>;</div><div class="line"></div><div class="line">  <span class="attribute">white-space</span>: nowrap;</div><div class="line"></div><div class="line">  <span class="attribute">animation</span>: <span class="number">8s</span> typing <span class="built_in">steps</span>(15);</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>3.我们再给他加上一个闪烁的光标，我们可以使用伪元素或者右边框来实现， 闪烁效果可以参考上一节的闪烁动画原理<br><figure class="highlight css"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"><span class="selector-tag">h1</span><span class="selector-class">.typing3</span> &#123;</div><div class="line">  <span class="attribute">overflow</span>: hidden;</div><div class="line"></div><div class="line">  <span class="attribute">width</span>: <span class="number">15ch</span>;</div><div class="line">  <span class="attribute">border-right</span>: .<span class="number">05em</span> solid;</div><div class="line"></div><div class="line">  <span class="attribute">white-space</span>: nowrap;</div><div class="line"></div><div class="line">  <span class="attribute">animation</span>: <span class="number">6s</span> typing <span class="built_in">steps</span>(15),</div><div class="line">             <span class="number">1s</span> caret <span class="built_in">steps</span>(1) infinite;</div><div class="line">&#125;</div><div class="line">@<span class="keyword">keyframes</span> caret &#123;</div><div class="line">  50% &#123;<span class="attribute">border-right-color</span>: transparent;&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>4.最后使用JS实现自动化，我们可以不用在CSS指定宽度和步数了<br><figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div></pre></td><td class="code"><pre><div class="line">      h1.typing4 &#123;</div><div class="line">        overflow: hidden;</div><div class="line"></div><div class="line">        border-right: .05em solid;</div><div class="line"></div><div class="line">        white-space: nowrap;</div><div class="line"></div><div class="line">        animation: 6s typing,</div><div class="line">                   1s caret infinite;</div><div class="line">      &#125;</div><div class="line">      </div><div class="line">      <span class="tag">&lt;<span class="name">h1</span> <span class="attr">class</span>=<span class="string">"typing5"</span>&gt;</span>CSS is awesome!<span class="tag">&lt;/<span class="name">h1</span>&gt;</span></div><div class="line">      <span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="undefined"></span></div><div class="line">        document.querySelectorAll('h1.typing5').forEach(function(h1) &#123;</div><div class="line">                console.log(h1);</div><div class="line">          var len = h1.textContent.length,</div><div class="line">              s = h1.style;</div><div class="line"></div><div class="line">          s.width = len + 'ch';</div><div class="line">          s.animationTimingFunction = 'steps('+ len + '), steps(1)';</div><div class="line">        &#125;);</div><div class="line">      <span class="tag">&lt;/<span class="name">script</span>&gt;</span></div><div class="line">`</div></pre></td></tr></table></figure></p>
+<p>5.如果浏览器不支持ch 我们可以在CSS里面补上一行以em单位作为回退样式，如果你不希望在回退结果中看到一个不能闪烁的光标。可以把生成光标的边框样式写到动画中，当浏览器不支持动画是，就指挥显示出一条看不见的透明框了.<br><figure class="highlight css"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="selector-tag">h1</span><span class="selector-class">.typing5</span> &#123;</div><div class="line">  <span class="comment">/* 其他省略*/</span></div><div class="line">  <span class="attribute">width</span>: <span class="number">7.7em</span>;</div><div class="line">&#125;</div><div class="line">@<span class="keyword">keyframes</span> caret1 &#123;</div><div class="line">   50% &#123;<span class="attribute">border-right-color</span>: currentColor;&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>(我觉得最好把宽度的设定写到JS中，把h1设置为 inline-block; 然后使用JS计算宽度： 例如<code>getBoundingClientRect().right -getBoundingClientRect().left</code>, 这个是border-box 的宽度,还需要减去右边框的宽度.)</p>
+<h3 id="状态平滑的动画"><a href="#状态平滑的动画" class="headerlink" title="状态平滑的动画"></a>状态平滑的动画</h3><p>假设我们有一张非常长的宽幅照片，但我们只能提供一个 150 * 150的正方形区域来展示他。为了突破这种窘境，我们想到了动画的方法，在默认情况下只显示这张照片的左边缘，当用户跟他交互（比如鼠标悬停）的时候，让他滚动屏露出剩余的部分。<br>1.下面是这个正方形区域的CSS代码<br><figure class="highlight css"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="selector-class">.flow-img1</span> &#123;</div><div class="line">  <span class="attribute">width</span>: <span class="number">150px</span>;</div><div class="line">  <span class="attribute">height</span>: <span class="number">150px</span>;</div><div class="line">  <span class="attribute">background</span>: <span class="built_in">url</span>(http://ob53pbgjl.bkt.clouddn.com/panoramic.png);</div><div class="line">  <span class="attribute">background-size</span>: auto <span class="number">100%</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>2.我们通过改变background-position让图片动起来<br><figure class="highlight css"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="selector-class">.flow-img2</span> &#123;</div><div class="line">  <span class="attribute">width</span>: <span class="number">150px</span>;</div><div class="line">  <span class="attribute">height</span>: <span class="number">150px</span>;</div><div class="line">  <span class="attribute">background</span>: <span class="built_in">url</span>(http://ob53pbgjl.bkt.clouddn.com/panoramic.png);</div><div class="line">  <span class="attribute">background-size</span>: auto <span class="number">100%</span>;</div><div class="line">  <span class="attribute">animation</span>: <span class="number">4s</span> moveImage alternate infinite;</div><div class="line">&#125;</div><div class="line"></div><div class="line">@<span class="keyword">keyframes</span> moveImage &#123;</div><div class="line">  <span class="selector-tag">to</span> &#123;<span class="attribute">background-position</span>: <span class="number">100%</span> <span class="number">0</span>;&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>3.如果是用户悬停时动画才开始播放，那就更加理想了，于是，我们将动画部分移到<code>.flow-img3:hover</code> 中<br><figure class="highlight css"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="selector-class">.flow-img3</span> &#123;</div><div class="line">  <span class="attribute">width</span>: <span class="number">150px</span>;</div><div class="line">  <span class="attribute">height</span>: <span class="number">150px</span>;</div><div class="line">  <span class="attribute">background</span>: <span class="built_in">url</span>(http://ob53pbgjl.bkt.clouddn.com/panoramic.png);</div><div class="line">  <span class="attribute">background-size</span>: auto <span class="number">100%</span>;</div><div class="line">&#125;</div><div class="line"><span class="selector-class">.flow-img3</span><span class="selector-pseudo">:hover</span>,</div><div class="line"><span class="selector-class">.flow-img3</span><span class="selector-pseudo">:focus</span> &#123;</div><div class="line">  <span class="attribute">animation</span>: <span class="number">4s</span> moveImage alternate infinite;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>4.上面的动画当我们鼠标悬停到图片上，他可以左右移动。但是当我们将鼠标移走，他会生硬的跳回到最左侧。这时候我们换个角度思考：当触发hover时移动动画，当失去hover时暂停动画。于是我们使用<code>animation-play-state</code>来实现，在初始阶段动画是暂停状态(paused)，当鼠标悬停到图片时，动画才播放(running)。<br><figure class="highlight css"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"><span class="selector-class">.flow-img4</span> &#123;</div><div class="line">  <span class="attribute">width</span>: <span class="number">150px</span>;</div><div class="line">  <span class="attribute">height</span>: <span class="number">150px</span>;</div><div class="line">  <span class="attribute">background</span>: <span class="built_in">url</span>(http://ob53pbgjl.bkt.clouddn.com/panoramic.png);</div><div class="line">  <span class="attribute">background-size</span>: auto <span class="number">100%</span>;</div><div class="line">  <span class="attribute">animation</span>: <span class="number">4s</span> moveImage alternate infinite;</div><div class="line">  <span class="attribute">animation-play-state</span>: paused;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="selector-class">.flow-img4</span><span class="selector-pseudo">:hover</span>,</div><div class="line"><span class="selector-class">.flow-img4</span><span class="selector-pseudo">:focus</span> &#123;</div><div class="line">  <span class="attribute">animation-play-state</span>:running;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p><a href="http://js.jirengu.com/xezimozahu/1/" target="_blank" rel="external">尝试一下吧！</a></p>
+<h3 id="沿环形路径平移的动画"><a href="#沿环形路径平移的动画" class="headerlink" title="沿环形路径平移的动画"></a>沿环形路径平移的动画</h3><p>接下来要讨论的是一个简单的例子，我们会让一幅头像图片沿着环形路径动起来.<br><figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"path-default path1"</span>&gt;</span></div><div class="line">  <span class="tag">&lt;<span class="name">img</span> <span class="attr">class</span>=<span class="string">"avator"</span> <span class="attr">src</span>=<span class="string">"http://ob53pbgjl.bkt.clouddn.com/adamcatlace.png"</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></div><div class="line"></div><div class="line">.path1 &gt; .avator &#123;</div><div class="line">  animation: spin1 3s linear infinite;</div><div class="line">  transform-origin: 50% 150px;</div><div class="line">&#125;</div><div class="line"></div><div class="line">@keyframes spin1 &#123;</div><div class="line">  to &#123;transform: rotate(1turn);&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>这一步迈出的方向是正确的，但问题在于，他不仅让头像沿着环形路径转动，同时还会让头像自身旋转。如果有文字的话，那文字也会是点到的。我们希望他只是沿着环形进行移动，同时保持自己本来的方向</p>
+<h4 id="需要两个元素的解决方案"><a href="#需要两个元素的解决方案" class="headerlink" title="需要两个元素的解决方案"></a>需要两个元素的解决方案</h4><p>这个方法的主要思路是：内层的变形来抵消外层的变形效果,这种技巧在实现平行四边形时介绍过.不过这一次可不是静态抵消了，这一次的抵消作用是贯穿整个动画的没一帧的.<br>具体做法是 在<code>&lt;image&gt;</code>的外层套上一层<code>&lt;div&gt;</code>，我们让外层按照原来的动画旋转，内层<code>&lt;image&gt;</code>按照相反的方向旋转<br><figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line">  <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"path-default path2"</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"avator"</span>&gt;</span></div><div class="line">      <span class="tag">&lt;<span class="name">img</span> <span class="attr">src</span>=<span class="string">"http://ob53pbgjl.bkt.clouddn.com/adamcatlace.png"</span>&gt;</span></div><div class="line">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></div><div class="line"></div><div class="line">  .path2 .avator &#123;</div><div class="line">    animation: spin1 3s linear infinite;</div><div class="line">    transform-origin:50% 150px;</div><div class="line">  &#125;</div><div class="line">  .path2 img &#123;</div><div class="line">    animation: spin1 3s linear infinite reverse;</div><div class="line">  &#125;</div><div class="line">  @keyframes spin1 &#123;</div><div class="line">    to &#123;transform: rotate(1turn);&#125;</div><div class="line">  &#125;</div></pre></td></tr></table></figure></p>
+<h4 id="单个元素的解决方案"><a href="#单个元素的解决方案" class="headerlink" title="单个元素的解决方案"></a>单个元素的解决方案</h4><p>上面的技巧很有效，但还不够理想，因为他需要修改HTML结构。<br>原因是我们需要指定两个变形原点 <code>transform-origin</code>。本书的作者就给CSS工作组写邮件，要求允许为同一个元素制定多个变形圆点，这样的话，只需要一个元素就可以实现本节讨论的动画效果了，因此这看起来是一个非常合理的要求</p>
+<p>这次讨论相当激烈，把讨论推向高潮的正是CSS变形规范当时的意味编辑(Aryeh Gregor 我真是服了这个人的脑子了)所说的让人一时摸不着头脑的话：<br>transform-origin 知识一个语法糖而已。实际上你总是可以用 <code>translate()</code>来替代它。<br>他确实一语道破天机：每个transform-origin 都是可以被两个<code>translate()</code>模拟出来的，比如下面的代码是等效的<br><figure class="highlight css"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="selector-class">.box1</span> &#123;</div><div class="line">  <span class="attribute">transform</span>:<span class="built_in">rotate</span>(-30deg);</div><div class="line">  <span class="attribute">transform-origin</span>: <span class="number">260px</span> <span class="number">250px</span>;</div><div class="line">&#125;</div><div class="line"><span class="selector-class">.box2</span> &#123;</div><div class="line">  <span class="attribute">transform</span>: <span class="built_in">translate</span>(260px, 250px)</div><div class="line">             <span class="built_in">rotate</span>(-30deg)</div><div class="line">             <span class="built_in">translate</span>(-260px, -250px);</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p><a href="http://js.jirengu.com/xanipujuce/1/" target="_blank" rel="external">这是示意图</a></p>
+<p>1.借助这个思路，我们就可以基于同一个<code>transform-origin</code>来实现前面用到的两个旋转动画(我们会把动画分成两套，因为他们现在的关键帧已经完全不一样了)<br><figure class="highlight css"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div></pre></td><td class="code"><pre><div class="line">@<span class="keyword">keyframes</span>  spin3&#123;</div><div class="line">  <span class="selector-tag">from</span> &#123;</div><div class="line">    <span class="attribute">transform</span>: <span class="built_in">translate</span>(50%, 150px)</div><div class="line">               <span class="built_in">rotate</span>(0)</div><div class="line">               <span class="built_in">translate</span>(-50%, -150px);</div><div class="line">  &#125;</div><div class="line">  <span class="selector-tag">to</span> &#123;</div><div class="line">    <span class="attribute">transform</span>: <span class="built_in">translate</span>(50%, 150px)</div><div class="line">               <span class="built_in">rotate</span>(1turn)</div><div class="line">               <span class="built_in">translate</span>(50%, -150px);</div><div class="line">  &#125;</div><div class="line">&#125;</div><div class="line">@<span class="keyword">keyframes</span> spin3Reverse &#123;</div><div class="line">  <span class="selector-tag">from</span> &#123;</div><div class="line">    <span class="attribute">transform</span>: <span class="built_in">translate</span>(50%, 50%)</div><div class="line">               <span class="built_in">rotate</span>(1turn)</div><div class="line">               <span class="built_in">translate</span>(-50%, -50%);</div><div class="line">  &#125;</div><div class="line">  <span class="selector-tag">to</span> &#123;</div><div class="line">    <span class="attribute">transform</span>: <span class="built_in">translate</span>(50%, 50%)</div><div class="line">               <span class="built_in">rotate</span>(0)</div><div class="line">               <span class="built_in">translate</span>(-50%, -50%);</div><div class="line">  &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="selector-class">.path3</span> <span class="selector-class">.avator</span> &#123;</div><div class="line">  <span class="attribute">animation</span>: spin3 <span class="number">3s</span> linear infinite;</div><div class="line">  <span class="attribute">transform-origin</span>: <span class="number">0</span> <span class="number">0</span>;</div><div class="line">&#125;</div><div class="line"><span class="selector-class">.path3</span> <span class="selector-tag">img</span> &#123;</div><div class="line">  <span class="attribute">animation</span>: spin3Reverse <span class="number">3s</span> linear infinite;</div><div class="line">  <span class="attribute">transform-origin</span>: <span class="number">0</span> <span class="number">0</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>2.上面这段看起来臃肿可怕，但别着急，接下来我们会大幅度改进他。请注意我们现在已经不需要不同的变形原点了，而这正是之前需要两个元素(两个动画)的唯一理由。我们现在可以把两套动画合并为一套，并去掉外层元素。<br><figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"path-default path-sig path4"</span>&gt;</span></div><div class="line">  <span class="tag">&lt;<span class="name">img</span> <span class="attr">class</span>=<span class="string">"avator"</span> <span class="attr">src</span>=<span class="string">"http://ob53pbgjl.bkt.clouddn.com/adamcatlace.png"</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></div><div class="line"></div><div class="line">  .path-sig .avator &#123;</div><div class="line">    animation: spin4 3s linear infinite;</div><div class="line">    transform-origin: 0 0;</div><div class="line">  &#125;</div><div class="line">  @keyframes spin4 &#123;</div><div class="line">    from &#123;</div><div class="line">      transform: translate(50%, 150px)</div><div class="line">                 rotate(0)</div><div class="line">                 translate(-50%, -150px)</div><div class="line">                 translate(50%, 50%)</div><div class="line">                 rotate(1turn)</div><div class="line">                 translate(-50%, -50%);</div><div class="line">    &#125;</div><div class="line">    to &#123;</div><div class="line">      transform: translate(50%, 150px)</div><div class="line">                 rotate(1turn)</div><div class="line">                 translate(-50%, -150px)</div><div class="line">                 translate(50%, 50%)</div><div class="line">                 rotate(0)</div><div class="line">                 translate(-50%, -50%);</div><div class="line">    &#125;</div><div class="line">  &#125;</div></pre></td></tr></table></figure></p>
+<p>3.上面的代码仍然比较长并难以理解。我们先从最简单的入手，把连续的<code>translate()</code>合并起来<br>我们将中间的 translate(-50%, -150px) translate(50%, 50%)变为 translateY(-150px) translateY(50%);因为水平方向上可以抵消.<br><figure class="highlight css"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line">@<span class="keyword">keyframes</span> spin5 &#123;</div><div class="line">  <span class="selector-tag">from</span> &#123;</div><div class="line">    <span class="attribute">transform</span>: <span class="built_in">translate</span>(50%, 150px)</div><div class="line">               <span class="built_in">rotate</span>(0)</div><div class="line">               <span class="built_in">translateY</span>(-150px)</div><div class="line">               <span class="built_in">translateY</span>(50%)</div><div class="line">               <span class="built_in">rotate</span>(1turn)</div><div class="line">               <span class="built_in">translate</span>(-50%, -50%);</div><div class="line">  &#125;</div><div class="line">  <span class="selector-tag">to</span> &#123;</div><div class="line">    <span class="attribute">transform</span>: <span class="built_in">translate</span>(50%, 150px)</div><div class="line">               <span class="built_in">rotate</span>(1turn)</div><div class="line">               <span class="built_in">translateY</span>(-150px)</div><div class="line">               <span class="built_in">translateY</span>(50%)</div><div class="line">               <span class="built_in">rotate</span>(0)</div><div class="line">               <span class="built_in">translate</span>(-50%, -50%);</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>4.这样代码会稍短一些，重复度也稍低一些，但还不够好。如果<strong>我们把头像放在圆心并以此作为起点</strong>(这里我把起点理解为变形原点)，我们就可以消除最开始和结尾的那两个位移操作了，而实际上这两个位移本质上所做的就是把他放在圆心。<br><figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"path-default  path6"</span>&gt;</span></div><div class="line">  <span class="tag">&lt;<span class="name">img</span> <span class="attr">class</span>=<span class="string">"avator"</span> <span class="attr">src</span>=<span class="string">"http://ob53pbgjl.bkt.clouddn.com/adamcatlace.png"</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></div><div class="line"></div><div class="line">  .path6 &#123;</div><div class="line">    position: relative;</div><div class="line">  &#125;</div><div class="line">  .path6 .avator&#123;</div><div class="line">    display: block;</div><div class="line">    overflow: hidden;</div><div class="line"></div><div class="line">    position: absolute;</div><div class="line">    left: 50%;</div><div class="line">    top: 50%;</div><div class="line">    </div><div class="line">    margin-left: -25px;</div><div class="line">    margin-top: -25px;</div><div class="line">    border-radius: 50%;</div><div class="line">    width: 50px;</div><div class="line">    height: 50px;</div><div class="line"></div><div class="line">    animation: spin6 3s linear infinite;</div><div class="line">  &#125;</div><div class="line">  @keyframes spin6 &#123;</div><div class="line">    from &#123;</div><div class="line">      transform: rotate(0)</div><div class="line">                 translateY(-150px)</div><div class="line">                 translateY(50%)</div><div class="line">                 rotate(1turn);</div><div class="line">    &#125;</div><div class="line">    to &#123;</div><div class="line">      transform: rotate(1turn)</div><div class="line">                 translateY(-150px)</div><div class="line">                 translateY(50%)</div><div class="line">                 rotate(0);</div><div class="line">    &#125;</div><div class="line">  &#125;</div></pre></td></tr></table></figure></p>
+<p><a href="http://js.jirengu.com/qudiximewo/1/" target="_blank" rel="external">尝试一下吧！</a></p>
+<hr>
+<p>参考文档：<br><a href="http://www.w3school.com.cn/cssref/pr_transition-timing-function.asp" target="_blank" rel="external">w3school-调速函数</a><br><a href="https://segmentfault.com/a/1190000002928048" target="_blank" rel="external">动画中缓动（easing）的基础知识</a><br><a href="http://cubic-bezier.com/" target="_blank" rel="external">作者的自定义调速函数工具</a><br>《css揭秘》</p>
+  
+	</div>
+		<footer class="article-footer clearfix">
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/css/">css</a>
+  </div>
+
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/css揭秘读书笔记/">css揭秘读书笔记</a>
+</div>
+
+
+<div class="article-share" id="share">
+
+  <div data-url="http://www.xiaohan80s.com/2016/09/04/css揭秘笔记/2016-9-04-part8/" data-title=" 第八章 过渡与动画 | xiaohan80s.com" data-tsina="null" class="share clearfix">
+  </div>
+
+</div>
+</footer>
+   	       
+	</article>
+	
+<nav class="article-nav clearfix">
+ 
+
+<div class="next">
+<a href="/2016/09/04/css揭秘笔记/2016-9-03-part7/"  title="第七章 结构与布局">
+ <strong>NEXT:</strong><br/> 
+ <span>第七章 结构与布局
+</span>
+</a>
+</div>
+
+</nav>
+
+	
+<section class="comment">
+	<div class="ds-thread"></div>
+</section>
+
+</div>  
+      <div class="openaside"><a class="navbutton" href="#" title="显示侧边栏"></a></div>
+
+  <div id="toc" class="toc-aside">
+  <strong class="toc-title">文章目录</strong>
+  <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#第八章-过渡与动画"><span class="toc-number">1.</span> <span class="toc-text">第八章 过渡与动画</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#缓动效果"><span class="toc-number">1.1.</span> <span class="toc-text">缓动效果</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#弹跳动画"><span class="toc-number">1.1.1.</span> <span class="toc-text">弹跳动画</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#弹性过渡"><span class="toc-number">1.1.2.</span> <span class="toc-text">弹性过渡</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#逐帧动画"><span class="toc-number">1.2.</span> <span class="toc-text">逐帧动画</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#难题"><span class="toc-number">1.2.1.</span> <span class="toc-text">难题</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#解决方案"><span class="toc-number">1.2.2.</span> <span class="toc-text">解决方案</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#闪烁效果"><span class="toc-number">1.3.</span> <span class="toc-text">闪烁效果</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#平滑的闪现"><span class="toc-number">1.3.1.</span> <span class="toc-text">平滑的闪现</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#普通的闪烁效果"><span class="toc-number">1.3.2.</span> <span class="toc-text">普通的闪烁效果</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#打字动画"><span class="toc-number">1.4.</span> <span class="toc-text">打字动画</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#状态平滑的动画"><span class="toc-number">1.5.</span> <span class="toc-text">状态平滑的动画</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#沿环形路径平移的动画"><span class="toc-number">1.6.</span> <span class="toc-text">沿环形路径平移的动画</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#需要两个元素的解决方案"><span class="toc-number">1.6.1.</span> <span class="toc-text">需要两个元素的解决方案</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#单个元素的解决方案"><span class="toc-number">1.6.2.</span> <span class="toc-text">单个元素的解决方案</span></a></li></ol></li></ol></li></ol>
+  <div class="comment_bar"><a href="#ds-reset" target="" title="评论区">文章评论</a></div>
+  </div>
+
+<div id="asidepart">
+<div class="closeaside"><a class="closebutton" href="#" title="隐藏侧边栏"></a></div>
+<aside class="clearfix">
+
+  
+<div class="categorieslist">
+	<p class="asidetitle">分类</p>
+		<ul>
+		
+			<li><a href="/categories/css揭秘读书笔记/" title="css揭秘读书笔记">css揭秘读书笔记<sup>8</sup></a></li>
+		
+			<li><a href="/categories/js设计模式笔记/" title="js设计模式笔记">js设计模式笔记<sup>19</sup></a></li>
+		
+			<li><a href="/categories/工具/" title="工具">工具<sup>1</sup></a></li>
+		
+		</ul>
+</div>
+
+
+  
+<div class="tagslist">
+	<p class="asidetitle">标签</p>
+		<ul class="clearfix">
+		
+			<li><a href="/tags/css/" title="css">css<sup>8</sup></a></li>
+		
+			<li><a href="/tags/js/" title="js">js<sup>19</sup></a></li>
+		
+			<li><a href="/tags/js设计模式/" title="js设计模式">js设计模式<sup>14</sup></a></li>
+		
+			<li><a href="/tags/工具/" title="工具">工具<sup>1</sup></a></li>
+		
+			<li><a href="/tags/搭建博客/" title="搭建博客">搭建博客<sup>1</sup></a></li>
+		
+		</ul>
+</div>
+
+
+  
+  <div class="archiveslist">
+    <p class="asidetitle"><a href="/archives">归档</a></p>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/09/">2016 年 09 月</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/08/">2016 年 08 月</a><span class="archive-list-count">21</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/07/">2016 年 07 月</a><span class="archive-list-count">4</span></li></ul>
+  </div>
+
+
+
+  
+
+<script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"1","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"16"},"slide":{"type":"slide","bdImg":"4","bdPos":"right","bdTop":"160"}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];</script>
+
+
+</aside>
+</div>
+
+    </div>
+    <footer><div id="footer" >
+	
+	<div class="line">
+		<span></span>
+		<div class="author"></div>
+	</div>
+	
+	
+	<div class="social-font clearfix">
+		
+		
+		
+		
+		
+	</div>
+		<p class="copyright">Powered by <a href="http://hexo.io" target="_blank" title="hexo">hexo</a> and Theme by <a href="https://github.com/A-limon/pacman" target="_blank" title="Pacman">Pacman</a> © 2016
+		
+		<a href="http://www.xiaohan80s.com" target="_blank" title="xiao han 80s">xiao han 80s</a>
+		
+		</p>
+</div>
+</footer>
+    <script src="/js/jquery-2.1.0.min.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){
+  $('.navbar').click(function(){
+    $('header nav').toggleClass('shownav');
+  });
+  var myWidth = 0;
+  function getSize(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+  };
+  var m = $('#main'),
+      a = $('#asidepart'),
+      c = $('.closeaside'),
+      o = $('.openaside');
+
+  $(window).resize(function(){
+    getSize();
+    if (myWidth >= 1024) {
+      $('header nav').removeClass('shownav');
+    }else
+    {
+      m.removeClass('moveMain');
+      a.css('display', 'block').removeClass('fadeOut');
+      o.css('display', 'none');
+      
+      $('#toc.toc-aside').css('display', 'none');
+      
+    }
+  });
+  c.click(function(){
+    a.addClass('fadeOut').css('display', 'none');
+    o.css('display', 'block').addClass('fadeIn');
+    m.addClass('moveMain');
+  });
+  o.click(function(){
+    o.css('display', 'none').removeClass('beforeFadeIn');
+    a.css('display', 'block').removeClass('fadeOut').addClass('fadeIn');
+    m.removeClass('moveMain');
+  });
+  $(window).scroll(function(){
+    o.css("top",Math.max(80,260-$(this).scrollTop()));
+  });
+});
+</script>
+
+<script type="text/javascript">
+$(document).ready(function(){
+  var ai = $('.article-content>iframe'),
+      ae = $('.article-content>embed'),
+      t  = $('#toc'),
+      h  = $('article h2')
+      ah = $('article h2'),
+      ta = $('#toc.toc-aside'),
+      o  = $('.openaside'),
+      c  = $('.closeaside');
+  if(ai.length>0){
+    ai.wrap('<div class="video-container" />');
+  };
+  if(ae.length>0){
+   ae.wrap('<div class="video-container" />');
+  };
+  if(ah.length==0){
+    t.css('display','none');
+  }else{
+    c.click(function(){
+      ta.css('display', 'block').addClass('fadeIn');
+    });
+    o.click(function(){
+      ta.css('display', 'none');
+    });
+    $(window).scroll(function(){
+      ta.css("top",Math.max(140,320-$(this).scrollTop()));
+    });
+  };
+  $('.closeaside').triggerHandler('click');
+});
+</script>
+
+
+<script type="text/javascript">
+$(document).ready(function(){
+  var $this = $('.share'),
+      url = $this.attr('data-url'),
+      encodedUrl = encodeURIComponent(url),
+      title = $this.attr('data-title'),
+      tsina = $this.attr('data-tsina');
+  var html = [
+  // '<a href="#" class="overlay" id="qrcode"></a>',
+  // '<div class="qrcode clearfix"><span>扫描二维码分享到微信朋友圈</span><a class="qrclose" href="#share"></a><strong>Loading...Please wait</strong><img id="qrcode-pic" data-src="http://s.jiathis.com/qrcode.php?url=' + encodedUrl + '"/></div>',
+  '<a href="#textlogo" class="article-back-to-top" title="Top"></a>',
+  // '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+  // '<a href="#qrcode" class="article-share-qrcode" title="QRcode"></a>',
+  // '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+  // '<a href="http://service.weibo.com/share/share.php?title='+title+'&url='+encodedUrl +'&ralateUid='+ tsina +'&searchPic=true&style=number' +'" class="article-share-weibo" target="_blank" title="Weibo"></a>',
+  // '<span title="Share to"></span>'
+  ].join('');
+  $this.append(html);
+  $('.article-share-qrcode').click(function(){
+    var imgSrc = $('#qrcode-pic').attr('data-src');
+    $('#qrcode-pic').attr('src', imgSrc);
+    $('#qrcode-pic').load(function(){
+        $('.qrcode strong').text(' ');
+    });
+  });
+});
+</script>
+
+
+<script type="text/javascript">
+  var duoshuoQuery = {short_name:"xiaohan80s"};
+  (function() {
+    var ds = document.createElement('script');
+    ds.type = 'text/javascript';ds.async = true;
+    ds.src = '//static.duoshuo.com/embed.js';
+    ds.charset = 'UTF-8';
+    (document.getElementsByTagName('head')[0]
+    || document.getElementsByTagName('body')[0]).appendChild(ds);
+  })();
+</script>
+
+
+
+
+
+  </body>
+</html>

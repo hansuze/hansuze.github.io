@@ -66,12 +66,57 @@
 
   <section class="post" itemscope itemprop="blogPost">
   
+    <a href="/2016/08/13/js设计模式笔记/2016-08-13-part17/" title="装饰者模式" itemprop="url">
+  
+    <h1 itemprop="name">装饰者模式</h1>
+    
+     
+           <p itemprop="description" >在传统的面向对象语言中，给对象添加功能常常使用继承的方式。但是继承的方式并不灵活，还会带来许多问题：一方面会导致超类和子类之间的耦合性，另一方面，继承这种功能复用的方式通常称为“白箱复用”，“白箱”是相对与可见性而言的，在继承方式中，超类的内部细节是对子类可见的，继承常常被认为破</p>
+        
+    
+    <time datetime="2016-08-12T16:00:00.000Z" itemprop="datePublished">2016-08-13</time>
+  </a>
+</section>
+
+  <section class="post" itemscope itemprop="blogPost">
+  
+    <a href="/2016/08/11/js设计模式笔记/2016-08-11-part15/" title="职责链模式" itemprop="url">
+  
+    <h1 itemprop="name">职责链模式</h1>
+    
+     
+           <p itemprop="description" >职责链模式的定义是：使多个对象都有机会处理请求，从而避免请求的发送者和接收者之间的耦合关系，将这些对象连成一条链，并沿着这条链传递改请求，知道有一个对象处理它为止。
+现实中的职责链模式
+早高峰挤公交车的时候，因为公交车上的人太多了，经常不知道售票员在哪，所以只能把两块钱往前面递，</p>
+        
+    
+    <time datetime="2016-08-10T16:00:00.000Z" itemprop="datePublished">2016-08-11</time>
+  </a>
+</section>
+
+  <section class="post" itemscope itemprop="blogPost">
+  
     <a href="/2016/08/11/js设计模式笔记/2016-08-12-part16/" title="中介者模式" itemprop="url">
   
     <h1 itemprop="name">中介者模式</h1>
     
      
            <p itemprop="description" >在我们生活的世界中，每个人每个物体之间都会产生一些错综复杂的联系。在应用程序里也是一样，程序由大大小小的单一对象组成，所有这些对象都按照某种关系和规则来通信面向对象设计鼓励将行为分布到各个对象中，把对象划分成更小的粒度，有助于增强对象的可复用性，但由于这些粒度对象之间的联系激增，</p>
+        
+    
+    <time datetime="2016-08-10T16:00:00.000Z" itemprop="datePublished">2016-08-11</time>
+  </a>
+</section>
+
+  <section class="post" itemscope itemprop="blogPost">
+  
+    <a href="/2016/08/11/js设计模式笔记/2016-08-11-part14/" title="享元模式" itemprop="url">
+  
+    <h1 itemprop="name">享元模式</h1>
+    
+     
+           <p itemprop="description" >享元模式是一种用于性能优化的模式，”fly”在这里是苍蝇的意思，意为蝇量级。享元模式的核心是运用共享技术来有效支持大量细粒度的对象。
+初识享元模式假设有个内衣工厂，目前有50种男士内衣和50种女士内衣，为了推销产品，工厂决定生产一些模特来穿上他们的内衣来拍照。需要50个男模特和5</p>
         
     
     <time datetime="2016-08-10T16:00:00.000Z" itemprop="datePublished">2016-08-11</time>
@@ -88,22 +133,6 @@
            <p itemprop="description" >模板方法模式的定义和组成模板方法模式是一种只需要使用继承就可以实现的非常简单的模式，第一部分是抽象类，第二部分是具体实现的子类。在父类中封装子类的公共方法和方法的执行顺序，子类负责变化方法的具体实现。
 另外我们使用高阶函数也可以实现模板方法模式，我们会在本章的最后提出。
 第一个例</p>
-        
-    
-    <time datetime="2016-08-10T16:00:00.000Z" itemprop="datePublished">2016-08-11</time>
-  </a>
-</section>
-
-  <section class="post" itemscope itemprop="blogPost">
-  
-    <a href="/2016/08/11/js设计模式笔记/2016-08-11-part15/" title="职责链模式" itemprop="url">
-  
-    <h1 itemprop="name">职责链模式</h1>
-    
-     
-           <p itemprop="description" >职责链模式的定义是：使多个对象都有机会处理请求，从而避免请求的发送者和接收者之间的耦合关系，将这些对象连成一条链，并沿着这条链传递改请求，知道有一个对象处理它为止。
-现实中的职责链模式
-早高峰挤公交车的时候，因为公交车上的人太多了，经常不知道售票员在哪，所以只能把两块钱往前面递，</p>
         
     
     <time datetime="2016-08-10T16:00:00.000Z" itemprop="datePublished">2016-08-11</time>
@@ -185,40 +214,6 @@ DOM 事件只要我们曾经在DOM节点上绑定过事件函数，就使用过�
   </a>
 </section>
 
-  <section class="post" itemscope itemprop="blogPost">
-  
-    <a href="/2016/08/06/js设计模式笔记/2016-08-06-part7/" title="策略模式" itemprop="url">
-  
-    <h1 itemprop="name">策略模式</h1>
-    
-     
-           <p itemprop="description" >使用策略模式计算奖金我们来做一个按照级别和薪水来计算奖金的函数
-
-最初的代码实现
-1234567891011var calculateBouns = function(level, salary)&amp;#123;  if(level===&#39;S&#39;) &amp;#123;    return s</p>
-        
-    
-    <time datetime="2016-08-05T16:00:00.000Z" itemprop="datePublished">2016-08-06</time>
-  </a>
-</section>
-
-  <section class="post" itemscope itemprop="blogPost">
-  
-    <a href="/2016/08/06/js设计模式笔记/2016-08-06-part6/" title="单例设计模式" itemprop="url">
-  
-    <h1 itemprop="name">单例设计模式</h1>
-    
-     
-           <p itemprop="description" >本章中我们先学习了传统的单例设计模式实现，也了解到因为语言的差异性，有更适合的方法在JavaScript中创建单例。实现单例模式传统面向对象的语言中，单例设计模式的定义是：保证一个类仅有一个实例，并提供一个访问他的全局访问点。
-
-方法1 使用对象属性
-12345678910111</p>
-        
-    
-    <time datetime="2016-08-05T16:00:00.000Z" itemprop="datePublished">2016-08-06</time>
-  </a>
-</section>
-
 
   <nav id="page-nav" class="clearfix">
     <a class="extend prev" rel="prev" href="/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><a class="extend next" rel="next" href="/page/3/">Next &raquo;</a>
@@ -236,7 +231,7 @@ DOM 事件只要我们曾经在DOM节点上绑定过事件函数，就使用过�
 	<p class="asidetitle">分类</p>
 		<ul>
 		
-			<li><a href="/categories/css揭秘读书笔记/" title="css揭秘读书笔记">css揭秘读书笔记<sup>6</sup></a></li>
+			<li><a href="/categories/css揭秘读书笔记/" title="css揭秘读书笔记">css揭秘读书笔记<sup>8</sup></a></li>
 		
 			<li><a href="/categories/js设计模式笔记/" title="js设计模式笔记">js设计模式笔记<sup>19</sup></a></li>
 		
@@ -251,7 +246,7 @@ DOM 事件只要我们曾经在DOM节点上绑定过事件函数，就使用过�
 	<p class="asidetitle">标签</p>
 		<ul class="clearfix">
 		
-			<li><a href="/tags/css/" title="css">css<sup>6</sup></a></li>
+			<li><a href="/tags/css/" title="css">css<sup>8</sup></a></li>
 		
 			<li><a href="/tags/js/" title="js">js<sup>19</sup></a></li>
 		
@@ -268,7 +263,7 @@ DOM 事件只要我们曾经在DOM节点上绑定过事件函数，就使用过�
   
   <div class="archiveslist">
     <p class="asidetitle"><a href="/archives">归档</a></p>
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/09/">2016 年 09 月</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/08/">2016 年 08 月</a><span class="archive-list-count">21</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/07/">2016 年 07 月</a><span class="archive-list-count">4</span></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/09/">2016 年 09 月</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/08/">2016 年 08 月</a><span class="archive-list-count">21</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/07/">2016 年 07 月</a><span class="archive-list-count">4</span></li></ul>
   </div>
 
 
